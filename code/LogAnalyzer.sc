@@ -9,8 +9,16 @@ val pages = files.map { line =>
   accessLogRE.findFirstMatchIn(line).map(e => e.group(4))
 }.flatMap(e => e)
 
+def isValidPage(pageUrl: String) = {
+  val url = """^/[a-zA-Z0-9\-]+/$""".r
+  url.findFirstIn(pageUrl).isDefined
+}
+
+// Filter pages that aren't interesting
+val validPages = pages.filter(isValidPage)
+
 // Convert in KeyValue RDD
-val pageViews = pages.map((_, 1))
+val pageViews = validPages.map((_, 1))
 // Aggregate by Page URL
 val pageViewsCounter = pageViews.reduceByKey(_ + _)
 
