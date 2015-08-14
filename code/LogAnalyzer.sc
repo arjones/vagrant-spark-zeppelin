@@ -1,5 +1,5 @@
 // Access the log files
-val files = sc.textFile("/opt/dataset/pbj.access.log*")
+val files = sc.textFile("/opt/dataset/star_wars_kid.log")
 
 // A regular Expression to parse the logs
 val accessLogRE = """^(?<remoteip>[0-9\.]+) - - \[(?<datetime>.*?)\] "(?<verb>.*?) (?<url>.*?) HTTP\/1.1" (?<status>[0-9]+) (?<size>[0-9]+) "(?<referrer>.*?)" "(?<agent>.*?)" "(.*?)"$""".r

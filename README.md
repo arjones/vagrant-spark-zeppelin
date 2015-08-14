@@ -14,3 +14,8 @@ vagrant@debian-jessie:~$ spark-shell
 
 ###Run some examples
 [Check some examples here](code/)
+
+
+###Examples Datasets
+http://waxy.org/2008/05/star_wars_kid_the_data_dump/
+
