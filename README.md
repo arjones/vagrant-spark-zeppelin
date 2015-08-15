@@ -15,7 +15,11 @@ vagrant@debian-jessie:~$ spark-shell
 ###Run some examples
 [Check some examples here](code/)
 
+###Using Zeppelin
+You can also connect to Zeppelin on http://localhost:8080/
 
 ###Examples Datasets
-http://waxy.org/2008/05/star_wars_kid_the_data_dump/
+Download a sample dataset from here: http://waxy.org/2008/05/star_wars_kid_the_data_dump/
+
+*I'm looking for more datasets, if you want to donate your please [reach out](https://twitter.com/arjones)*
 
