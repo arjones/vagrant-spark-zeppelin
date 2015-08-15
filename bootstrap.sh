@@ -5,7 +5,7 @@ echo
 echo "Updating System"
 sudo -u root bash << EOF
 apt-get update
-apt-get install -y vim wget curl net-tools unzip python
+apt-get install -y git vim wget curl net-tools unzip python npm
 EOF
 
 # JAVA
@@ -35,7 +35,7 @@ java -version
 
 # APACHE SPARK
 export SPARK_VERSION=1.4.1
-export HADOOP_VERSION=2.6
+export HADOOP_VERSION=2.4
 export SPARK_PACKAGE=$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 export SPARK_HOME=/usr/spark-$SPARK_PACKAGE
 export PATH=$PATH:$SPARK_HOME/bin
@@ -50,6 +50,40 @@ sed 's/INFO/WARN/g' /usr/spark/conf/log4j.properties.template > /usr/spark/conf/
 
 echo "Including Spark on PATH"
 echo 'export PATH=$PATH:/usr/spark/bin/' > /etc/profile.d/spark.sh
+EOF
+
+
+# APACHE ZEPPELIN
+export MAVEN_VERSION=3.3.1
+export MAVEN_HOME=/usr/apache-maven-$MAVEN_VERSION
+
+export ZEPPELIN_HOME=/usr/zeppelin
+export ZEPPELIN_CONF_DIR=${ZEPPELIN_HOME}/conf
+export ZEPPELIN_NOTEBOOK_DIR=${ZEPPELIN_HOME}/notebook
+export ZEPPELIN_PORT=8080
+
+sudo -u root bash << EOF
+wget -c "http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+tar zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz -C /usr/
+ln -s ${MAVEN_HOME} /usr/maven
+
+git clone https://github.com/apache/incubator-zeppelin.git ${ZEPPELIN_HOME}
+# go to a commit I tested and builds correctly
+git checkout d5ab911bf4419fa7c6f38945c6c8ad4946f8abf6
+
+cd ${ZEPPELIN_HOME}
+${MAVEN_HOME}/bin/mvn clean package -Pspark-1.4 -Dhadoop.version=2.4.0 -Phadoop-2.4 -DskipTests
+
+cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
+export ZEPPELIN_MEM="-Xmx1024m"
+export ZEPPELIN_JAVA_OPTS="-Dspark.home=/usr/spark"
+CONF
+
+ln -s ${ZEPPELIN_HOME}/bin/zeppelin-daemon.sh /etc/init.d/
+update-rc.d zeppelin-daemon.sh defaults
+
+echo "Starting Zeppelin..."
+/etc/init.d/zeppelin-daemon.sh start
 EOF
 
 echo
