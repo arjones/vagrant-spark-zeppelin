@@ -1,25 +1,14 @@
-#Apache Spark with Vagrant
+#Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
 
-This is a simple Apache Spark installation based on Debian [debian/jessie64](https://atlas.hashicorp.com/debian/boxes/jessie64)
+##Instructions
+A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)
+
+##Acknowledge
+This is an installation of Apache Spark and Apache Zeppelin based on Debian [debian/jessie64](https://atlas.hashicorp.com/debian/boxes/jessie64)
 `bootstrap.sh` was inspired by [gettyimages/docker-spark](https://github.com/gettyimages/docker-spark)
 
-###Create the VM
-Just run `vagrant up`, it will take **10+ minutes** to download everything, go get a coffee!
-
-###Connect to Spark Shell
-```
-vagrant ssh
-vagrant@debian-jessie:~$ spark-shell
-```
-
-###Run some examples
-[Check some examples here](code/)
-
-###Using Zeppelin
-You can also connect to Zeppelin on http://localhost:8080/
-
 ###Examples Datasets
-Download a sample dataset from here: http://waxy.org/2008/05/star_wars_kid_the_data_dump/
+There are a few datasets [available here](./data/).
 
-*I'm looking for more datasets, if you want to donate your please [reach out](https://twitter.com/arjones)*
+##I'm looking for more datasets, if you want to donate yours please [reach out](https://twitter.com/arjones)
 
