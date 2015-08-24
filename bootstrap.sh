@@ -75,7 +75,7 @@ cd ${ZEPPELIN_HOME}
 ${MAVEN_HOME}/bin/mvn clean package -Pspark-1.4 -Dhadoop.version=2.4.0 -Phadoop-2.4 -DskipTests
 
 cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
-export ZEPPELIN_MEM="-Xmx1024m"
+export ZEPPELIN_MEM="-Xmx2048m"
 export ZEPPELIN_JAVA_OPTS="-Dspark.home=/usr/spark"
 CONF
 
