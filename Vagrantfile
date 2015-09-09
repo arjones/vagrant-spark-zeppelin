@@ -17,8 +17,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
+  #
+  # APACHE ZEPPELIN
   config.vm.network "forwarded_port", guest: 8080, host: 8080
+  #
+  # APACHE SPARK UI
   config.vm.network "forwarded_port", guest: 4040, host: 4040
+  config.vm.network "forwarded_port", guest: 4041, host: 4041
+  # CASSANDRA
+  # 7000: intra-node communication
+  config.vm.network "forwarded_port", guest: 7000, host: 7000
+  # 7001: TLS intra-node communication
+  config.vm.network "forwarded_port", guest: 7001, host: 7001
+  # 7199: JMX
+  config.vm.network "forwarded_port", guest: 7199, host: 7199
+  # 9042: CQL
+  config.vm.network "forwarded_port", guest: 9042, host: 9042
+  # 9160: thrift service
+  config.vm.network "forwarded_port", guest: 9160, host: 9160
+  
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -44,6 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "./data", "/opt/dataset"
   config.vm.synced_folder "./code", "/home/vagrant/code"
+  config.vm.synced_folder "./mavendeps", "/root/.m2"
 
   # View the documentation for the provider you're using for more
   # information on available options.
