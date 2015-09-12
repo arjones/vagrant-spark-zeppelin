@@ -1,5 +1,7 @@
 #Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
 
+##EDIT (Sep 12): This example also includes Cassandra now!
+
 ##Instructions
 A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)
 

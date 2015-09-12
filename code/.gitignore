@@ -1,0 +1,8 @@
+ConvertIpToCountry.sc
+LogAnalyzer.sc
+ipligence-to-keyvalue.sc
+web_analytics/target/*
+web_analytics/project/target/*
+derby.log
+web_analytics/project/project/target/*
+web_analytics/.idea*
