@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # APACHE SPARK
-export SPARK_VERSION=1.4.1
-export HADOOP_VERSION=2.4
+export SPARK_VERSION=1.6.0
+export HADOOP_VERSION=2.6
 export SPARK_PACKAGE=$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 export SPARK_HOME=/usr/spark-$SPARK_PACKAGE
 export PATH=$PATH:$SPARK_HOME/bin

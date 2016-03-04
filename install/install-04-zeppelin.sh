@@ -21,10 +21,10 @@ ln -s ${MAVEN_HOME} /usr/maven
 git clone https://github.com/apache/incubator-zeppelin.git ${ZEPPELIN_HOME}
 
 cd ${ZEPPELIN_HOME}
-# go to a commit I tested and builds correctly
-git checkout 3612b3df72eb9fffeb2a98125408b26373b58fe8
+#zeppelin v0.5.6
+git checkout 8698d0e5d376800b174d8b604f584b86b3037d65
 
-${MAVEN_HOME}/bin/mvn clean package -Pspark-1.4 -Dhadoop.version=2.4.0 -Phadoop-2.4 -DskipTests
+${MAVEN_HOME}/bin/mvn clean package -Pspark-1.6 -Dhadoop.version=2.6.0 -Phadoop-2.6 -DskipTests
 
 cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
 export ZEPPELIN_MEM="-Xmx1024m"
