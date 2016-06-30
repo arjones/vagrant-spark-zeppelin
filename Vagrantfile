@@ -36,16 +36,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 9042, host: 9042
   # 9160: thrift service
   config.vm.network "forwarded_port", guest: 9160, host: 9160
-  
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--cpus", "2"]
-    vb.customize ["modifyvm", :id, "--memory", "3072"]
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
   end
-  
+
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
@@ -66,7 +66,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # View the documentation for the provider you're using for more
   # information on available options.
   config.vm.provision :shell, :path => "bootstrap.sh"
-  
+
   # A message to show after vagrant up
   config.vm.post_up_message = "More information on how to use this box:\n http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/.\n\nEnjoy it! @arjones"
 end
