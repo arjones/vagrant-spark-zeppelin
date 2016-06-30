@@ -4,7 +4,7 @@
 
 ##Changed since fork:
 
-#EDIT(June 30, 2016)
+###EDIT(June 30, 2016)
 
 * Updated Spark to 1.6.1 for Hadoop 2.6 and Zeppelin to current, bulit from master
 * Updated Spark Mirror
