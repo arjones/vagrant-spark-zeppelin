@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # APACHE ZEPPELIN
-export MAVEN_VERSION=3.3.1
+export MAVEN_VERSION=3.3.3
 export MAVEN_HOME=/usr/apache-maven-$MAVEN_VERSION
 
 export ZEPPELIN_HOME=/usr/zeppelin
@@ -22,9 +22,9 @@ git clone https://github.com/apache/incubator-zeppelin.git ${ZEPPELIN_HOME}
 
 cd ${ZEPPELIN_HOME}
 # go to a commit I tested and builds correctly
-git checkout 3612b3df72eb9fffeb2a98125408b26373b58fe8
 
-${MAVEN_HOME}/bin/mvn clean package -Pspark-1.4 -Dhadoop.version=2.4.0 -Phadoop-2.4 -DskipTests
+
+${MAVEN_HOME}/bin/mvn clean package -Pspark-1.6 -Dhadoop.version=2.6.0 -Phadoop-2.6 -DskipTests
 
 cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
 export ZEPPELIN_MEM="-Xmx1024m"
@@ -39,3 +39,8 @@ update-rc.d zeppelin-daemon.sh defaults
 
 echo "Starting Zeppelin..."
 /etc/init.d/zeppelin-daemon.sh start
+
+sudo echo 'export SPARK_HOME=/usr/spark' >> /usr/zeppelin/conf/zeppelin-env.sh
+
+echo "Restarting Zeppelin..."
+/etc/init.d/zeppelin-daemon.sh restart
