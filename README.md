@@ -1,26 +1,80 @@
-#Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
+# Practice : tweak a Zeppelin environment and test Spark
 
-##EDIT (Sep 12): This example also includes Cassandra now!
+This is a fork from [arjones/vagrant-spark-zeppelin](https://github.com/arjones/vagrant-spark-zeppelin), that we are going to use for educational purposes.
 
-##Changed since fork:
+It provides a Vagrantfile which installs a debian virtual machine containing:
 
-###EDIT(June 30, 2016)
+* Apache Spark 1.6.1
+* Apache Zeppelin from master
+* Apache Maven 3.3.3
 
-* Updated Spark to 1.6.1 for Hadoop 2.6 and Zeppelin to current, bulit from master
-* Updated Spark Mirror
-* Updated Maven to 3.3.3
-* Automatically setting of export SPARK_HOME=/usr/spark' to /usr/zeppelin/conf/zeppelin-env.sh via install script
+## Prerequisites
 
+* [Git](https://git-scm.com/)
+* [VirtualBox](https://www.virtualbox.org/)
+* [Vagrant](https://www.vagrantup.com/)  >= 1.5
 
+<hr>
+# Exercise
 
-##Instructions
-A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)
+A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/). This will only serve as a guideline, we are going to modify the environment a bit.
 
-##Acknowledge
-This is an installation of Apache Spark and Apache Zeppelin based on Debian [debian/jessie64](https://atlas.hashicorp.com/debian/boxes/jessie64)
-`bootstrap.sh` was inspired by [gettyimages/docker-spark](https://github.com/gettyimages/docker-spark)
+Verify your vagrant version:
 
-###Examples Datasets
-There are a few datasets [available here](./data/).
+```sh
+$ vagrant version
+Installed Version: 1.8.4
+Latest Version: 1.9.1
+```
 
-##I'm looking for more datasets, if you want to donate yours please [reach out](https://twitter.com/arjones)
+Thourough this README, you will need to validate the definitions of done described at the end of each point.
+
+#### 1. Fork my repository
+
+##### a. Create a Github account
+Go and create an account on Github. Though you may use the username you want, don't forget to put your full name in your profile so I know who you are when you merge your work into mine.
+
+_Done : You should be able to access your Github account._
+
+##### b. Fork my project
+First thing to do is **fork** my project. You don't have the rights to push on my project, so what you will do is create a copy of the project, create a branch on your copy, work on that branch, and then create a merge request of your branch to my build. I will be able to review your work and even comment through that merge request. [More details](https://help.github.com/articles/working-with-forks/).
+
+_Done : You have a new repository in your Github account which consists of a copy of my original repository._
+
+#####c. Clone your fork to your local machine
+
+When you have forked the project to your Github account, use the `git clone` command to fetch it.
+
+_Done : You can access your project on your local machine._
+
+#### 2. First steps with Git
+
+You are going to create your first branch, commit a message on this README and then merge it back to your master branch.
+
+#####a. Work on a branch called "edit_README"
+
+_Done : You have a branch "edit\_README" on your local machine and you should be pointing on it. I should see the following output on a git branch command_
+
+```sh
+$ git branch
+* edit_README
+  master
+```
+
+#####b. Commit a personal message to the README in your branch
+
+Please add a message between the following lines
+<hr>
+PERSONAL MESSAGE
+<hr>
+
+then add and commit the file to your "edit_README" branch.
+
+_Done : you have a new commit in your branch_
+
+#### 3. Tweaking the Vagrantfile
+
+The normal command to build the virtual environment would be `$ vagrant up`. Now there is a problem with this build, as specified in the blog: _Depending of your internet speed it can take up to 1 hour to build, it takes so long, because there is no binary distribution of Zeppelin and we have to download all dependencies and build it from sources. Be patient, I’m sure you will enjoy the final result._
+
+There is actually a binary distribution available today for Zeppelin [here](http://zeppelin.apache.org/download.html).
+
