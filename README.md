@@ -101,7 +101,7 @@ We will do that at the end, but do take note that it will be much easier for me 
 
 The normal command to build the virtual environment would be `$ vagrant up`. Now there is a problem with this build, as specified in the blog: _Depending of your internet speed it can take up to 1 hour to build, it takes so long, because there is no binary distribution of Zeppelin and we have to download all dependencies and build it from sources. Be patient, I’m sure you will enjoy the final result._
 
-There is actually a binary distribution available today for Zeppelin [here](http://zeppelin.apache.org/download.html). So we need to edit the installation scripts.
+There is actually a binary distribution available today for Zeppelin [here](http://zeppelin.apache.org/download.html). So we need to edit the installation scripts. I have done most of the work so it is not too much of a hassle.
 
 #####a. Understand the virtual machine build process
 
@@ -125,7 +125,12 @@ _Done: merge your branch back into master when you are ok with it, and push to y
 
 You should now have a working Zeppelin in a virtual machine that you can destroy and recreate as you wish. You can even add additional components through the different install scripts.
 
+To hit Apache Zeppelin, http://localhost:8080.
+
 #### 4. Editing Spark code
+
+Time to fire up Zeppelin.
 
 #### 5. Pull request
 
+You can now ask to merge your work to my repository. With a pull request

@@ -68,5 +68,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "bootstrap.sh"
 
   # A message to show after vagrant up
-  config.vm.post_up_message = "More information on how to use this box:\n http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/.\n\nEnjoy it! @arjones"
+  config.vm.post_up_message = "Good job !"
 end
