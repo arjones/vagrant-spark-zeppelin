@@ -1,1 +1,1992 @@
-﻿{"paragraphs":[{"text":"%md\n\n# Introduction to Spark & Zeppelin\n#### An overview of the two Big Data tools","dateUpdated":"2017-01-25T09:36:00+0000","config":{"enabled":true,"tableHide":false,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/markdown","editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124506_-17357514","id":"20161205-081916_1418679304","result":{"code":"SUCCESS","type":"HTML","msg":"<h1>Introduction to Spark &amp; Zeppelin</h1>\n<h4>An overview of the two Big Data tools</h4>\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T09:35:58+0000","dateFinished":"2017-01-25T09:35:58+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1738"},{"text":"%md\n![Spark logo](http://spark.apache.org/images/spark-logo-trademark.png)\n#\n[Apache Spark](http://spark.apache.org/) is a cluster computing engine designed to be __fast__ and __general-purpose__, making it the ideal choice for processing of large datasets. It answers those two points with __efficient data sharing__ accross computations.\n<hr/>\nThe past years have seen a major changes in computing systems, as growing data volumes required more and more applications to scale out to large clusters. To solve this problem, a wide range of new programming models have been designed to manage multiple types of computations in a distributed fashion, without having people learn too much about distributed systems. Those programming models would need to deal with _parallelism, fault-tolerance and resource sharing_ for us.\n\n[Google's MapReduce](https://en.wikipedia.org/wiki/MapReduce) presented a simple and general model for batch processing, which handles faults and parallelism easily. Unfortunately the programming model is not adapted for other types of workloads, and multiple specialized systems were born to answer a specific need in a distributed way. \n* Iterative : Giraph\n* Interactive : Impala, Piccolo, Greenplum\n* Streaming : Storm, Millwheel\n\n#\nThe initial goal of Apache Spark is to try and unify all of the workloads for generality purposes. [Matei Zaharia](https://cs.stanford.edu/~matei/) in his [PhD dissertation](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf) suggests that most of the data flow models that required a specialized system needed _efficient data sharing_ accross computations:\n* Iterative algorithms like PageRank or K-Means need to make multiple passes over the same dataset\n* Interactive data mining often requires running multiple ad-hoc queries on the same subset of data\n* Streaming applications need to maintain and share state over time.\n\nHe then proposes to create a new abstraction that gives its users direct control over data sharing, something that other specialized systems would have built-in for their specific needs. The abstraction is implemented inside a new engine that is today called Apache Spark. The engine makes it possible to support more types of computations than with the original MapReduce in a more efficient way, including interactive queries and stream processing. ","dateUpdated":"2017-01-25T08:32:04+0000","config":{"enabled":true,"tableHide":false,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/markdown","editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124508_-19666008","id":"20161205-125129_704251374","result":{"code":"SUCCESS","type":"HTML","msg":"<p><img src=\"http://spark.apache.org/images/spark-logo-trademark.png\" alt=\"Spark logo\" /></p>\n<h1></h1>\n<p><a href=\"http://spark.apache.org/\">Apache Spark</a> is a cluster computing engine designed to be <strong>fast</strong> and <strong>general-purpose</strong>, making it the ideal choice for processing of large datasets. It answers those two points with <strong>efficient data sharing</strong> accross computations.</p>\n<hr/>\n<p>The past years have seen a major changes in computing systems, as growing data volumes required more and more applications to scale out to large clusters. To solve this problem, a wide range of new programming models have been designed to manage multiple types of computations in a distributed fashion, without having people learn too much about distributed systems. Those programming models would need to deal with <em>parallelism, fault-tolerance and resource sharing</em> for us.</p>\n<p><a href=\"https://en.wikipedia.org/wiki/MapReduce\">Google's MapReduce</a> presented a simple and general model for batch processing, which handles faults and parallelism easily. Unfortunately the programming model is not adapted for other types of workloads, and multiple specialized systems were born to answer a specific need in a distributed way.</p>\n<ul>\n<li>Iterative : Giraph</li>\n<li>Interactive : Impala, Piccolo, Greenplum</li>\n<li>Streaming : Storm, Millwheel</li>\n</ul>\n<h1></h1>\n<p>The initial goal of Apache Spark is to try and unify all of the workloads for generality purposes. <a href=\"https://cs.stanford.edu/~matei/\">Matei Zaharia</a> in his <a href=\"https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf\">PhD dissertation</a> suggests that most of the data flow models that required a specialized system needed <em>efficient data sharing</em> accross computations:</p>\n<ul>\n<li>Iterative algorithms like PageRank or K-Means need to make multiple passes over the same dataset</li>\n<li>Interactive data mining often requires running multiple ad-hoc queries on the same subset of data</li>\n<li>Streaming applications need to maintain and share state over time.</li>\n</ul>\n<p>He then proposes to create a new abstraction that gives its users direct control over data sharing, something that other specialized systems would have built-in for their specific needs. The abstraction is implemented inside a new engine that is today called Apache Spark. The engine makes it possible to support more types of computations than with the original MapReduce in a more efficient way, including interactive queries and stream processing.</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1739"},{"text":"%md\n\n![](https://zeppelin.apache.org/assets/themes/zeppelin/img/zeppelin_classic_logo.png)\n#\n[Apache Zeppelin](https://zeppelin.apache.org/) is a web-based notebook that enables interactive data analytics. It is  famous for its very strong Apache Spark integration.\n<hr/>\n\nApache Zeppelin's purpose is to provide engineers and scientists with an interface for all Big Data needs, which comes bundled with the means for analyzing, collaborating and sharing data on top of common Big Data frameworks.\n\nThe Apache Zeppelin interpreter concept allows the plugin of a language or data-processing backend into Zeppelin _(think of it like a kernel for Jupyter notebook)_. Currently it supports [many interpreters](https://zeppelin.apache.org/docs/0.6.2/manual/interpreterinstallation.html) like Apache Spark, Python, JDBC, Markdown and shell. Creation of a custom interpreter is also possible by extending the necessary abstract class.\n\nYou can view examples of Zeppelin notebooks [here](https://www.zeppelinhub.com/viewer).\n\nToday, Apache Zeppelin comes bundled with most Big Data distributions _(Cloudera, Hortonworks...)_ as the main tool for interactive Big Data analytics, which makes for a good reason to have you try Apache Spark interactively in a Zeppelin notebook.","dateUpdated":"2017-01-25T08:54:41+0000","config":{"enabled":true,"tableHide":false,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124508_-19666008","id":"20161205-125209_891936396","result":{"code":"SUCCESS","type":"HTML","msg":"<p><img src=\"https://zeppelin.apache.org/assets/themes/zeppelin/img/zeppelin_classic_logo.png\" alt=\"\" /></p>\n<h1></h1>\n<p><a href=\"https://zeppelin.apache.org/\">Apache Zeppelin</a> is a web-based notebook that enables interactive data analytics. It is  famous for its very strong Apache Spark integration.</p>\n<hr/>\n<p>Apache Zeppelin's purpose is to provide engineers and scientists with an interface for all Big Data needs, which comes bundled with the means for analyzing, collaborating and sharing data on top of common Big Data frameworks.</p>\n<p>The Apache Zeppelin interpreter concept allows the plugin of a language or data-processing backend into Zeppelin <em>(think of it like a kernel for Jupyter notebook)</em>. Currently it supports <a href=\"https://zeppelin.apache.org/docs/0.6.2/manual/interpreterinstallation.html\">many interpreters</a> like Apache Spark, Python, JDBC, Markdown and shell. Creation of a custom interpreter is also possible by extending the necessary abstract class.</p>\n<p>You can view examples of Zeppelin notebooks <a href=\"https://www.zeppelinhub.com/viewer\">here</a>.</p>\n<p>Today, Apache Zeppelin comes bundled with most Big Data distributions <em>(Cloudera, Hortonworks&hellip;)</em> as the main tool for interactive Big Data analytics, which makes for a good reason to have you try Apache Spark interactively in a Zeppelin notebook.</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T08:54:39+0000","dateFinished":"2017-01-25T08:54:39+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1740"},{"text":"%md\n\n###Interpreter\n\nApache Zeppelin is primarily a notebook. A Zeppelin notebook consists of a set of cells with an interpreter _(or language backend)_ attached.\n\nFor example, this cell is linked to the Markdown interpreter, so when you run the cell it parses the code as Markdown and then displays the result.\n\nIn each cell, there is a toolbar with four items: \n* The `Play` button (blue triangle) lets you run the paragraph. You can also press `Shift + Enter` to run the cell when selected\n* The `Show/Hide editor` if you want to see the source code for the cell\n* The `Show/Hide output` if you want to see the output for the cell\n* The `Settings` item, for more advanced options like adding/managing cells.\n\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\nNow you can press `Show editor` to see the source code of the cell. You will see that it starts with `%md`, which specifies to the cell that it should use the Markdown interpreter. You can edit the text and then run the cell to see the editing in the output.","dateUpdated":"2017-01-25T08:32:04+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/markdown","editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124514_-32747470","id":"20161205-134434_158643588","result":{"code":"SUCCESS","type":"HTML","msg":"<h3>Interpreter</h3>\n<p>Apache Zeppelin is primarily a notebook. A Zeppelin notebook consists of a set of cells with an interpreter <em>(or language backend)</em> attached.</p>\n<p>For example, this cell is linked to the Markdown interpreter, so when you run the cell it parses the code as Markdown and then displays the result.</p>\n<p>In each cell, there is a toolbar with four items:</p>\n<ul>\n<li>The <code>Play</code> button (blue triangle) lets you run the paragraph. You can also press <code>Shift + Enter</code> to run the cell when selected</li>\n<li>The <code>Show/Hide editor</code> if you want to see the source code for the cell</li>\n<li>The <code>Show/Hide output</code> if you want to see the output for the cell</li>\n<li>The <code>Settings</code> item, for more advanced options like adding/managing cells.</li>\n</ul>\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n<p>Now you can press <code>Show editor</code> to see the source code of the cell. You will see that it starts with <code>%md</code>, which specifies to the cell that it should use the Markdown interpreter. You can edit the text and then run the cell to see the editing in the output.</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1741"},{"text":"%md\n\nApache Zeppelin follows the responsive 12-column grid system. In the following row we show 3 different interpreters in action. \n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\nYou can go on and try to modify the source code in the three following cells and re-execute the code. For example, try to type `1+2` in the Python cell.","dateUpdated":"2017-01-25T08:33:16+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/markdown","editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124515_-33132219","id":"20161205-140658_147950685","result":{"code":"SUCCESS","type":"HTML","msg":"<p>Apache Zeppelin follows the responsive 12-column grid system. In the following row we show 3 different interpreters in action.</p>\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n<p>You can go on and try to modify the source code in the three following cells and re-execute the code. For example, try to type <code>1+2</code> in the Python cell.</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1742"},{"title":"Shell cell","text":"%sh\necho \"Hello world\"","dateUpdated":"2017-01-25T13:32:40+0000","config":{"enabled":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/sh","editorHide":false,"colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124515_-33132219","id":"20161205-135504_61539619","result":{"code":"SUCCESS","type":"TEXT","msg":"Hello world\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T13:32:40+0000","dateFinished":"2017-01-25T13:32:41+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1743","focus":true},{"title":"Python cell","text":"%python\nprint(\"Hello world\")","dateUpdated":"2017-01-25T08:33:22+0000","config":{"enabled":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/python","colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124516_-35055964","id":"20161205-140620_27821049","result":{"code":"SUCCESS","type":"TEXT","msg":"Hello world\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T08:33:22+0000","dateFinished":"2017-01-25T08:33:23+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1744"},{"title":"Spark/Scala cell","text":"println(\"Hello world\")","dateUpdated":"2017-01-25T08:33:26+0000","config":{"enabled":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/scala","colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124516_-35055964","id":"20161205-140627_1063236175","result":{"code":"SUCCESS","type":"TEXT","msg":"Hello world\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T08:33:26+0000","dateFinished":"2017-01-25T08:33:59+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1745"},{"text":"%md\n\nAs you can see, we have not chosen an interpreter in the last column. \n\nA default interpreter is set at the beginning of the notebook, on the right-hand of the menu toolbar at the top in the menu `Interpreter binding` and represented by a gear. You can also select/deselect usable interpreters for the notebook.\n\nFor more information on how each interpreter is configured, you can check the interpreter menu, in the dropdown menu with your username _(anonymous for now. Do note that Apache Zeppelin also support user authentication for multitenancy but we are not going to delve into that)_.\n\nFor now, we assume that the default interpreter is the Apache Spark/Scala interpreter, so the default cell parses Spark/Scala code. The tutorial series will be mostly using this interpreter. No Scala knowledge is needed to pursue through the series, as we will only use basic functional programming concepts.\n\n_If you are wondering why Scala, Apache Spark is implemented in Scala, and so is its main API. Apache Spark draws from the functional paradigm for representing its computations the same way as MapReduce does. A common justification is Spark and MapReduce specialize in coarse-grained transformations that apply the same operation on many data items, which is a good fit for parallel applications, and the functional programming paradigm fits the idea._","dateUpdated":"2017-01-25T09:37:19+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124517_-35440713","id":"20161205-140636_1331288934","result":{"code":"SUCCESS","type":"HTML","msg":"<p>As you can see, we have not chosen an interpreter in the last column.</p>\n<p>A default interpreter is set at the beginning of the notebook, on the right-hand of the menu toolbar at the top in the menu <code>Interpreter binding</code> and represented by a gear. You can also select/deselect usable interpreters for the notebook.</p>\n<p>For more information on how each interpreter is configured, you can check the interpreter menu, in the dropdown menu with your username <em>(anonymous for now. Do note that Apache Zeppelin also support user authentication for multitenancy but we are not going to delve into that)</em>.</p>\n<p>For now, we assume that the default interpreter is the Apache Spark/Scala interpreter, so the default cell parses Spark/Scala code. The tutorial series will be mostly using this interpreter. No Scala knowledge is needed to pursue through the series, as we will only use basic functional programming concepts.</p>\n<p><em>If you are wondering why Scala, Apache Spark is implemented in Scala, and so is its main API. Apache Spark draws from the functional paradigm for representing its computations the same way as MapReduce does. A common justification is Spark and MapReduce specialize in coarse-grained transformations that apply the same operation on many data items, which is a good fit for parallel applications, and the functional programming paradigm fits the idea.</em></p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T09:37:18+0000","dateFinished":"2017-01-25T09:37:18+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1746"},{"text":"%md\n### The Spark/Scala interpreter\n\nLet's dive into the Spark/Scala interpreter now. First, we need to describe the Scala language a bit more.\n\nScala is a functional object-oriented language.\n\nThe following row shows some commands in Scala. Do note that you can use autocompletion with `Ctrl + .`\n\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\nBecause you get instant feedback, you should feel encouraged to experiment, so do not hesitate to edit the Scala source code and re-execute the cell.","dateUpdated":"2017-01-25T09:56:31+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"editorMode":"ace/mode/markdown","editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124517_-35440713","id":"20161205-143112_1129105608","result":{"code":"SUCCESS","type":"HTML","msg":"<h3>The Spark/Scala interpreter</h3>\n<p>Let's dive into the Spark/Scala interpreter now. First, we need to describe the Scala language a bit more.</p>\n<p>Scala is a functional object-oriented language.</p>\n<p>The following row shows some commands in Scala. Do note that you can use autocompletion with <code>Ctrl + .</code></p>\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n<p>Because you get instant feedback, you should feel encouraged to experiment, so do not hesitate to edit the Scala source code and re-execute the cell.</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1747"},{"title":"Some arithmetic","text":"8 * 5 + 2","dateUpdated":"2017-01-25T08:32:04+0000","config":{"enabled":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124522_-35825462","id":"20161215-101647_1780031444","result":{"code":"SUCCESS","type":"TEXT","msg":"res2: Int = 42\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1748"},{"title":"Declaring variables","text":"val a = 3 // val defines an immutable value\nvar b : Int = 5 // var defines a mutable variable\nprintln(a + b)\n\nb = 42\nprintln(a + b)\n\n// Note that the type of a variable or function is written after the variable or function. \n\n// Because Scala does type inference, it is also not necessary to declare type to variables when it looks obvious.","dateUpdated":"2017-01-25T08:32:04+0000","config":{"enabled":true,"tableHide":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","editorHide":false,"colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124523_-36210211","id":"20161215-101655_1153115867","result":{"code":"SUCCESS","type":"TEXT","msg":"a: Int = 3\nb: Int = 5\n8\nb: Int = 42\n45\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1749"},{"title":"Reusing a variable","text":"// variables are accessible accross cells\n\na * b","dateUpdated":"2017-01-25T08:32:04+0000","config":{"enabled":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124524_-38133955","id":"20161215-101705_1808342927","result":{"code":"SUCCESS","type":"TEXT","msg":"res13: Int = 15\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1750"},{"text":"%md\n\nIn Scala, you are encouraged to use a `val` whenever you can so to avoid mutable code. Scala prefers immutability by design and helps us reason through code only. \n\nIt also provides is with the necessary tooling to reason with immutability in mind. In the following row we study some basic collection methods which makes useless the need for mutable lists and for loops","dateUpdated":"2017-01-25T09:37:07+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/markdown","editorHide":true,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124524_-38133955","id":"20161215-103526_1401793073","result":{"code":"SUCCESS","type":"HTML","msg":"<p>In Scala, you are encouraged to use a <code>val</code> whenever you can so to avoid mutable code. Scala prefers immutability by design and helps us reason through code only.</p>\n<p>It also provides is with the necessary tooling to reason with immutability in mind. In the following row we study some basic collection methods which makes useless the need for mutable lists and for loops</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T09:37:06+0000","dateFinished":"2017-01-25T09:37:06+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1751"},{"title":"Create immutable sequence of numbers","text":"val sequenceNumbers = 1 to 100","dateUpdated":"2017-01-25T08:34:35+0000","config":{"enabled":true,"tableHide":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","editorHide":false,"colWidth":12},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124525_-38518704","id":"20161215-104816_1792183840","result":{"code":"SUCCESS","type":"TEXT","msg":"\nsequenceNumbers: scala.collection.immutable.Range.Inclusive = Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100)\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T08:34:24+0000","dateFinished":"2017-01-25T08:34:25+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1752"},{"title":"New list with all elements doubled","text":"sequenceNumbers.map(x => x * 2)\n\nsequenceNumbers.map(_ * 2)","dateUpdated":"2017-01-25T08:34:39+0000","config":{"enabled":true,"tableHide":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","editorHide":false,"colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124525_-38518704","id":"20161215-104825_1497989654","result":{"code":"SUCCESS","type":"TEXT","msg":"res40: scala.collection.immutable.IndexedSeq[Int] = Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134, 136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 184, 186, 188, 190, 192, 194, 196, 198, 200)\nres41: scala.collection.immutable.IndexedSeq[Int] = Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134, 136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 184, 186, 188, 190, 192, 194, 196, 198, 200)\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1753"},{"title":"New list with pair numbers removed","text":"sequenceNumbers.filter(x => x % 2 != 0)\n\nsequenceNumbers.filter(_ % 2 != 0)","dateUpdated":"2017-01-25T08:34:41+0000","config":{"enabled":true,"tableHide":true,"title":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","editorHide":false,"colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124531_-26976237","id":"20161215-104829_934946861","result":{"code":"SUCCESS","type":"TEXT","msg":"res52: scala.collection.immutable.IndexedSeq[Int] = Vector(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99)\nres53: scala.collection.immutable.IndexedSeq[Int] = Vector(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99)\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1754"},{"title":"Sum all elements","text":"sequenceNumbers.reduce((x, y) => x + y)\n\nsequenceNumbers.reduce(_ + _)","dateUpdated":"2017-01-25T08:34:44+0000","config":{"enabled":true,"tableHide":true,"title":true,"graph":{"mode":"table","height":86,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","editorHide":false,"colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124532_-28899981","id":"20161215-105147_1170476157","result":{"code":"SUCCESS","type":"TEXT","msg":"res55: Int = 5050\nres56: Int = 5050\n"},"dateCreated":"2017-01-25T08:32:04+0000","status":"READY","errorMessage":"","progressUpdateIntervalMs":500,"$$hashKey":"object:1755"},{"text":"%md \n###Primer on functional programming\nBefore going further, we need to go back to functional programming (sometimes abbreviated to FP in literature).\n\nIn functional programming, we construct our programs using _pure functions_, that is a function that takes an input and produces an output without any side-effects, thus forbidding mutation.\n\nAn essential and powerful concept of FP is the ability to pass functions as arguments. For example in the row below :","dateUpdated":"2017-01-25T08:37:58+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","colWidth":12,"editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124532_-28899981","id":"20161215-105827_1534509278","result":{"code":"SUCCESS","type":"HTML","msg":"<h3>Primer on functional programming</h3>\n<p>Before going further, we need to go back to functional programming (sometimes abbreviated to FP in literature).</p>\n<p>In functional programming, we construct our programs using <em>pure functions</em>, that is a function that takes an input and produces an output without any side-effects, thus forbidding mutation.</p>\n<p>An essential and powerful concept of FP is the ability to pass functions as arguments. For example in the row below :</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T08:37:56+0000","dateFinished":"2017-01-25T08:37:57+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1756"},{"text":"/*\n * The following function adds 2 to a number.\n */\ndef add2(x: Int): Int = x + 2","dateUpdated":"2017-01-25T13:34:04+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"colWidth":4,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124532_-28899981","id":"20161215-142142_191089995","result":{"code":"SUCCESS","type":"TEXT","msg":"\nadd2: (x: Int)Int\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T13:34:04+0000","dateFinished":"2017-01-25T13:34:04+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1757","focus":true},{"text":"/* now let's pass add2 function \n * to map,\n * a function that applies a function to each element of a  * list\n */\n\nList(1,2,3).map(add2)\n","dateUpdated":"2017-01-25T13:34:26+0000","config":{"enabled":true,"graph":{"mode":"table","height":86,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124533_-29284730","id":"20161215-110440_1947087088","result":{"code":"SUCCESS","type":"TEXT","msg":"\nres38: List[Int] = List(3, 4, 5)\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T13:34:26+0000","dateFinished":"2017-01-25T13:34:27+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1758","focus":true},{"text":"// in the following we pass an anonymous lambda function \n// in the filter function\nList(1,2,3,4).filter(x => x > 2)\nList(1,2,3,4).filter(_ > 2)","dateUpdated":"2017-01-25T08:50:39+0000","config":{"enabled":true,"graph":{"mode":"table","height":86,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"editorMode":"ace/mode/scala","colWidth":4},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124533_-29284730","id":"20161215-110528_1134018400","result":{"code":"SUCCESS","type":"TEXT","msg":"\nres9: List[Int] = List(3, 4)\n\nres10: List[Int] = List(3, 4)\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T08:50:39+0000","dateFinished":"2017-01-25T08:50:40+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1759"},{"text":"%md\nHere we have presented the first two higher order functions we are going to use in this course : `map` and `filter`. Those are called _element-wise_ transformations in that they take in a function and applies it to each element in the collection.\n\nWe can use them to do a number of things, from fetching the website associated with each URL in our collection to just squaring numbers. Imagine this scenario :\n\n```scala\n/*\n * Parses a file with URLs and puts them into a list of Strings, each being an URL to get\n */\ndef loadURLs(path: String): List[String] = {\n    ...some code here to return list of urls...\n}\n\n/*\n * GET request on an URL and return the body\n */\ndef getBody(url: String): String = {\n    ...some code here to return body...\n}\n\n/*\n * Detect if body consists of an image, we don't want those\n */\ndef filterImage(body: String): Boolean = {\n    ...some code here to detect if it's an image...\n}\n\n// code to load a list of URLs and only return those who are not images\nval allURLsWithoutImages = loadURLs(\"/data/list_of_urls.csv\").map(getBody).filter(filterImage)\n\n```","dateUpdated":"2017-01-25T08:53:57+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334258787_-305281031","id":"20170125-085058_1374080418","result":{"code":"SUCCESS","type":"HTML","msg":"<p>Here we have presented the first two higher order functions we are going to use in this course : <code>map</code> and <code>filter</code>. Those are called <em>element-wise</em> transformations in that they take in a function and applies it to each element in the collection.</p>\n<p>We can use them to do a number of things, from fetching the website associated with each URL in our collection to just squaring numbers. Imagine this scenario :</p>\n<pre><code class=\"scala\">/*\n * Parses a file with URLs and puts them into a list of Strings, each being an URL to get\n */\ndef loadURLs(path: String): List[String] = {\n    ...some code here to return list of urls...\n}\n\n/*\n * GET request on an URL and return the body\n */\ndef getBody(url: String): String = {\n    ...some code here to return body...\n}\n\n/*\n * Detect if body consists of an image, we don't want those\n */\ndef filterImage(body: String): Boolean = {\n    ...some code here to detect if it's an image...\n}\n\n// code to load a list of URLs and only return those who are not images\nval allURLsWithoutImages = loadURLs(\"/data/list_of_urls.csv\").map(getBody).filter(filterImage)\n</code></pre>\n"},"dateCreated":"2017-01-25T08:50:58+0000","dateStarted":"2017-01-25T08:53:55+0000","dateFinished":"2017-01-25T08:53:55+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1760"},{"text":"%md \nThe other essential higher order function you need to learn is `reduce`, which walks a function through all the elements in a collection to produce an aggregated result. \n\nTo do that, the function operates on two elements in the sequence, and returns a new element of the same type, which is then passed to the same function with the next element in the list.\n\nA simple example of such a function is +, which we can use to sum all of the elements in our list.","dateUpdated":"2017-01-25T13:34:46+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334533019_723135810","id":"20170125-085533_1923530403","result":{"code":"SUCCESS","type":"HTML","msg":"<p>The other essential higher order function you need to learn is <code>reduce</code>, which walks a function through all the elements in a collection to produce an aggregated result.</p>\n<p>To do that, the function operates on two elements in the sequence, and returns a new element of the same type, which is then passed to the same function with the next element in the list.</p>\n<p>A simple example of such a function is +, which we can use to sum all of the elements in our list.</p>\n"},"dateCreated":"2017-01-25T08:55:33+0000","dateStarted":"2017-01-25T13:34:45+0000","dateFinished":"2017-01-25T13:34:45+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1761","focus":true},{"text":"(1 to 1000).reduce((x,y) => x+y)\n(1 to 1000).reduce(_+_)","dateUpdated":"2017-01-25T08:55:46+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334545120_1294518575","id":"20170125-085545_856912582","result":{"code":"SUCCESS","type":"TEXT","msg":"\nres12: Int = 500500\n\nres13: Int = 500500\n"},"dateCreated":"2017-01-25T08:55:45+0000","dateStarted":"2017-01-25T08:55:47+0000","dateFinished":"2017-01-25T08:55:48+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1762"},{"text":"%md\nIn the previous row, imagine that the sum function operates on 1 and 2 and returns 3, \n\nthen that result is passed to the function along with the next element which is 3, and the result 6 is passed with the next element 4, and then the result 10 is passed with 5 etc...\n\n1 --|+\n2 --| 3 --|+\n3 --------| 6 --| +\n4 --------------| 10 --| +\n5 ---------------------| 15\n.etc...\n\nSimilar to `reduce` is `fold`, which takes a \"zero value\" in addition and passed in the initial call","dateUpdated":"2017-01-25T09:42:15+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334558119_-356438955","id":"20170125-085558_1894989290","result":{"code":"SUCCESS","type":"HTML","msg":"<p>In the previous row, imagine that the sum function operates on 1 and 2 and returns 3,</p>\n<p>then that result is passed to the function along with the next element which is 3, and the result 6 is passed with the next element 4, and then the result 10 is passed with 5 etc&hellip;</p>\n<p>1 &ndash;|+\n<br  />2 &ndash;| 3 &ndash;|+\n<br  />3 &mdash;&mdash;&ndash;| 6 &ndash;| +\n<br  />4 &mdash;&mdash;&mdash;&mdash;&ndash;| 10 &ndash;| +\n<br  />5 &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;| 15\n<br  />.etc&hellip;</p>\n<p>Similar to <code>reduce</code> is <code>fold</code>, which takes a &ldquo;zero value&rdquo; in addition and passed in the initial call</p>\n"},"dateCreated":"2017-01-25T08:55:58+0000","dateStarted":"2017-01-25T09:42:13+0000","dateFinished":"2017-01-25T09:42:13+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1763"},{"text":"%md \n<h4 style=\"color:red;\">Exercise</h4>\nTry to solve the following rows. By editing the `val output = ...` line, use `map`, `filter` and `reduce` with anonymous functions on the variable `input` to return a variable `output` that will be compared to the `expected`variable.\n\nRemember your session is interactive, it makes it easy to test intermediary values when chaining functions, example :\n```scala\ninput.map(...)                                  // 1st execution\ninput.map(...).filter(...)                      // 2nd execution\ninput.map(...).filter(...).reduce(...)          // 3rd execution\n```","dateUpdated":"2017-01-25T09:56:22+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334565674_933254682","id":"20170125-085605_508597900","result":{"code":"SUCCESS","type":"HTML","msg":"<h4 style=\"color:red;\">Exercise</h4>\n<p>Try to solve the following rows. By editing the <code>val output = ...</code> line, use <code>map</code>, <code>filter</code> and <code>reduce</code> with anonymous functions on the variable <code>input</code> to return a variable <code>output</code> that will be compared to the <code>expected</code>variable.</p>\n<p>Remember your session is interactive, it makes it easy to test intermediary values when chaining functions, example :</p>\n<pre><code class=\"scala\">input.map(...)                                  // 1st execution\ninput.map(...).filter(...)                      // 2nd execution\ninput.map(...).filter(...).reduce(...)          // 3rd execution\n</code></pre>\n"},"dateCreated":"2017-01-25T08:56:05+0000","dateStarted":"2017-01-25T09:26:55+0000","dateFinished":"2017-01-25T09:26:55+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1764"},{"title":"Return the list of squared numbers from 1 to 5","text":"val input = List(1, 2, 3, 4, 5)\nval output = input.map(x => x)\n\nval expected = List(1, 4, 9, 16, 25) ","dateUpdated":"2017-01-25T09:03:16+0000","config":{"colWidth":6,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334633765_969713882","id":"20170125-085713_1325612841","result":{"code":"SUCCESS","type":"TEXT","msg":"\ninput: List[Int] = List(1, 2, 3, 4, 5)\n\noutput: List[Int] = List(1, 2, 3, 4, 5)\n\nexpected: List[Int] = List(1, 4, 9, 16, 25)\n"},"dateCreated":"2017-01-25T08:57:13+0000","dateStarted":"2017-01-25T09:03:16+0000","dateFinished":"2017-01-25T09:03:17+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1765"},{"title":"Return the sum of elements from 1 to 5","text":"val input = List(1, 2, 3, 4, 5)\nval output = input.reduce((x, y) => x)\n\nval expected = 15","dateUpdated":"2017-01-25T09:23:28+0000","config":{"colWidth":6,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334640547_1179417357","id":"20170125-085720_2133991651","result":{"code":"SUCCESS","type":"TEXT","msg":"\ninput: List[Int] = List(1, 2, 3, 4, 5)\n\noutput: Int = 1\n\nexpected: Int = 15\n"},"dateCreated":"2017-01-25T08:57:20+0000","dateStarted":"2017-01-25T09:23:28+0000","dateFinished":"2017-01-25T09:23:29+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1766"},{"title":"Return the sum of squared pair numbers between 1 and 100","text":"val input = 1 to 100\nval output = input.reduce((x, y) => x)\n\nval expected = 171700","dateUpdated":"2017-01-25T09:24:20+0000","config":{"colWidth":6,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334647814_1417359099","id":"20170125-085727_408760662","result":{"code":"SUCCESS","type":"TEXT","msg":"\ninput: scala.collection.immutable.Range.Inclusive = Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100)\n\noutput: Int = 1\n\nexpected: Int = 171700\n"},"dateCreated":"2017-01-25T08:57:27+0000","dateStarted":"2017-01-25T09:24:13+0000","dateFinished":"2017-01-25T09:24:13+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1767"},{"title":"Get highest number in a list with a reduce","text":"import util.Random.nextInt\nval input = Seq.fill(10)(nextInt)\nval output = input.reduce((x, y) => x)\n\nval expected = input.max","dateUpdated":"2017-01-25T12:49:26+0000","config":{"colWidth":6,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":false,"tableHide":false,"title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485334652733_875647972","id":"20170125-085732_1286059698","result":{"code":"SUCCESS","type":"TEXT","msg":"\nimport util.Random.nextInt\n\ninput: Seq[Int] = List(1368154480, 932727527, -956762629, -741728139, 1912445161, 1215347429, 1054732247, -811870848, 762475751, 1567410629)\n\noutput: Int = 1368154480\n\nexpected: Int = 1912445161\n"},"dateCreated":"2017-01-25T08:57:32+0000","dateStarted":"2017-01-25T12:49:26+0000","dateFinished":"2017-01-25T12:49:29+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1768","focus":true},{"text":"%md\n### Programming with RDDs\nIn this chapter, we are going to introduce Spark's core abstraction for working with data in a distributed and resilient way : the <text style=\"color:red;\">resilient distributed dataset</text>, or <text style=\"color:red;\">RDD</text>. Under the hood, Spark automatically performs the distribution of RDDs and its processing around the cluster, so we can focus on our code and not on distributed processing problems, such as the handling of data locality or resiliency in case of node failure.\n\nA RDD consists of a collection of elements partitioned accross the nodes of a cluster of machines that can be operated on in parallel. In Spark, work is expressed by the creation and transformation of RDDs using Spark operators.\n\n<text style=\"color:red;\">Note</text> : RDD is the core data structure to Spark, but the style of programming we are studying in this lesson is considered the _lowest-level API_ for Spark. The Spark community is pushing the use of Structured programming with Dataframes/Datasets instead, an optimized interface for working with structured and semi-structured data, which we will learn later. Understanding RDDs is still important because it teaches you how Spark works under the hood and will serve you to understand and optimize your application when deployed into production.\n\nThis example displays the coarse-grained processing nature of Spark, that applies the same operation to many data items. This is a good fit for many parallel applications, as they _naturally apply the same operation to multiple data items_.","dateUpdated":"2017-01-25T09:53:13+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485336302530_-391954635","id":"20170125-092502_905179202","result":{"code":"SUCCESS","type":"HTML","msg":"<h3>Programming with RDDs</h3>\n<p>In this chapter, we are going to introduce Spark's core abstraction for working with data in a distributed and resilient way : the <text style=\"color:red;\">resilient distributed dataset</text>, or <text style=\"color:red;\">RDD</text>. Under the hood, Spark automatically performs the distribution of RDDs and its processing around the cluster, so we can focus on our code and not on distributed processing problems, such as the handling of data locality or resiliency in case of node failure.</p>\n<p>A RDD consists of a collection of elements partitioned accross the nodes of a cluster of machines that can be operated on in parallel. In Spark, work is expressed by the creation and transformation of RDDs using Spark operators.</p>\n<p><text style=\"color:red;\">Note</text> : RDD is the core data structure to Spark, but the style of programming we are studying in this lesson is considered the <em>lowest-level API</em> for Spark. The Spark community is pushing the use of Structured programming with Dataframes/Datasets instead, an optimized interface for working with structured and semi-structured data, which we will learn later. Understanding RDDs is still important because it teaches you how Spark works under the hood and will serve you to understand and optimize your application when deployed into production.</p>\n<p>This example displays the coarse-grained processing nature of Spark, that applies the same operation to many data items. This is a good fit for many parallel applications, as they <em>naturally apply the same operation to multiple data items</em>.</p>\n"},"dateCreated":"2017-01-25T09:25:02+0000","dateStarted":"2017-01-25T09:53:10+0000","dateFinished":"2017-01-25T09:53:10+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1769"},{"text":"%md\r\n### Running **Spark**\r\nThe variable **sc** allows you to access a Spark Context to run your Spark programs.\r\n* For more information about Spark, please refer to [Spark Overview](https://spark.apache.org/docs/latest/)\r\n\r\n**Important note:** Do not create the *sc* variable - it is already initialized for you.","dateUpdated":"2017-01-25T13:42:25+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485336678068_1462318881","id":"20170125-093118_646587966","result":{"code":"SUCCESS","type":"HTML","msg":"<h3>Running <strong>Spark</strong></h3>\n<p>The variable <strong>sc</strong> allows you to access a Spark Context to run your Spark programs.</p>\n<ul>\n<li>For more information about Spark, please refer to <a href=\"https://spark.apache.org/docs/latest/\">Spark Overview</a></li>\n</ul>\n<p><strong>Important note:</strong> Do not create the <em>sc</em> variable - it is already initialized for you.</p>\n"},"dateCreated":"2017-01-25T09:31:18+0000","dateStarted":"2017-01-25T09:31:36+0000","dateFinished":"2017-01-25T09:31:36+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1770"},{"text":"// A SparkContext is also already created for you.\r\n// Do not create another or unspecified behavior may occur.\r\nsc\r\n\r\nval words = sc.parallelize(Array(\"hello\", \"world\", \"goodbye\", \"hello\", \"again\")) // words is a RDD made by distributing an existing collection\r\nval wordcounts = words.map(s => (s, 1)).reduceByKey(_ + _).collect()             // transform the RDD and then fetch the result locally with collect()","dateUpdated":"2017-01-25T13:42:29+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","editorHide":false},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485336727219_-267066129","id":"20170125-093207_1644704199","result":{"code":"SUCCESS","type":"TEXT","msg":"\nres41: org.apache.spark.SparkContext = org.apache.spark.SparkContext@c9487fa\n\nwords: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[104] at parallelize at <console>:30\n\nwordcounts: Array[(String, Int)] = Array((hello,2), (again,1), (world,1), (goodbye,1))\n"},"dateCreated":"2017-01-25T09:32:07+0000","dateStarted":"2017-01-25T13:42:29+0000","dateFinished":"2017-01-25T13:42:29+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1772","focus":true},{"text":"%md\n\nAs you can see, the RDD API is very similar to the functions we have previously used for processing entire collections. \n\nIf you already are a Scala developer, or are used to functional programming on collections, then RDDs act like a collection that Spark parallelizes on the cluster under the hood.\n\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\nTry to solve the following row. Browse the Spark API documentation to find the corresponding function.","dateUpdated":"2017-01-25T13:40:59+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/markdown","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485337796815_-2093861834","id":"20170125-094956_997092478","result":{"code":"SUCCESS","type":"HTML","msg":"<p>As you can see, the RDD API is very similar to the functions we have previously used for processing entire collections.</p>\n<p>If you already are a Scala developer, or are used to functional programming on collections, then RDDs act like a collection that Spark parallelizes on the cluster under the hood.</p>\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n<p>Try to solve the following row. Browse the Spark API documentation to find the corresponding function.</p>\n"},"dateCreated":"2017-01-25T09:49:56+0000","dateStarted":"2017-01-25T13:40:58+0000","dateFinished":"2017-01-25T13:40:58+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1773","focus":true},{"title":"Calculate the number of unique words in the \"words\" RDD here.","text":"val words = sc.parallelize(Array(\"hello\", \"world\", \"goodbye\", \"hello\", \"again\"))\n\nval expected = 4","dateUpdated":"2017-01-25T12:56:26+0000","config":{"colWidth":6,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485336856216_-2011750793","id":"20170125-093416_1662109555","result":{"code":"SUCCESS","type":"TEXT","msg":"\nexpected: Int = 4\n"},"dateCreated":"2017-01-25T09:34:16+0000","dateStarted":"2017-01-25T09:35:05+0000","dateFinished":"2017-01-25T09:35:06+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1774"},{"title":"Create a random RDD of numbers, and find its mean.","text":"import util.Random.nextInt\nval input = sc.parallelize(Seq.fill(10000)(nextInt))","dateUpdated":"2017-01-25T13:41:43+0000","config":{"colWidth":6,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485336877601_1857515653","id":"20170125-093437_413700163","dateCreated":"2017-01-25T09:34:37+0000","status":"READY","progressUpdateIntervalMs":500,"$$hashKey":"object:1775"},{"text":"%md\n\n#### Key value pairs\n\nWhen doing Hadoop MapReduce, you are used to working with key-value pairs. \n\nIn Scala, we use tuples to manage multiple data altogether.\n\n```scala\nval t = (1, \"hello\", Console)\n```\n\nIt is possible to access elements in a tuple :\n\n```scala\nval t = (4,3,2,1)\nval sum = t._1 + t._2 + t._3 + t._4\n```\n\nNow remember the reduce example, which takes 2 elements organized as tuples :\n\n```scala\n(1 to 1000).reduce((x,y) => x+y)\n```\n\nYou can deconstruct the tuple inside the anonymous function, it makes it easier to reason around them. This can make for some convoluted one liners.\n\n```scala\n(1 to 1000)\n    .map(x => (x, 2*x, 3*x))\n    .reduce{case ((x1, doubleX1, tripleX1), (x2, doubleX2, tripleX2)) => (x1 + x2, doubleX1 * doubleX2, tripleX1 - tripleX2)}\n```\n\n<hr/>\n\nIn Spark, a RDD of tuples of 2 elements is considered a key-value RDD. This gives us access to [a new class of functions](https://spark.apache.org/docs/latest/programming-guide.html#working-with-key-value-pairs).\n\nFor example, the following code uses the reduceByKey operation on key-value pairs to count how many times each line of text occurs in a file. It acts like executing reduce on the array of values under the same key.\n\n```scala\nval lines = sc.textFile(\"data.txt\")\nval pairs = lines.map(s => (s, 1))\nval counts = pairs.reduceByKey((a, b) => a + b)\n```\n\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n\nTry to solve the following cells.","dateUpdated":"2017-01-25T13:46:25+0000","config":{"enabled":true,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{},"map":{"baseMapType":"Streets","isOnline":true,"pinCols":[]}},"colWidth":12,"editorMode":"ace/mode/markdown","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485333124534_-28130484","id":"20161205-143100_327623105","result":{"code":"SUCCESS","type":"HTML","msg":"<h4>Key value pairs</h4>\n<p>When doing Hadoop MapReduce, you are used to working with key-value pairs.</p>\n<p>In Scala, we use tuples to manage multiple data altogether.</p>\n<pre><code class=\"scala\">val t = (1, \"hello\", Console)\n</code></pre>\n<p>It is possible to access elements in a tuple :</p>\n<pre><code class=\"scala\">val t = (4,3,2,1)\nval sum = t._1 + t._2 + t._3 + t._4\n</code></pre>\n<p>Now remember the reduce example, which takes 2 elements organized as tuples :</p>\n<pre><code class=\"scala\">(1 to 1000).reduce((x,y) =&gt; x+y)\n</code></pre>\n<p>You can deconstruct the tuple inside the anonymous function, it makes it easier to reason around them. This can make for some convoluted one liners.</p>\n<pre><code class=\"scala\">(1 to 1000)\n    .map(x =&gt; (x, 2*x, 3*x))\n    .reduce{case ((x1, doubleX1, tripleX1), (x2, doubleX2, tripleX2)) =&gt; (x1 + x2, doubleX1 * doubleX2, tripleX1 - tripleX2)}\n</code></pre>\n<hr/>\n<p>In Spark, a RDD of tuples of 2 elements is considered a key-value RDD. This gives us access to <a href=\"https://spark.apache.org/docs/latest/programming-guide.html#working-with-key-value-pairs\">a new class of functions</a>.</p>\n<p>For example, the following code uses the reduceByKey operation on key-value pairs to count how many times each line of text occurs in a file. It acts like executing reduce on the array of values under the same key.</p>\n<pre><code class=\"scala\">val lines = sc.textFile(\"data.txt\")\nval pairs = lines.map(s =&gt; (s, 1))\nval counts = pairs.reduceByKey((a, b) =&gt; a + b)\n</code></pre>\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n<p>Try to solve the following cells.</p>\n"},"dateCreated":"2017-01-25T08:32:04+0000","dateStarted":"2017-01-25T13:43:21+0000","dateFinished":"2017-01-25T13:43:21+0000","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:1776","focus":true},{"text":"val input = sc.parallelize(Seq(\"hi\", \"my\", \"my\", \"name\", \"is\",\"hi\"))\nval output = input.map(...).reduceByKey(...).collect()\n\nval expected = Array((\"is\",1), (\"my,2\"), (\"name\",1), (\"hi\",2))","dateUpdated":"2017-01-25T13:15:49+0000","config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","tableHide":false,"title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485338316737_924641072","id":"20170125-095836_160099750","dateCreated":"2017-01-25T09:58:36+0000","status":"ERROR","progressUpdateIntervalMs":500,"$$hashKey":"object:1777","dateFinished":"2017-01-25T12:53:52+0000","dateStarted":"2017-01-25T12:53:51+0000","title":"Easy wordcount","result":{"code":"ERROR","type":"TEXT","msg":"\ninput: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[7] at parallelize at <console>:30\n\n\n\n\n<console>:32: error: not enough arguments for method map: (f: String => U)(implicit evidence$3: scala.reflect.ClassTag[U])org.apache.spark.rdd.RDD[U].\nUnspecified value parameter f.\n         val output = input.map().reduceByKey().collect()\n                               ^\n"},"focus":true},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485349451411_-763547996","id":"20170125-130411_450751393","dateCreated":"2017-01-25T13:04:11+0000","status":"ERROR","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:4895","text":"val rdd1 = sc.parallelize(Seq((\"Patrick\", \"homme\"), (\"Sandra\", \"femme\"), (\"Faniki\", \"homme\"), (\"Noemie\", \"femme\"), (\"Francois\", \"homme\"), (\"Cassandre\", \"femme\")))\nval rdd2 = sc.parallelize(Seq((\"Patrick\", 20), (\"Sandra\", 25), (\"Faniki\", 20), (\"Noemie\", 20), (\"Francois\", 30), (\"Cassandre\", 18)))\n\nval output = rdd1.join(rdd2).map{case ... => ...}....\n\nval expected = Array((femme,63), (homme,70))","dateUpdated":"2017-01-25T13:37:41+0000","dateFinished":"2017-01-25T13:37:41+0000","dateStarted":"2017-01-25T13:37:41+0000","title":"Sum ages per gender","result":{"code":"ERROR","type":"TEXT","msg":"\nrdd1: org.apache.spark.rdd.RDD[(String, String)] = ParallelCollectionRDD[102] at parallelize at <console>:30\n\nrdd2: org.apache.spark.rdd.RDD[(String, Int)] = ParallelCollectionRDD[103] at parallelize at <console>:30\n\n\n\n<console>:1: error: illegal start of simple pattern\n       val output = rdd1.join(rdd2).map{case ... => ...}....\n                                             ^\n\n\n\n<console>:1: error: '=>' expected but '}' found.\n       val output = rdd1.join(rdd2).map{case ... => ...}....\n                                                       ^\n\n\n\n<console>:1: error: identifier expected but '.' found.\n       val output = rdd1.join(rdd2).map{case ... => ...}....\n                                                         ^\n\n\n\n<console>:1: error: identifier expected but '.' found.\n       val output = rdd1.join(rdd2).map{case ... => ...}....\n                                                          ^\n\n\n\n<console>:1: error: identifier expected but '.' found.\n       val output = rdd1.join(rdd2).map{case ... => ...}....\n                                                           ^\n"}},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/markdown","editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485349147677_33622721","id":"20170125-125907_1086033982","dateCreated":"2017-01-25T12:59:07+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:4796","text":"%md \n\n#### To the real wordcount\n\nWe are missing an important operator before going to the normal wordcount as we know it : `flatten`, which flattens the lists held inside the outer list into one resulting list.\n\n```scala\nscala> val lol = List(List(1,2), List(3,4))\nlol: List[List[Int]] = List(List(1, 2), List(3, 4))\n\nscala> val result = lol.flatten\nresult: List[Int] = List(1, 2, 3, 4)\n```\n\nIn general, when reading a text, you get an array of lines like :\n\n```scala\nval text = Seq(\n    \"coucou\",\n    \"ceci est le cours de mapreduce\",\n    \"ce n'est pas difficile\",\n    \"n'est ce pas ?\"\n)\n```\n\nif I want the list of all the words, first I need to split each line into words and then flatten the whole :\n\n```scala\nscala> val split = text.map(line => line.split(\" \"))\nresult: List[Array(String)] = List(Array(\"coucou\"), Array(\"ceci\", \"est\", \"le\" ...))\n\nscala> val flat = split.flatten\nresult: List[String] = List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n```\n\nYou get the same result if you use `flatMap` :\n\n```scala\nscala> val flat = text.flatMap(line => line.split(\" \"))\nresult: List[String] = List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n```\n\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n\nTry the wordcount on a textfile `/opt/dataset/don-quijote.txt.gz` read with Spark into a RDD ! This is it, this is the classic Hello world, it uses `flatMap` as the Hadoop Map and `reduceByKey` as the Hadoop Reduce.","dateUpdated":"2017-01-25T13:53:33+0000","dateFinished":"2017-01-25T13:53:30+0000","dateStarted":"2017-01-25T13:53:30+0000","result":{"code":"SUCCESS","type":"HTML","msg":"<h4>To the real wordcount</h4>\n<p>We are missing an important operator before going to the normal wordcount as we know it : <code>flatten</code>, which flattens the lists held inside the outer list into one resulting list.</p>\n<pre><code class=\"scala\">scala&gt; val lol = List(List(1,2), List(3,4))\nlol: List[List[Int]] = List(List(1, 2), List(3, 4))\n\nscala&gt; val result = lol.flatten\nresult: List[Int] = List(1, 2, 3, 4)\n</code></pre>\n<p>In general, when reading a text, you get an array of lines like :</p>\n<pre><code class=\"scala\">val text = Seq(\n    \"coucou\",\n    \"ceci est le cours de mapreduce\",\n    \"ce n'est pas difficile\",\n    \"n'est ce pas ?\"\n)\n</code></pre>\n<p>if I want the list of all the words, first I need to split each line into words and then flatten the whole :</p>\n<pre><code class=\"scala\">scala&gt; val split = text.map(line =&gt; line.split(\" \"))\nresult: List[Array(String)] = List(Array(\"coucou\"), Array(\"ceci\", \"est\", \"le\" ...))\n\nscala&gt; val flat = split.flatten\nresult: List[String] = List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n</code></pre>\n<p>You get the same result if you use <code>flatMap</code> :</p>\n<pre><code class=\"scala\">scala&gt; val flat = text.flatMap(line =&gt; line.split(\" \"))\nresult: List[String] = List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n</code></pre>\n<hr/>\n<h4 style=\"color:red;\">Exercise</h4>\n<p>Try the wordcount on a textfile <code>/opt/dataset/don-quijote.txt.gz</code> read with Spark into a RDD ! This is it, this is the classic Hello world, it uses <code>flatMap</code> as the Hadoop Map and <code>reduceByKey</code> as the Hadoop Reduce.</p>\n"}},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485352171034_-904654561","id":"20170125-134931_765137162","dateCreated":"2017-01-25T13:49:31+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5328","text":"// load file into RDD and check 10 first lines\n\nval text = sc.textFile(\"/opt/dataset/don-quijote.txt.gz\")\ntext.take(10)","dateUpdated":"2017-01-25T13:54:29+0000","dateFinished":"2017-01-25T13:54:30+0000","dateStarted":"2017-01-25T13:54:29+0000","result":{"code":"SUCCESS","type":"TEXT","msg":"\ntext: org.apache.spark.rdd.RDD[String] = /opt/dataset/don-quijote.txt.gz MapPartitionsRDD[118] at textFile at <console>:32\n\nres54: Array[String] = Array(The Project Gutenberg EBook of Don Quijote, by Miguel de Cervantes Saavedra, \"\", This eBook is for the use of anyone anywhere at no cost and with, almost no restrictions whatsoever.  You may copy it, give it away or, re-use it under the terms of the Project Gutenberg License included, with this eBook or online at www.gutenberg.net, \"\", \"\", Title: Don Quijote, \"\")\n"}},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485352420257_-878908678","id":"20170125-135340_1546349786","dateCreated":"2017-01-25T13:53:40+0000","status":"ERROR","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5456","text":"text.doSomething","dateUpdated":"2017-01-25T13:54:09+0000","dateFinished":"2017-01-25T13:54:09+0000","dateStarted":"2017-01-25T13:54:09+0000","result":{"code":"ERROR","type":"TEXT","msg":"\n\n\n<console>:33: error: value doSomething is not a member of org.apache.spark.rdd.RDD[String]\n              text.doSomething\n                   ^\n"}},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorHide":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485348757555_-689252064","id":"20170125-125237_922206168","dateCreated":"2017-01-25T12:52:37+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:4512","dateUpdated":"2017-01-25T12:57:23+0000","dateFinished":"2017-01-25T12:57:20+0000","dateStarted":"2017-01-25T12:57:20+0000","result":{"code":"SUCCESS","type":"HTML","msg":"<h3>Working with <strong>Spark SQL and DataFrames</strong></h3>\n<p>The variable <strong>sqlContext</strong> allows you to access a Spark SQL Context to work with Spark SQL and DataFrames.</p>\n<ul>\n<li>Scala can be used to create Spark <a href=\"http://spark.apache.org/docs/latest/sql-programming-guide.html\">DataFrames</a> - a distributed collection of data organized into named columns.</li>\n<li>DataFrames are created by appending <code>.toDF()</code> to the Scala RDD</li>\n</ul>\n<p><strong>Important note:</strong> Do not create the <em>sqlContext</em> variable - it is already initialized for you.</p>\n"},"text":"%md\r\n### Working with **Spark SQL and DataFrames**\r\nThe variable **sqlContext** allows you to access a Spark SQL Context to work with Spark SQL and DataFrames.\r\n* Scala can be used to create Spark [DataFrames](http://spark.apache.org/docs/latest/sql-programming-guide.html) - a distributed collection of data organized into named columns.\r\n* DataFrames are created by appending ``.toDF()`` to the Scala RDD\r\n\r\n**Important note:** Do not create the *sqlContext* variable - it is already initialized for you."},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485349040504_591002928","id":"20170125-125720_628920046","dateCreated":"2017-01-25T12:57:20+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:4641","dateUpdated":"2017-01-25T13:56:52+0000","dateFinished":"2017-01-25T13:56:53+0000","dateStarted":"2017-01-25T13:56:52+0000","result":{"code":"SUCCESS","type":"TEXT","msg":"\ndefined class MyCaseClass\n\ndf: org.apache.spark.sql.DataFrame = [key: string, group: string, value: int]\n"},"text":"// Define the schema using a case class\r\ncase class MyCaseClass(key: String, group: String, value: Int)\r\n\r\n// Create the RDD (using sc.parallelize) and transforms it into a DataFrame\r\nval df = sc.parallelize(Seq(MyCaseClass(\"f\", \"consonants\", 1),\r\n   MyCaseClass(\"g\", \"consonants\", 2),\r\n   MyCaseClass(\"h\", \"consonants\", 3),\r\n   MyCaseClass(\"i\", \"vowels\", 4),\r\n   MyCaseClass(\"j\", \"consonants\", 5))\r\n ).toDF()\r\n \r\n// register the Dataframe into the internal metastore\r\ndf.registerTempTable(\"df\")"},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485349117424_1769747676","id":"20170125-125837_498314651","dateCreated":"2017-01-25T12:58:37+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:4717","dateUpdated":"2017-01-25T13:20:10+0000","dateFinished":"2017-01-25T13:20:11+0000","dateStarted":"2017-01-25T13:20:10+0000","result":{"code":"SUCCESS","type":"TEXT","msg":"+---+----------+-----+\n|key|     group|value|\n+---+----------+-----+\n|  f|consonants|    1|\n|  g|consonants|    2|\n|  h|consonants|    3|\n|  i|    vowels|    4|\n|  j|consonants|    5|\n+---+----------+-----+\n\n"},"text":"df.show()"},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485350410316_-1478661049","id":"20170125-132010_1828936011","dateCreated":"2017-01-25T13:20:10+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5047","dateUpdated":"2017-01-25T13:57:51+0000","dateFinished":"2017-01-25T13:57:52+0000","dateStarted":"2017-01-25T13:57:51+0000","result":{"code":"SUCCESS","type":"TEXT","msg":"+----------+-----------+\n|     group|mean_appear|\n+----------+-----------+\n|    vowels|        4.0|\n|consonants|       2.75|\n+----------+-----------+\n\n"},"text":"// you have access to most SQL commands\nsqlContext.sql(\"SELECT group, MEAN(value) AS mean_appear FROM df GROUP BY group\").show()"},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485352604826_906370547","id":"20170125-135644_1466821766","dateCreated":"2017-01-25T13:56:44+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5542","dateUpdated":"2017-01-25T13:58:57+0000","dateFinished":"2017-01-25T13:58:59+0000","dateStarted":"2017-01-25T13:58:57+0000","result":{"code":"SUCCESS","type":"TEXT","msg":"+----------+----------+\n|     group|avg(value)|\n+----------+----------+\n|    vowels|       4.0|\n|consonants|      2.75|\n+----------+----------+\n\n"},"text":"// you can do it with the SparkSQL API\ndf.groupBy(\"group\").agg(mean(\"value\")).show()"},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485352733614_-571683130","id":"20170125-135853_1126980502","dateCreated":"2017-01-25T13:58:53+0000","status":"READY","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5652","dateUpdated":"2017-01-25T13:59:34+0000","text":"// and then by passing through the Dataset API, you can use the functional API"},{"config":{"colWidth":12,"graph":{"mode":"pieChart","height":300,"optionOpen":false,"keys":[{"name":"key","index":0,"aggr":"sum"}],"values":[{"name":"value","index":2,"aggr":"sum"}],"groups":[],"scatter":{"xAxis":{"name":"key","index":0,"aggr":"sum"},"yAxis":{"name":"group","index":1,"aggr":"sum"}}},"enabled":true,"editorMode":"ace/mode/sql","title":true},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485352786724_-773999755","id":"20170125-135946_1334292884","dateCreated":"2017-01-25T13:59:46+0000","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5736","text":"%sql\nSELECT * FROM df","dateUpdated":"2017-01-25T14:00:30+0000","dateFinished":"2017-01-25T13:59:52+0000","dateStarted":"2017-01-25T13:59:52+0000","title":"If your DataFrame is stored internally, you can do some viz","result":{"code":"SUCCESS","type":"TABLE","msg":"key\tgroup\tvalue\nf\tconsonants\t1\ng\tconsonants\t2\nh\tconsonants\t3\ni\tvowels\t4\nj\tconsonants\t5\n","comment":"","msgTable":[[{"key":"group","value":"f"},{"key":"group","value":"consonants"},{"key":"group","value":"1"}],[{"key":"value","value":"g"},{"key":"value","value":"consonants"},{"key":"value","value":"2"}],[{"value":"h"},{"value":"consonants"},{"value":"3"}],[{"value":"i"},{"value":"vowels"},{"value":"4"}],[{"value":"j"},{"value":"consonants"},{"value":"5"}]],"columnNames":[{"name":"key","index":0,"aggr":"sum"},{"name":"group","index":1,"aggr":"sum"},{"name":"value","index":2,"aggr":"sum"}],"rows":[["f","consonants","1"],["g","consonants","2"],["h","consonants","3"],["i","vowels","4"],["j","consonants","5"]]}},{"config":{"colWidth":12,"graph":{"mode":"table","height":300,"optionOpen":false,"keys":[],"values":[],"groups":[],"scatter":{}},"enabled":true,"editorMode":"ace/mode/scala"},"settings":{"params":{},"forms":{}},"jobName":"paragraph_1485352792730_-450410606","id":"20170125-135952_1235249833","dateCreated":"2017-01-25T13:59:52+0000","status":"READY","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:5806","dateUpdated":"2017-01-25T14:00:03+0000","text":""}],"name":"Practice","id":"2C75UP2R2","angularObjects":{"2C6WBMBMK:shared_process":[],"2C841D7PJ:shared_process":[],"2C9JQZAQU:shared_process":[],"2C6DPZKXD:shared_process":[],"2C98YJNFB:shared_process":[],"2C8B8W71C:shared_process":[],"2C7MPVHQQ:shared_process":[],"2C9268CFN:shared_process":[],"2C8PEU9QV:shared_process":[],"2C6RKB7TX:shared_process":[],"2C7PFXT86:shared_process":[],"2C7P42QXU:shared_process":[],"2C9EN4MHE:shared_process":[],"2C7TN9JPG:shared_process":[],"2C9YJKU16:shared_process":[],"2C8PJ6YJM:shared_process":[],"2C8VB2HHR:shared_process":[],"2C85357DA:shared_process":[]},"config":{"looknfeel":"default"},"info":{}}
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# Introduction to Spark \u0026 Zeppelin\n#### An overview of the two Big Data tools",
+      "dateUpdated": "Jan 25, 2017 6:16:16 PM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124506_-17357514",
+      "id": "20161205-081916_1418679304",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch1\u003eIntroduction to Spark \u0026amp; Zeppelin\u003c/h1\u003e\n\u003ch4\u003eAn overview of the two Big Data tools\u003c/h4\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 6:16:16 PM",
+      "dateFinished": "Jan 25, 2017 6:16:16 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n![Spark logo](http://spark.apache.org/images/spark-logo-trademark.png)\n#\n[Apache Spark](http://spark.apache.org/) is a cluster computing engine designed to be __fast__ and __general-purpose__, making it the ideal choice for processing of large datasets. It answers those two points with __efficient data sharing__ accross computations.\n\u003chr/\u003e\nThe past years have seen a major changes in computing systems, as growing data volumes required more and more applications to scale out to large clusters. To solve this problem, a wide range of new programming models have been designed to manage multiple types of computations in a distributed fashion, without having people learn too much about distributed systems. Those programming models would need to deal with _parallelism, fault-tolerance and resource sharing_ for us.\n\n[Google\u0027s MapReduce](https://en.wikipedia.org/wiki/MapReduce) presented a simple and general model for batch processing, which handles faults and parallelism easily. Unfortunately the programming model is not adapted for other types of workloads, and multiple specialized systems were born to answer a specific need in a distributed way. \n* Iterative : Giraph\n* Interactive : Impala, Piccolo, Greenplum\n* Streaming : Storm, Millwheel\n\n#\nThe initial goal of Apache Spark is to try and unify all of the workloads for generality purposes. [Matei Zaharia](https://cs.stanford.edu/~matei/) in his [PhD dissertation](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf) suggests that most of the data flow models that required a specialized system needed _efficient data sharing_ accross computations:\n* Iterative algorithms like PageRank or K-Means need to make multiple passes over the same dataset\n* Interactive data mining often requires running multiple ad-hoc queries on the same subset of data\n* Streaming applications need to maintain and share state over time.\n\nHe then proposes to create a new abstraction that gives its users direct control over data sharing, something that other specialized systems would have built-in for their specific needs. The abstraction is implemented inside a new engine that is today called Apache Spark. The engine makes it possible to support more types of computations than with the original MapReduce in a more efficient way, including interactive queries and stream processing. ",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124508_-19666008",
+      "id": "20161205-125129_704251374",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e\u003cimg src\u003d\"http://spark.apache.org/images/spark-logo-trademark.png\" alt\u003d\"Spark logo\" /\u003e\u003c/p\u003e\n\u003ch1\u003e\u003c/h1\u003e\n\u003cp\u003e\u003ca href\u003d\"http://spark.apache.org/\"\u003eApache Spark\u003c/a\u003e is a cluster computing engine designed to be \u003cstrong\u003efast\u003c/strong\u003e and \u003cstrong\u003egeneral-purpose\u003c/strong\u003e, making it the ideal choice for processing of large datasets. It answers those two points with \u003cstrong\u003eefficient data sharing\u003c/strong\u003e accross computations.\u003c/p\u003e\n\u003chr/\u003e\n\u003cp\u003eThe past years have seen a major changes in computing systems, as growing data volumes required more and more applications to scale out to large clusters. To solve this problem, a wide range of new programming models have been designed to manage multiple types of computations in a distributed fashion, without having people learn too much about distributed systems. Those programming models would need to deal with \u003cem\u003eparallelism, fault-tolerance and resource sharing\u003c/em\u003e for us.\u003c/p\u003e\n\u003cp\u003e\u003ca href\u003d\"https://en.wikipedia.org/wiki/MapReduce\"\u003eGoogle\u0027s MapReduce\u003c/a\u003e presented a simple and general model for batch processing, which handles faults and parallelism easily. Unfortunately the programming model is not adapted for other types of workloads, and multiple specialized systems were born to answer a specific need in a distributed way.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eIterative : Giraph\u003c/li\u003e\n\u003cli\u003eInteractive : Impala, Piccolo, Greenplum\u003c/li\u003e\n\u003cli\u003eStreaming : Storm, Millwheel\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch1\u003e\u003c/h1\u003e\n\u003cp\u003eThe initial goal of Apache Spark is to try and unify all of the workloads for generality purposes. \u003ca href\u003d\"https://cs.stanford.edu/~matei/\"\u003eMatei Zaharia\u003c/a\u003e in his \u003ca href\u003d\"https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf\"\u003ePhD dissertation\u003c/a\u003e suggests that most of the data flow models that required a specialized system needed \u003cem\u003eefficient data sharing\u003c/em\u003e accross computations:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eIterative algorithms like PageRank or K-Means need to make multiple passes over the same dataset\u003c/li\u003e\n\u003cli\u003eInteractive data mining often requires running multiple ad-hoc queries on the same subset of data\u003c/li\u003e\n\u003cli\u003eStreaming applications need to maintain and share state over time.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eHe then proposes to create a new abstraction that gives its users direct control over data sharing, something that other specialized systems would have built-in for their specific needs. The abstraction is implemented inside a new engine that is today called Apache Spark. The engine makes it possible to support more types of computations than with the original MapReduce in a more efficient way, including interactive queries and stream processing.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n![](https://zeppelin.apache.org/assets/themes/zeppelin/img/zeppelin_classic_logo.png)\n#\n[Apache Zeppelin](https://zeppelin.apache.org/) is a web-based notebook that enables interactive data analytics. It is  famous for its very strong Apache Spark integration.\n\u003chr/\u003e\n\nApache Zeppelin\u0027s purpose is to provide engineers and scientists with an interface for all Big Data needs, which comes bundled with the means for analyzing, collaborating and sharing data on top of common Big Data frameworks.\n\nThe Apache Zeppelin interpreter concept allows the plugin of a language or data-processing backend into Zeppelin _(think of it like a kernel for Jupyter notebook)_. Currently it supports [many interpreters](https://zeppelin.apache.org/docs/0.6.2/manual/interpreterinstallation.html) like Apache Spark, Python, JDBC, Markdown and shell. Creation of a custom interpreter is also possible by extending the necessary abstract class.\n\nYou can view examples of Zeppelin notebooks [here](https://www.zeppelinhub.com/viewer).\n\nToday, Apache Zeppelin comes bundled with most Big Data distributions _(Cloudera, Hortonworks...)_ as the main tool for interactive Big Data analytics, which makes for a good reason to have you try Apache Spark interactively in a Zeppelin notebook.",
+      "dateUpdated": "Jan 25, 2017 8:54:41 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124508_-19666008",
+      "id": "20161205-125209_891936396",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e\u003cimg src\u003d\"https://zeppelin.apache.org/assets/themes/zeppelin/img/zeppelin_classic_logo.png\" alt\u003d\"\" /\u003e\u003c/p\u003e\n\u003ch1\u003e\u003c/h1\u003e\n\u003cp\u003e\u003ca href\u003d\"https://zeppelin.apache.org/\"\u003eApache Zeppelin\u003c/a\u003e is a web-based notebook that enables interactive data analytics. It is  famous for its very strong Apache Spark integration.\u003c/p\u003e\n\u003chr/\u003e\n\u003cp\u003eApache Zeppelin\u0027s purpose is to provide engineers and scientists with an interface for all Big Data needs, which comes bundled with the means for analyzing, collaborating and sharing data on top of common Big Data frameworks.\u003c/p\u003e\n\u003cp\u003eThe Apache Zeppelin interpreter concept allows the plugin of a language or data-processing backend into Zeppelin \u003cem\u003e(think of it like a kernel for Jupyter notebook)\u003c/em\u003e. Currently it supports \u003ca href\u003d\"https://zeppelin.apache.org/docs/0.6.2/manual/interpreterinstallation.html\"\u003emany interpreters\u003c/a\u003e like Apache Spark, Python, JDBC, Markdown and shell. Creation of a custom interpreter is also possible by extending the necessary abstract class.\u003c/p\u003e\n\u003cp\u003eYou can view examples of Zeppelin notebooks \u003ca href\u003d\"https://www.zeppelinhub.com/viewer\"\u003ehere\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eToday, Apache Zeppelin comes bundled with most Big Data distributions \u003cem\u003e(Cloudera, Hortonworks\u0026hellip;)\u003c/em\u003e as the main tool for interactive Big Data analytics, which makes for a good reason to have you try Apache Spark interactively in a Zeppelin notebook.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:54:39 AM",
+      "dateFinished": "Jan 25, 2017 8:54:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n###Interpreter\n\nApache Zeppelin is primarily a notebook. A Zeppelin notebook consists of a set of cells with an interpreter _(or language backend)_ attached.\n\nFor example, this cell is linked to the Markdown interpreter, so when you run the cell it parses the code as Markdown and then displays the result.\n\nIn each cell, there is a toolbar with four items: \n* The `Play` button (blue triangle) lets you run the paragraph. You can also press `Shift + Enter` to run the cell when selected\n* The `Show/Hide editor` if you want to see the source code for the cell\n* The `Show/Hide output` if you want to see the output for the cell\n* The `Settings` item, for more advanced options like adding/managing cells.\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nNow you can press `Show editor` to see the source code of the cell. You will see that it starts with `%md`, which specifies to the cell that it should use the Markdown interpreter. You can edit the text and then run the cell to see the editing in the output.",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124514_-32747470",
+      "id": "20161205-134434_158643588",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eInterpreter\u003c/h3\u003e\n\u003cp\u003eApache Zeppelin is primarily a notebook. A Zeppelin notebook consists of a set of cells with an interpreter \u003cem\u003e(or language backend)\u003c/em\u003e attached.\u003c/p\u003e\n\u003cp\u003eFor example, this cell is linked to the Markdown interpreter, so when you run the cell it parses the code as Markdown and then displays the result.\u003c/p\u003e\n\u003cp\u003eIn each cell, there is a toolbar with four items:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThe \u003ccode\u003ePlay\u003c/code\u003e button (blue triangle) lets you run the paragraph. You can also press \u003ccode\u003eShift + Enter\u003c/code\u003e to run the cell when selected\u003c/li\u003e\n\u003cli\u003eThe \u003ccode\u003eShow/Hide editor\u003c/code\u003e if you want to see the source code for the cell\u003c/li\u003e\n\u003cli\u003eThe \u003ccode\u003eShow/Hide output\u003c/code\u003e if you want to see the output for the cell\u003c/li\u003e\n\u003cli\u003eThe \u003ccode\u003eSettings\u003c/code\u003e item, for more advanced options like adding/managing cells.\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eNow you can press \u003ccode\u003eShow editor\u003c/code\u003e to see the source code of the cell. You will see that it starts with \u003ccode\u003e%md\u003c/code\u003e, which specifies to the cell that it should use the Markdown interpreter. You can edit the text and then run the cell to see the editing in the output.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nApache Zeppelin follows the responsive 12-column grid system. In the following row we show 3 different interpreters in action. \n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nYou can go on and try to modify the source code in the three following cells and re-execute the code. For example, try to type `1+2` in the Python cell.",
+      "dateUpdated": "Jan 25, 2017 8:33:16 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124515_-33132219",
+      "id": "20161205-140658_147950685",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eApache Zeppelin follows the responsive 12-column grid system. In the following row we show 3 different interpreters in action.\u003c/p\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eYou can go on and try to modify the source code in the three following cells and re-execute the code. For example, try to type \u003ccode\u003e1+2\u003c/code\u003e in the Python cell.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Shell cell",
+      "text": "%sh\necho \"Hello world\"",
+      "dateUpdated": "Jan 25, 2017 5:00:42 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sh",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124515_-33132219",
+      "id": "20161205-135504_61539619",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "paragraph_1485333124515_-33132219\u0027s Interpreter sh not found"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:32:40 AM",
+      "dateFinished": "Jan 25, 2017 1:32:41 AM",
+      "status": "ERROR",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Python cell",
+      "text": "%python\nprint(\"Hello world\")",
+      "dateUpdated": "Jan 25, 2017 8:33:22 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/python",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124516_-35055964",
+      "id": "20161205-140620_27821049",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Hello world\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:33:22 AM",
+      "dateFinished": "Jan 25, 2017 8:33:23 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Spark/Scala cell",
+      "text": "println(\"Hello world\")",
+      "dateUpdated": "Jan 25, 2017 8:33:26 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124516_-35055964",
+      "id": "20161205-140627_1063236175",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Hello world\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:33:26 AM",
+      "dateFinished": "Jan 25, 2017 8:33:59 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nAs you can see, we have not chosen an interpreter in the last column. \n\nA default interpreter is set at the beginning of the notebook, on the right-hand of the menu toolbar at the top in the menu `Interpreter binding` and represented by a gear. You can also select/deselect usable interpreters for the notebook.\n\nFor more information on how each interpreter is configured, you can check the interpreter menu, in the dropdown menu with your username _(anonymous for now. Do note that Apache Zeppelin also support user authentication for multitenancy but we are not going to delve into that)_.\n\nFor now, we assume that the default interpreter is the Apache Spark/Scala interpreter, so the default cell parses Spark/Scala code. The tutorial series will be mostly using this interpreter. No Scala knowledge is needed to pursue through the series, as we will only use basic functional programming concepts.\n\n_If you are wondering why Scala, Apache Spark is implemented in Scala, and so is its main API. Apache Spark draws from the functional paradigm for representing its computations the same way as MapReduce does. A common justification is Spark and MapReduce specialize in coarse-grained transformations that apply the same operation on many data items, which is a good fit for parallel applications, and the functional programming paradigm fits the idea._",
+      "dateUpdated": "Jan 25, 2017 9:37:19 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124517_-35440713",
+      "id": "20161205-140636_1331288934",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eAs you can see, we have not chosen an interpreter in the last column.\u003c/p\u003e\n\u003cp\u003eA default interpreter is set at the beginning of the notebook, on the right-hand of the menu toolbar at the top in the menu \u003ccode\u003eInterpreter binding\u003c/code\u003e and represented by a gear. You can also select/deselect usable interpreters for the notebook.\u003c/p\u003e\n\u003cp\u003eFor more information on how each interpreter is configured, you can check the interpreter menu, in the dropdown menu with your username \u003cem\u003e(anonymous for now. Do note that Apache Zeppelin also support user authentication for multitenancy but we are not going to delve into that)\u003c/em\u003e.\u003c/p\u003e\n\u003cp\u003eFor now, we assume that the default interpreter is the Apache Spark/Scala interpreter, so the default cell parses Spark/Scala code. The tutorial series will be mostly using this interpreter. No Scala knowledge is needed to pursue through the series, as we will only use basic functional programming concepts.\u003c/p\u003e\n\u003cp\u003e\u003cem\u003eIf you are wondering why Scala, Apache Spark is implemented in Scala, and so is its main API. Apache Spark draws from the functional paradigm for representing its computations the same way as MapReduce does. A common justification is Spark and MapReduce specialize in coarse-grained transformations that apply the same operation on many data items, which is a good fit for parallel applications, and the functional programming paradigm fits the idea.\u003c/em\u003e\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 9:37:18 AM",
+      "dateFinished": "Jan 25, 2017 9:37:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n### The Spark/Scala interpreter\n\nLet\u0027s dive into the Spark/Scala interpreter now. First, we need to describe the Scala language a bit more.\n\nScala is a functional object-oriented language.\n\nThe following row shows some commands in Scala. Do note that you can use autocompletion with `Ctrl + .`\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nBecause you get instant feedback, you should feel encouraged to experiment, so do not hesitate to edit the Scala source code and re-execute the cell.",
+      "dateUpdated": "Jan 25, 2017 9:56:31 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124517_-35440713",
+      "id": "20161205-143112_1129105608",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eThe Spark/Scala interpreter\u003c/h3\u003e\n\u003cp\u003eLet\u0027s dive into the Spark/Scala interpreter now. First, we need to describe the Scala language a bit more.\u003c/p\u003e\n\u003cp\u003eScala is a functional object-oriented language.\u003c/p\u003e\n\u003cp\u003eThe following row shows some commands in Scala. Do note that you can use autocompletion with \u003ccode\u003eCtrl + .\u003c/code\u003e\u003c/p\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eBecause you get instant feedback, you should feel encouraged to experiment, so do not hesitate to edit the Scala source code and re-execute the cell.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Some arithmetic",
+      "text": "8 * 5 + 2",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124522_-35825462",
+      "id": "20161215-101647_1780031444",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res2: Int \u003d 42\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Declaring variables",
+      "text": "val a \u003d 3 // val defines an immutable value\nvar b : Int \u003d 5 // var defines a mutable variable\nprintln(a + b)\n\nb \u003d 42\nprintln(a + b)\n\n// Note that the type of a variable or function is written after the variable or function. \n\n// Because Scala does type inference, it is also not necessary to declare type to variables when it looks obvious.",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124523_-36210211",
+      "id": "20161215-101655_1153115867",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "a: Int \u003d 3\nb: Int \u003d 5\n8\nb: Int \u003d 42\n45\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Reusing a variable",
+      "text": "// variables are accessible accross cells\n\na * b",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124524_-38133955",
+      "id": "20161215-101705_1808342927",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res13: Int \u003d 15\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nIn Scala, you are encouraged to use a `val` whenever you can so to avoid mutable code. Scala prefers immutability by design and helps us reason through code only. \n\nIt also provides is with the necessary tooling to reason with immutability in mind. In the following row we study some basic collection methods which makes useless the need for mutable lists and for loops",
+      "dateUpdated": "Jan 25, 2017 9:37:07 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124524_-38133955",
+      "id": "20161215-103526_1401793073",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eIn Scala, you are encouraged to use a \u003ccode\u003eval\u003c/code\u003e whenever you can so to avoid mutable code. Scala prefers immutability by design and helps us reason through code only.\u003c/p\u003e\n\u003cp\u003eIt also provides is with the necessary tooling to reason with immutability in mind. In the following row we study some basic collection methods which makes useless the need for mutable lists and for loops\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 9:37:06 AM",
+      "dateFinished": "Jan 25, 2017 9:37:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create immutable sequence of numbers",
+      "text": "val sequenceNumbers \u003d 1 to 100",
+      "dateUpdated": "Jan 25, 2017 8:34:35 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124525_-38518704",
+      "id": "20161215-104816_1792183840",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nsequenceNumbers: scala.collection.immutable.Range.Inclusive \u003d Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:34:24 AM",
+      "dateFinished": "Jan 25, 2017 8:34:25 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "New list with all elements doubled",
+      "text": "sequenceNumbers.map(x \u003d\u003e x * 2)\n\nsequenceNumbers.map(_ * 2)",
+      "dateUpdated": "Jan 25, 2017 8:34:39 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124525_-38518704",
+      "id": "20161215-104825_1497989654",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res40: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134, 136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 184, 186, 188, 190, 192, 194, 196, 198, 200)\nres41: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134, 136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 184, 186, 188, 190, 192, 194, 196, 198, 200)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "New list with pair numbers removed",
+      "text": "sequenceNumbers.filter(x \u003d\u003e x % 2 !\u003d 0)\n\nsequenceNumbers.filter(_ % 2 !\u003d 0)",
+      "dateUpdated": "Jan 25, 2017 8:34:41 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124531_-26976237",
+      "id": "20161215-104829_934946861",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res52: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99)\nres53: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sum all elements",
+      "text": "sequenceNumbers.reduce((x, y) \u003d\u003e x + y)\n\nsequenceNumbers.reduce(_ + _)",
+      "dateUpdated": "Jan 25, 2017 8:34:44 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 86.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124532_-28899981",
+      "id": "20161215-105147_1170476157",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res55: Int \u003d 5050\nres56: Int \u003d 5050\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n###Primer on functional programming\nBefore going further, we need to go back to functional programming (sometimes abbreviated to FP in literature).\n\nIn functional programming, we construct our programs using _pure functions_, that is a function that takes an input and produces an output without any side-effects, thus forbidding mutation.\n\nAn essential and powerful concept of FP is the ability to pass functions as arguments. For example in the row below :",
+      "dateUpdated": "Jan 25, 2017 8:37:58 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124532_-28899981",
+      "id": "20161215-105827_1534509278",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003ePrimer on functional programming\u003c/h3\u003e\n\u003cp\u003eBefore going further, we need to go back to functional programming (sometimes abbreviated to FP in literature).\u003c/p\u003e\n\u003cp\u003eIn functional programming, we construct our programs using \u003cem\u003epure functions\u003c/em\u003e, that is a function that takes an input and produces an output without any side-effects, thus forbidding mutation.\u003c/p\u003e\n\u003cp\u003eAn essential and powerful concept of FP is the ability to pass functions as arguments. For example in the row below :\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:37:56 AM",
+      "dateFinished": "Jan 25, 2017 8:37:57 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "/*\n * The following function adds 2 to a number.\n */\ndef add2(x: Int): Int \u003d x + 2",
+      "dateUpdated": "Jan 25, 2017 1:34:04 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124532_-28899981",
+      "id": "20161215-142142_191089995",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nadd2: (x: Int)Int\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:34:04 AM",
+      "dateFinished": "Jan 25, 2017 1:34:04 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "/* now let\u0027s pass add2 function \n * to map,\n * a function that applies a function to each element of a  * list\n */\n\nList(1,2,3).map(add2)\n",
+      "dateUpdated": "Jan 25, 2017 1:34:26 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 86.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124533_-29284730",
+      "id": "20161215-110440_1947087088",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres38: List[Int] \u003d List(3, 4, 5)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:34:26 AM",
+      "dateFinished": "Jan 25, 2017 1:34:27 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// in the following we pass an anonymous lambda function \n// in the filter function\nList(1,2,3,4).filter(x \u003d\u003e x \u003e 2)\nList(1,2,3,4).filter(_ \u003e 2)",
+      "dateUpdated": "Jan 25, 2017 8:50:39 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 86.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124533_-29284730",
+      "id": "20161215-110528_1134018400",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres9: List[Int] \u003d List(3, 4)\n\nres10: List[Int] \u003d List(3, 4)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:50:39 AM",
+      "dateFinished": "Jan 25, 2017 8:50:40 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nHere we have presented the first two higher order functions we are going to use in this course : `map` and `filter`. Those are called _element-wise_ transformations in that they take in a function and applies it to each element in the collection.\n\nWe can use them to do a number of things, from fetching the website associated with each URL in our collection to just squaring numbers. Imagine this scenario :\n\n```scala\n/*\n * Parses a file with URLs and puts them into a list of Strings, each being an URL to get\n */\ndef loadURLs(path: String): List[String] \u003d {\n    ...some code here to return list of urls...\n}\n\n/*\n * GET request on an URL and return the body\n */\ndef getBody(url: String): String \u003d {\n    ...some code here to return body...\n}\n\n/*\n * Detect if body consists of an image, we don\u0027t want those\n */\ndef filterImage(body: String): Boolean \u003d {\n    ...some code here to detect if it\u0027s an image...\n}\n\n// code to load a list of URLs and only return those who are not images\nval allURLsWithoutImages \u003d loadURLs(\"/data/list_of_urls.csv\").map(getBody).filter(filterImage)\n\n```",
+      "dateUpdated": "Jan 25, 2017 8:53:57 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334258787_-305281031",
+      "id": "20170125-085058_1374080418",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eHere we have presented the first two higher order functions we are going to use in this course : \u003ccode\u003emap\u003c/code\u003e and \u003ccode\u003efilter\u003c/code\u003e. Those are called \u003cem\u003eelement-wise\u003c/em\u003e transformations in that they take in a function and applies it to each element in the collection.\u003c/p\u003e\n\u003cp\u003eWe can use them to do a number of things, from fetching the website associated with each URL in our collection to just squaring numbers. Imagine this scenario :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e/*\n * Parses a file with URLs and puts them into a list of Strings, each being an URL to get\n */\ndef loadURLs(path: String): List[String] \u003d {\n    ...some code here to return list of urls...\n}\n\n/*\n * GET request on an URL and return the body\n */\ndef getBody(url: String): String \u003d {\n    ...some code here to return body...\n}\n\n/*\n * Detect if body consists of an image, we don\u0027t want those\n */\ndef filterImage(body: String): Boolean \u003d {\n    ...some code here to detect if it\u0027s an image...\n}\n\n// code to load a list of URLs and only return those who are not images\nval allURLsWithoutImages \u003d loadURLs(\"/data/list_of_urls.csv\").map(getBody).filter(filterImage)\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:50:58 AM",
+      "dateStarted": "Jan 25, 2017 8:53:55 AM",
+      "dateFinished": "Jan 25, 2017 8:53:55 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \nThe other essential higher order function you need to learn is `reduce`, which walks a function through all the elements in a collection to produce an aggregated result. \n\nTo do that, the function operates on two elements in the sequence, and returns a new element of the same type, which is then passed to the same function with the next element in the list.\n\nA simple example of such a function is +, which we can use to sum all of the elements in our list.",
+      "dateUpdated": "Jan 25, 2017 1:34:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334533019_723135810",
+      "id": "20170125-085533_1923530403",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eThe other essential higher order function you need to learn is \u003ccode\u003ereduce\u003c/code\u003e, which walks a function through all the elements in a collection to produce an aggregated result.\u003c/p\u003e\n\u003cp\u003eTo do that, the function operates on two elements in the sequence, and returns a new element of the same type, which is then passed to the same function with the next element in the list.\u003c/p\u003e\n\u003cp\u003eA simple example of such a function is +, which we can use to sum all of the elements in our list.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:55:33 AM",
+      "dateStarted": "Jan 25, 2017 1:34:45 AM",
+      "dateFinished": "Jan 25, 2017 1:34:45 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "(1 to 1000).reduce((x,y) \u003d\u003e x+y)\n(1 to 1000).reduce(_+_)",
+      "dateUpdated": "Jan 25, 2017 8:55:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334545120_1294518575",
+      "id": "20170125-085545_856912582",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres12: Int \u003d 500500\n\nres13: Int \u003d 500500\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:55:45 AM",
+      "dateStarted": "Jan 25, 2017 8:55:47 AM",
+      "dateFinished": "Jan 25, 2017 8:55:48 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nIn the previous row, imagine that the sum function operates on 1 and 2 and returns 3, \n\nthen that result is passed to the function along with the next element which is 3, and the result 6 is passed with the next element 4, and then the result 10 is passed with 5 etc...\n\n1 --|+\n2 --| 3 --|+\n3 --------| 6 --| +\n4 --------------| 10 --| +\n5 ---------------------| 15\n.etc...\n\nSimilar to `reduce` is `fold`, which takes a \"zero value\" in addition and passed in the initial call",
+      "dateUpdated": "Jan 25, 2017 9:42:15 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334558119_-356438955",
+      "id": "20170125-085558_1894989290",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eIn the previous row, imagine that the sum function operates on 1 and 2 and returns 3,\u003c/p\u003e\n\u003cp\u003ethen that result is passed to the function along with the next element which is 3, and the result 6 is passed with the next element 4, and then the result 10 is passed with 5 etc\u0026hellip;\u003c/p\u003e\n\u003cp\u003e1 \u0026ndash;|+\n\u003cbr  /\u003e2 \u0026ndash;| 3 \u0026ndash;|+\n\u003cbr  /\u003e3 \u0026mdash;\u0026mdash;\u0026ndash;| 6 \u0026ndash;| +\n\u003cbr  /\u003e4 \u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026ndash;| 10 \u0026ndash;| +\n\u003cbr  /\u003e5 \u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;| 15\n\u003cbr  /\u003e.etc\u0026hellip;\u003c/p\u003e\n\u003cp\u003eSimilar to \u003ccode\u003ereduce\u003c/code\u003e is \u003ccode\u003efold\u003c/code\u003e, which takes a \u0026ldquo;zero value\u0026rdquo; in addition and passed in the initial call\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:55:58 AM",
+      "dateStarted": "Jan 25, 2017 9:42:13 AM",
+      "dateFinished": "Jan 25, 2017 9:42:13 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nTry to solve the following rows. By editing the `val output \u003d ...` line, use `map`, `filter` and `reduce` with anonymous functions on the variable `input` to return a variable `output` that will be compared to the `expected`variable.\n\nRemember your session is interactive, it makes it easy to test intermediary values when chaining functions, example :\n```scala\ninput.map(...)                                  // 1st execution\ninput.map(...).filter(...)                      // 2nd execution\ninput.map(...).filter(...).reduce(...)          // 3rd execution\n```",
+      "dateUpdated": "Jan 25, 2017 9:56:22 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334565674_933254682",
+      "id": "20170125-085605_508597900",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry to solve the following rows. By editing the \u003ccode\u003eval output \u003d ...\u003c/code\u003e line, use \u003ccode\u003emap\u003c/code\u003e, \u003ccode\u003efilter\u003c/code\u003e and \u003ccode\u003ereduce\u003c/code\u003e with anonymous functions on the variable \u003ccode\u003einput\u003c/code\u003e to return a variable \u003ccode\u003eoutput\u003c/code\u003e that will be compared to the \u003ccode\u003eexpected\u003c/code\u003evariable.\u003c/p\u003e\n\u003cp\u003eRemember your session is interactive, it makes it easy to test intermediary values when chaining functions, example :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003einput.map(...)                                  // 1st execution\ninput.map(...).filter(...)                      // 2nd execution\ninput.map(...).filter(...).reduce(...)          // 3rd execution\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:56:05 AM",
+      "dateStarted": "Jan 25, 2017 9:26:55 AM",
+      "dateFinished": "Jan 25, 2017 9:26:55 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Return the list of squared numbers from 1 to 5",
+      "text": "val input \u003d List(1, 2, 3, 4, 5)\nval output \u003d input.map(x \u003d\u003e x)\n\nval expected \u003d List(1, 4, 9, 16, 25) ",
+      "dateUpdated": "Jan 25, 2017 9:03:16 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334633765_969713882",
+      "id": "20170125-085713_1325612841",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: List[Int] \u003d List(1, 2, 3, 4, 5)\n\noutput: List[Int] \u003d List(1, 2, 3, 4, 5)\n\nexpected: List[Int] \u003d List(1, 4, 9, 16, 25)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:13 AM",
+      "dateStarted": "Jan 25, 2017 9:03:16 AM",
+      "dateFinished": "Jan 25, 2017 9:03:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Return the sum of elements from 1 to 5",
+      "text": "val input \u003d List(1, 2, 3, 4, 5)\nval output \u003d input.reduce((x, y) \u003d\u003e x)\n\nval expected \u003d 15",
+      "dateUpdated": "Jan 25, 2017 9:23:28 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334640547_1179417357",
+      "id": "20170125-085720_2133991651",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: List[Int] \u003d List(1, 2, 3, 4, 5)\n\noutput: Int \u003d 1\n\nexpected: Int \u003d 15\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:20 AM",
+      "dateStarted": "Jan 25, 2017 9:23:28 AM",
+      "dateFinished": "Jan 25, 2017 9:23:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Return the sum of squared pair numbers between 1 and 100",
+      "text": "val input \u003d 1 to 100\nval output \u003d input.reduce((x, y) \u003d\u003e x)\n\nval expected \u003d 171700",
+      "dateUpdated": "Jan 25, 2017 9:24:20 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334647814_1417359099",
+      "id": "20170125-085727_408760662",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: scala.collection.immutable.Range.Inclusive \u003d Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100)\n\noutput: Int \u003d 1\n\nexpected: Int \u003d 171700\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:27 AM",
+      "dateStarted": "Jan 25, 2017 9:24:13 AM",
+      "dateFinished": "Jan 25, 2017 9:24:13 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Get highest number in a list with a reduce",
+      "text": "import util.Random.nextInt\nval input \u003d Seq.fill(10)(nextInt)\nval output \u003d input.reduce((x, y) \u003d\u003e x)\n\nval expected \u003d input.max",
+      "dateUpdated": "Jan 25, 2017 12:49:26 PM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334652733_875647972",
+      "id": "20170125-085732_1286059698",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport util.Random.nextInt\n\ninput: Seq[Int] \u003d List(1368154480, 932727527, -956762629, -741728139, 1912445161, 1215347429, 1054732247, -811870848, 762475751, 1567410629)\n\noutput: Int \u003d 1368154480\n\nexpected: Int \u003d 1912445161\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:32 AM",
+      "dateStarted": "Jan 25, 2017 12:49:26 PM",
+      "dateFinished": "Jan 25, 2017 12:49:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n### Programming with RDDs\nIn this chapter, we are going to introduce Spark\u0027s core abstraction for working with data in a distributed and resilient way : the \u003ctext style\u003d\"color:red;\"\u003eresilient distributed dataset\u003c/text\u003e, or \u003ctext style\u003d\"color:red;\"\u003eRDD\u003c/text\u003e. Under the hood, Spark automatically performs the distribution of RDDs and its processing around the cluster, so we can focus on our code and not on distributed processing problems, such as the handling of data locality or resiliency in case of node failure.\n\nA RDD consists of a collection of elements partitioned accross the nodes of a cluster of machines that can be operated on in parallel. In Spark, work is expressed by the creation and transformation of RDDs using Spark operators.\n\n\u003ctext style\u003d\"color:red;\"\u003eNote\u003c/text\u003e : RDD is the core data structure to Spark, but the style of programming we are studying in this lesson is considered the _lowest-level API_ for Spark. The Spark community is pushing the use of Structured programming with Dataframes/Datasets instead, an optimized interface for working with structured and semi-structured data, which we will learn later. Understanding RDDs is still important because it teaches you how Spark works under the hood and will serve you to understand and optimize your application when deployed into production.\n\nThis example displays the coarse-grained processing nature of Spark, that applies the same operation to many data items. This is a good fit for many parallel applications, as they _naturally apply the same operation to multiple data items_.",
+      "dateUpdated": "Jan 25, 2017 9:53:13 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336302530_-391954635",
+      "id": "20170125-092502_905179202",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eProgramming with RDDs\u003c/h3\u003e\n\u003cp\u003eIn this chapter, we are going to introduce Spark\u0027s core abstraction for working with data in a distributed and resilient way : the \u003ctext style\u003d\"color:red;\"\u003eresilient distributed dataset\u003c/text\u003e, or \u003ctext style\u003d\"color:red;\"\u003eRDD\u003c/text\u003e. Under the hood, Spark automatically performs the distribution of RDDs and its processing around the cluster, so we can focus on our code and not on distributed processing problems, such as the handling of data locality or resiliency in case of node failure.\u003c/p\u003e\n\u003cp\u003eA RDD consists of a collection of elements partitioned accross the nodes of a cluster of machines that can be operated on in parallel. In Spark, work is expressed by the creation and transformation of RDDs using Spark operators.\u003c/p\u003e\n\u003cp\u003e\u003ctext style\u003d\"color:red;\"\u003eNote\u003c/text\u003e : RDD is the core data structure to Spark, but the style of programming we are studying in this lesson is considered the \u003cem\u003elowest-level API\u003c/em\u003e for Spark. The Spark community is pushing the use of Structured programming with Dataframes/Datasets instead, an optimized interface for working with structured and semi-structured data, which we will learn later. Understanding RDDs is still important because it teaches you how Spark works under the hood and will serve you to understand and optimize your application when deployed into production.\u003c/p\u003e\n\u003cp\u003eThis example displays the coarse-grained processing nature of Spark, that applies the same operation to many data items. This is a good fit for many parallel applications, as they \u003cem\u003enaturally apply the same operation to multiple data items\u003c/em\u003e.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:25:02 AM",
+      "dateStarted": "Jan 25, 2017 9:53:10 AM",
+      "dateFinished": "Jan 25, 2017 9:53:10 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\r\n### Running **Spark**\r\nThe variable **sc** allows you to access a Spark Context to run your Spark programs.\r\n* For more information about Spark, please refer to [Spark Overview](https://spark.apache.org/docs/latest/)\r\n\r\n**Important note:** Do not create the *sc* variable - it is already initialized for you.",
+      "dateUpdated": "Jan 25, 2017 1:42:25 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336678068_1462318881",
+      "id": "20170125-093118_646587966",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eRunning \u003cstrong\u003eSpark\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eThe variable \u003cstrong\u003esc\u003c/strong\u003e allows you to access a Spark Context to run your Spark programs.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eFor more information about Spark, please refer to \u003ca href\u003d\"https://spark.apache.org/docs/latest/\"\u003eSpark Overview\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eImportant note:\u003c/strong\u003e Do not create the \u003cem\u003esc\u003c/em\u003e variable - it is already initialized for you.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:31:18 AM",
+      "dateStarted": "Jan 25, 2017 9:31:36 AM",
+      "dateFinished": "Jan 25, 2017 9:31:36 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// A SparkContext is also already created for you.\r\n// Do not create another or unspecified behavior may occur.\r\nsc\r\n\r\nval words \u003d sc.parallelize(Array(\"hello\", \"world\", \"goodbye\", \"hello\", \"again\")) // words is a RDD made by distributing an existing collection\r\nval wordcounts \u003d words.map(s \u003d\u003e (s, 1)).reduceByKey(_ + _).collect()             // transform the RDD and then fetch the result locally with collect()",
+      "dateUpdated": "Jan 25, 2017 1:42:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336727219_-267066129",
+      "id": "20170125-093207_1644704199",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres41: org.apache.spark.SparkContext \u003d org.apache.spark.SparkContext@c9487fa\n\nwords: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[104] at parallelize at \u003cconsole\u003e:30\n\nwordcounts: Array[(String, Int)] \u003d Array((hello,2), (again,1), (world,1), (goodbye,1))\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:32:07 AM",
+      "dateStarted": "Jan 25, 2017 1:42:29 AM",
+      "dateFinished": "Jan 25, 2017 1:42:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nAs you can see, the RDD API is very similar to the functions we have previously used for processing entire collections. \n\nIf you already are a Scala developer, or are used to functional programming on collections, then RDDs act like a collection that Spark parallelizes on the cluster under the hood.\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nTry to solve the following row. Browse the Spark API documentation to find the corresponding function.",
+      "dateUpdated": "Jan 25, 2017 1:40:59 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485337796815_-2093861834",
+      "id": "20170125-094956_997092478",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eAs you can see, the RDD API is very similar to the functions we have previously used for processing entire collections.\u003c/p\u003e\n\u003cp\u003eIf you already are a Scala developer, or are used to functional programming on collections, then RDDs act like a collection that Spark parallelizes on the cluster under the hood.\u003c/p\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry to solve the following row. Browse the Spark API documentation to find the corresponding function.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:49:56 AM",
+      "dateStarted": "Jan 25, 2017 1:40:58 AM",
+      "dateFinished": "Jan 25, 2017 1:40:58 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Calculate the number of unique words in the \"words\" RDD here.",
+      "text": "val words \u003d sc.parallelize(Array(\"hello\", \"world\", \"goodbye\", \"hello\", \"again\"))\n\nval expected \u003d 4",
+      "dateUpdated": "Jan 25, 2017 12:56:26 PM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336856216_-2011750793",
+      "id": "20170125-093416_1662109555",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nexpected: Int \u003d 4\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:34:16 AM",
+      "dateStarted": "Jan 25, 2017 9:35:05 AM",
+      "dateFinished": "Jan 25, 2017 9:35:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create a random RDD of numbers, and find its mean.",
+      "text": "import util.Random.nextInt\nval input \u003d sc.parallelize(Seq.fill(10000)(nextInt))",
+      "dateUpdated": "Jan 25, 2017 1:41:43 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336877601_1857515653",
+      "id": "20170125-093437_413700163",
+      "dateCreated": "Jan 25, 2017 9:34:37 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n#### Key value pairs\n\nWhen doing Hadoop MapReduce, you are used to working with key-value pairs. \n\nIn Scala, we use tuples to manage multiple data altogether.\n\n```scala\nval t \u003d (1, \"hello\", Console)\n```\n\nIt is possible to access elements in a tuple :\n\n```scala\nval t \u003d (4,3,2,1)\nval sum \u003d t._1 + t._2 + t._3 + t._4\n```\n\nNow remember the reduce example, which takes 2 elements organized as tuples :\n\n```scala\n(1 to 1000).reduce((x,y) \u003d\u003e x+y)\n```\n\nYou can deconstruct the tuple inside the anonymous function, it makes it easier to reason around them. This can make for some convoluted one liners.\n\n```scala\n(1 to 1000)\n    .map(x \u003d\u003e (x, 2*x, 3*x))\n    .reduce{case ((x1, doubleX1, tripleX1), (x2, doubleX2, tripleX2)) \u003d\u003e (x1 + x2, doubleX1 * doubleX2, tripleX1 - tripleX2)}\n```\n\n\u003chr/\u003e\n\nIn Spark, a RDD of tuples of 2 elements is considered a key-value RDD. This gives us access to [a new class of functions](https://spark.apache.org/docs/latest/programming-guide.html#working-with-key-value-pairs).\n\nFor example, the following code uses the reduceByKey operation on key-value pairs to count how many times each line of text occurs in a file. It acts like executing reduce on the array of values under the same key.\n\n```scala\nval lines \u003d sc.textFile(\"data.txt\")\nval pairs \u003d lines.map(s \u003d\u003e (s, 1))\nval counts \u003d pairs.reduceByKey((a, b) \u003d\u003e a + b)\n```\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\nTry to solve the following cells.",
+      "dateUpdated": "Jan 25, 2017 1:46:25 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124534_-28130484",
+      "id": "20161205-143100_327623105",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4\u003eKey value pairs\u003c/h4\u003e\n\u003cp\u003eWhen doing Hadoop MapReduce, you are used to working with key-value pairs.\u003c/p\u003e\n\u003cp\u003eIn Scala, we use tuples to manage multiple data altogether.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval t \u003d (1, \"hello\", Console)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eIt is possible to access elements in a tuple :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval t \u003d (4,3,2,1)\nval sum \u003d t._1 + t._2 + t._3 + t._4\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eNow remember the reduce example, which takes 2 elements organized as tuples :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e(1 to 1000).reduce((x,y) \u003d\u0026gt; x+y)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eYou can deconstruct the tuple inside the anonymous function, it makes it easier to reason around them. This can make for some convoluted one liners.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e(1 to 1000)\n    .map(x \u003d\u0026gt; (x, 2*x, 3*x))\n    .reduce{case ((x1, doubleX1, tripleX1), (x2, doubleX2, tripleX2)) \u003d\u0026gt; (x1 + x2, doubleX1 * doubleX2, tripleX1 - tripleX2)}\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr/\u003e\n\u003cp\u003eIn Spark, a RDD of tuples of 2 elements is considered a key-value RDD. This gives us access to \u003ca href\u003d\"https://spark.apache.org/docs/latest/programming-guide.html#working-with-key-value-pairs\"\u003ea new class of functions\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eFor example, the following code uses the reduceByKey operation on key-value pairs to count how many times each line of text occurs in a file. It acts like executing reduce on the array of values under the same key.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval lines \u003d sc.textFile(\"data.txt\")\nval pairs \u003d lines.map(s \u003d\u0026gt; (s, 1))\nval counts \u003d pairs.reduceByKey((a, b) \u003d\u0026gt; a + b)\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry to solve the following cells.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:43:21 AM",
+      "dateFinished": "Jan 25, 2017 1:43:21 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Easy wordcount",
+      "text": "val input \u003d sc.parallelize(Seq(\"hi\", \"my\", \"my\", \"name\", \"is\",\"hi\"))\nval output \u003d input.map(...).reduceByKey(...).collect()\n\nval expected \u003d Array((\"is\",1), (\"my,2\"), (\"name\",1), (\"hi\",2))",
+      "dateUpdated": "Jan 25, 2017 1:15:49 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485338316737_924641072",
+      "id": "20170125-095836_160099750",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "\ninput: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[7] at parallelize at \u003cconsole\u003e:30\n\n\n\n\n\u003cconsole\u003e:32: error: not enough arguments for method map: (f: String \u003d\u003e U)(implicit evidence$3: scala.reflect.ClassTag[U])org.apache.spark.rdd.RDD[U].\nUnspecified value parameter f.\n         val output \u003d input.map().reduceByKey().collect()\n                               ^\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:58:36 AM",
+      "dateStarted": "Jan 25, 2017 12:53:51 PM",
+      "dateFinished": "Jan 25, 2017 12:53:52 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sum ages per gender",
+      "text": "val rdd1 \u003d sc.parallelize(Seq((\"Patrick\", \"homme\"), (\"Sandra\", \"femme\"), (\"Faniki\", \"homme\"), (\"Noemie\", \"femme\"), (\"Francois\", \"homme\"), (\"Cassandre\", \"femme\")))\nval rdd2 \u003d sc.parallelize(Seq((\"Patrick\", 20), (\"Sandra\", 25), (\"Faniki\", 20), (\"Noemie\", 20), (\"Francois\", 30), (\"Cassandre\", 18)))\n\nval output \u003d rdd1.join(rdd2).map{case ... \u003d\u003e ...}....\n\nval expected \u003d Array((femme,63), (homme,70))",
+      "dateUpdated": "Jan 25, 2017 1:37:41 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485349451411_-763547996",
+      "id": "20170125-130411_450751393",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "\nrdd1: org.apache.spark.rdd.RDD[(String, String)] \u003d ParallelCollectionRDD[102] at parallelize at \u003cconsole\u003e:30\n\nrdd2: org.apache.spark.rdd.RDD[(String, Int)] \u003d ParallelCollectionRDD[103] at parallelize at \u003cconsole\u003e:30\n\n\n\n\u003cconsole\u003e:1: error: illegal start of simple pattern\n       val output \u003d rdd1.join(rdd2).map{case ... \u003d\u003e ...}....\n                                             ^\n\n\n\n\u003cconsole\u003e:1: error: \u0027\u003d\u003e\u0027 expected but \u0027}\u0027 found.\n       val output \u003d rdd1.join(rdd2).map{case ... \u003d\u003e ...}....\n                                                       ^\n\n\n\n\u003cconsole\u003e:1: error: identifier expected but \u0027.\u0027 found.\n       val output \u003d rdd1.join(rdd2).map{case ... \u003d\u003e ...}....\n                                                         ^\n\n\n\n\u003cconsole\u003e:1: error: identifier expected but \u0027.\u0027 found.\n       val output \u003d rdd1.join(rdd2).map{case ... \u003d\u003e ...}....\n                                                          ^\n\n\n\n\u003cconsole\u003e:1: error: identifier expected but \u0027.\u0027 found.\n       val output \u003d rdd1.join(rdd2).map{case ... \u003d\u003e ...}....\n                                                           ^\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:04:11 AM",
+      "dateStarted": "Jan 25, 2017 1:37:41 AM",
+      "dateFinished": "Jan 25, 2017 1:37:41 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n\n#### To the real wordcount\n\nWe are missing an important operator before going to the normal wordcount as we know it : `flatten`, which flattens the lists held inside the outer list into one resulting list.\n\n```scala\nscala\u003e val lol \u003d List(List(1,2), List(3,4))\nlol: List[List[Int]] \u003d List(List(1, 2), List(3, 4))\n\nscala\u003e val result \u003d lol.flatten\nresult: List[Int] \u003d List(1, 2, 3, 4)\n```\n\nIn general, when reading a text, you get an array of lines like :\n\n```scala\nval text \u003d Seq(\n    \"coucou\",\n    \"ceci est le cours de mapreduce\",\n    \"ce n\u0027est pas difficile\",\n    \"n\u0027est ce pas ?\"\n)\n```\n\nif I want the list of all the words, first I need to split each line into words and then flatten the whole :\n\n```scala\nscala\u003e val split \u003d text.map(line \u003d\u003e line.split(\" \"))\nresult: List[Array(String)] \u003d List(Array(\"coucou\"), Array(\"ceci\", \"est\", \"le\" ...))\n\nscala\u003e val flat \u003d split.flatten\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n```\n\nYou get the same result if you use `flatMap` :\n\n```scala\nscala\u003e val flat \u003d text.flatMap(line \u003d\u003e line.split(\" \"))\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n```\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\nTry the wordcount on a textfile `/opt/dataset/don-quijote.txt.gz` read with Spark into a RDD ! This is it, this is the classic Hello world, it uses `flatMap` as the Hadoop Map and `reduceByKey` as the Hadoop Reduce.",
+      "dateUpdated": "Jan 25, 2017 1:53:33 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485349147677_33622721",
+      "id": "20170125-125907_1086033982",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4\u003eTo the real wordcount\u003c/h4\u003e\n\u003cp\u003eWe are missing an important operator before going to the normal wordcount as we know it : \u003ccode\u003eflatten\u003c/code\u003e, which flattens the lists held inside the outer list into one resulting list.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003escala\u0026gt; val lol \u003d List(List(1,2), List(3,4))\nlol: List[List[Int]] \u003d List(List(1, 2), List(3, 4))\n\nscala\u0026gt; val result \u003d lol.flatten\nresult: List[Int] \u003d List(1, 2, 3, 4)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eIn general, when reading a text, you get an array of lines like :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval text \u003d Seq(\n    \"coucou\",\n    \"ceci est le cours de mapreduce\",\n    \"ce n\u0027est pas difficile\",\n    \"n\u0027est ce pas ?\"\n)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eif I want the list of all the words, first I need to split each line into words and then flatten the whole :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003escala\u0026gt; val split \u003d text.map(line \u003d\u0026gt; line.split(\" \"))\nresult: List[Array(String)] \u003d List(Array(\"coucou\"), Array(\"ceci\", \"est\", \"le\" ...))\n\nscala\u0026gt; val flat \u003d split.flatten\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eYou get the same result if you use \u003ccode\u003eflatMap\u003c/code\u003e :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003escala\u0026gt; val flat \u003d text.flatMap(line \u003d\u0026gt; line.split(\" \"))\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry the wordcount on a textfile \u003ccode\u003e/opt/dataset/don-quijote.txt.gz\u003c/code\u003e read with Spark into a RDD ! This is it, this is the classic Hello world, it uses \u003ccode\u003eflatMap\u003c/code\u003e as the Hadoop Map and \u003ccode\u003ereduceByKey\u003c/code\u003e as the Hadoop Reduce.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 12:59:07 PM",
+      "dateStarted": "Jan 25, 2017 1:53:30 AM",
+      "dateFinished": "Jan 25, 2017 1:53:30 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// load file into RDD and check 10 first lines\n\nval text \u003d sc.textFile(\"/opt/dataset/don-quijote.txt.gz\")\ntext.take(10)",
+      "dateUpdated": "Jan 25, 2017 1:54:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352171034_-904654561",
+      "id": "20170125-134931_765137162",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ntext: org.apache.spark.rdd.RDD[String] \u003d /opt/dataset/don-quijote.txt.gz MapPartitionsRDD[118] at textFile at \u003cconsole\u003e:32\n\nres54: Array[String] \u003d Array(The Project Gutenberg EBook of Don Quijote, by Miguel de Cervantes Saavedra, \"\", This eBook is for the use of anyone anywhere at no cost and with, almost no restrictions whatsoever.  You may copy it, give it away or, re-use it under the terms of the Project Gutenberg License included, with this eBook or online at www.gutenberg.net, \"\", \"\", Title: Don Quijote, \"\")\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:49:31 AM",
+      "dateStarted": "Jan 25, 2017 1:54:29 AM",
+      "dateFinished": "Jan 25, 2017 1:54:30 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "text.doSomething",
+      "dateUpdated": "Jan 25, 2017 1:54:09 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352420257_-878908678",
+      "id": "20170125-135340_1546349786",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "\n\n\n\u003cconsole\u003e:33: error: value doSomething is not a member of org.apache.spark.rdd.RDD[String]\n              text.doSomething\n                   ^\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:53:40 AM",
+      "dateStarted": "Jan 25, 2017 1:54:09 AM",
+      "dateFinished": "Jan 25, 2017 1:54:09 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\r\n### Working with **Spark SQL and DataFrames**\r\nThe variable **sqlContext** allows you to access a Spark SQL Context to work with Spark SQL and DataFrames.\r\n* Scala can be used to create Spark [DataFrames](http://spark.apache.org/docs/latest/sql-programming-guide.html) - a distributed collection of data organized into named columns.\r\n* DataFrames are created by appending ``.toDF()`` to the Scala RDD\r\n\r\n**Important note:** Do not create the *sqlContext* variable - it is already initialized for you.",
+      "dateUpdated": "Jan 25, 2017 12:57:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485348757555_-689252064",
+      "id": "20170125-125237_922206168",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eWorking with \u003cstrong\u003eSpark SQL and DataFrames\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eThe variable \u003cstrong\u003esqlContext\u003c/strong\u003e allows you to access a Spark SQL Context to work with Spark SQL and DataFrames.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eScala can be used to create Spark \u003ca href\u003d\"http://spark.apache.org/docs/latest/sql-programming-guide.html\"\u003eDataFrames\u003c/a\u003e - a distributed collection of data organized into named columns.\u003c/li\u003e\n\u003cli\u003eDataFrames are created by appending \u003ccode\u003e.toDF()\u003c/code\u003e to the Scala RDD\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eImportant note:\u003c/strong\u003e Do not create the \u003cem\u003esqlContext\u003c/em\u003e variable - it is already initialized for you.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 12:52:37 PM",
+      "dateStarted": "Jan 25, 2017 12:57:20 PM",
+      "dateFinished": "Jan 25, 2017 12:57:20 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// Define the schema using a case class\r\ncase class MyCaseClass(key: String, group: String, value: Int)\r\n\r\n// Create the RDD (using sc.parallelize) and transforms it into a DataFrame\r\nval df \u003d sc.parallelize(Seq(MyCaseClass(\"f\", \"consonants\", 1),\r\n   MyCaseClass(\"g\", \"consonants\", 2),\r\n   MyCaseClass(\"h\", \"consonants\", 3),\r\n   MyCaseClass(\"i\", \"vowels\", 4),\r\n   MyCaseClass(\"j\", \"consonants\", 5))\r\n ).toDF()\r\n \r\n// register the Dataframe into the internal metastore\r\ndf.registerTempTable(\"df\")",
+      "dateUpdated": "Jan 25, 2017 1:56:52 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485349040504_591002928",
+      "id": "20170125-125720_628920046",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ndefined class MyCaseClass\n\ndf: org.apache.spark.sql.DataFrame \u003d [key: string, group: string, value: int]\n"
+      },
+      "dateCreated": "Jan 25, 2017 12:57:20 PM",
+      "dateStarted": "Jan 25, 2017 1:56:52 AM",
+      "dateFinished": "Jan 25, 2017 1:56:53 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "df.show()",
+      "dateUpdated": "Jan 25, 2017 1:20:10 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485349117424_1769747676",
+      "id": "20170125-125837_498314651",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+---+----------+-----+\n|key|     group|value|\n+---+----------+-----+\n|  f|consonants|    1|\n|  g|consonants|    2|\n|  h|consonants|    3|\n|  i|    vowels|    4|\n|  j|consonants|    5|\n+---+----------+-----+\n\n"
+      },
+      "dateCreated": "Jan 25, 2017 12:58:37 PM",
+      "dateStarted": "Jan 25, 2017 1:20:10 AM",
+      "dateFinished": "Jan 25, 2017 1:20:11 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// you have access to most SQL commands\nsqlContext.sql(\"SELECT group, MEAN(value) AS mean_appear FROM df GROUP BY group\").show()",
+      "dateUpdated": "Jan 25, 2017 1:57:51 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485350410316_-1478661049",
+      "id": "20170125-132010_1828936011",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+----------+-----------+\n|     group|mean_appear|\n+----------+-----------+\n|    vowels|        4.0|\n|consonants|       2.75|\n+----------+-----------+\n\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:20:10 AM",
+      "dateStarted": "Jan 25, 2017 1:57:51 AM",
+      "dateFinished": "Jan 25, 2017 1:57:52 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// you can do it with the SparkSQL API\ndf.groupBy(\"group\").agg(mean(\"value\")).show()",
+      "dateUpdated": "Jan 25, 2017 1:58:57 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352604826_906370547",
+      "id": "20170125-135644_1466821766",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+----------+----------+\n|     group|avg(value)|\n+----------+----------+\n|    vowels|       4.0|\n|consonants|      2.75|\n+----------+----------+\n\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:56:44 AM",
+      "dateStarted": "Jan 25, 2017 1:58:57 AM",
+      "dateFinished": "Jan 25, 2017 1:58:59 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// and then by passing through the Dataset API, you can use the functional API",
+      "dateUpdated": "Jan 25, 2017 1:59:34 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352733614_-571683130",
+      "id": "20170125-135853_1126980502",
+      "dateCreated": "Jan 25, 2017 1:58:53 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "If your DataFrame is stored internally, you can do some viz",
+      "text": "%sql\nSELECT * FROM df",
+      "dateUpdated": "Jan 25, 2017 2:00:30 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "pieChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "key",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "value",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "key",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "group",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352786724_-773999755",
+      "id": "20170125-135946_1334292884",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "key\tgroup\tvalue\nf\tconsonants\t1\ng\tconsonants\t2\nh\tconsonants\t3\ni\tvowels\t4\nj\tconsonants\t5\n",
+        "comment": "",
+        "msgTable": [
+          [
+            {
+              "key": "group",
+              "value": "f"
+            },
+            {
+              "key": "group",
+              "value": "consonants"
+            },
+            {
+              "key": "group",
+              "value": "1"
+            }
+          ],
+          [
+            {
+              "key": "value",
+              "value": "g"
+            },
+            {
+              "key": "value",
+              "value": "consonants"
+            },
+            {
+              "key": "value",
+              "value": "2"
+            }
+          ],
+          [
+            {
+              "value": "h"
+            },
+            {
+              "value": "consonants"
+            },
+            {
+              "value": "3"
+            }
+          ],
+          [
+            {
+              "value": "i"
+            },
+            {
+              "value": "vowels"
+            },
+            {
+              "value": "4"
+            }
+          ],
+          [
+            {
+              "value": "j"
+            },
+            {
+              "value": "consonants"
+            },
+            {
+              "value": "5"
+            }
+          ]
+        ],
+        "columnNames": [
+          {
+            "name": "key",
+            "index": 0.0,
+            "aggr": "sum"
+          },
+          {
+            "name": "group",
+            "index": 1.0,
+            "aggr": "sum"
+          },
+          {
+            "name": "value",
+            "index": 2.0,
+            "aggr": "sum"
+          }
+        ],
+        "rows": [
+          [
+            "f",
+            "consonants",
+            "1"
+          ],
+          [
+            "g",
+            "consonants",
+            "2"
+          ],
+          [
+            "h",
+            "consonants",
+            "3"
+          ],
+          [
+            "i",
+            "vowels",
+            "4"
+          ],
+          [
+            "j",
+            "consonants",
+            "5"
+          ]
+        ]
+      },
+      "dateCreated": "Jan 25, 2017 1:59:46 AM",
+      "dateStarted": "Jan 25, 2017 1:59:52 AM",
+      "dateFinished": "Jan 25, 2017 1:59:52 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Jan 25, 2017 2:00:03 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352792730_-450410606",
+      "id": "20170125-135952_1235249833",
+      "dateCreated": "Jan 25, 2017 1:59:52 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Practice",
+  "id": "2C75UP2R2",
+  "angularObjects": {
+    "2C7M62AZC:shared_process": [],
+    "2C99ZZDF1:shared_process": [],
+    "2C8YGNZTQ:shared_process": [],
+    "2C77JU3YV:shared_process": [],
+    "2C6GFM2M8:shared_process": [],
+    "2C9S2J5JA:shared_process": [],
+    "2C9PEYMWP:shared_process": [],
+    "2C8BCVG1U:shared_process": [],
+    "2C7RB9HSA:shared_process": [],
+    "2C88KFN43:shared_process": [],
+    "2C8ABEQWS:shared_process": [],
+    "2C7GWA95D:shared_process": [],
+    "2CA8RYKWQ:shared_process": [],
+    "2C7MZHJ7P:shared_process": [],
+    "2C6KD2B6T:shared_process": [],
+    "2C8BJKV28:shared_process": [],
+    "2CA2ZYSW5:shared_process": [],
+    "2C8JUBMWU:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

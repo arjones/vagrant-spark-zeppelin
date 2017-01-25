@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# APACHE ZEPPELIN
+# # # APACHE ZEPPELIN
 # export MAVEN_VERSION=3.3.3
 # export MAVEN_HOME=/usr/apache-maven-$MAVEN_VERSION
 
@@ -27,10 +27,8 @@
 # cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
 # export ZEPPELIN_MEM="-Xmx1024m"
 # export ZEPPELIN_JAVA_OPTS="-Dspark.home=/usr/spark"
+# export ZEPPELIN_NOTEBOOK_DIR="/root/notebook"
 # CONF
-
-# echo "Copying Notebooks ..."
-# cp -vR /vagrant/notebook/* /usr/zeppelin/notebook/
 
 # ln -s ${ZEPPELIN_HOME}/bin/zeppelin-daemon.sh /etc/init.d/
 # update-rc.d zeppelin-daemon.sh defaults

@@ -62,6 +62,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "./data", "/opt/dataset"
   config.vm.synced_folder "./code", "/home/vagrant/code"
   config.vm.synced_folder "./mavendeps", "/root/.m2"
+  config.vm.synced_folder "./notebook", "/root/notebook"
 
   # View the documentation for the provider you're using for more
   # information on available options.
