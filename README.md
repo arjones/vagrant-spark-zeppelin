@@ -5,7 +5,7 @@ This is a fork from [arjones/vagrant-spark-zeppelin](https://github.com/arjones/
 It provides a Vagrantfile which installs a debian virtual machine containing:
 
 * Apache Spark 1.6.1
-* Apache Zeppelin from master
+* Apache Zeppelin 0.6.2
 * Apache Maven 3.3.3
 
 ## Prerequisites
@@ -139,3 +139,13 @@ _Done: Solve all of the exercises in the notebook_
 #### 5. Pull request
 
 You can now ask to merge your work to my repository. With a pull request, it will be easier for me to study and comment on your code.
+
+# Applicative project
+
+If you want to check the data for the applicative project:
+
+* Forest cover: https://archive.ics.uci.edu/ml/machine-learning-databases/covtype/
+* Network traffic: http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html
+* Music recommendation: http://www-etud.iro.umontreal.ca/~bergstrj/audioscrobbler_data.html
+
+If you want, you can put the dataset in the data folder, it will be copied to /opt/dataset in the virtual machine when building. **Don't push the data in the Git repo**, use the .gitignore file to ignore the data file and prevent it from being versioned.
