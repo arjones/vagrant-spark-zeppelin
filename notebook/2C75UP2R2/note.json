@@ -1,8 +1,8 @@
 {
   "paragraphs": [
     {
-      "text": "%md\n\n# Introduction to Spark \u0026 Zeppelin\n#### An overview of the two Big Data tools",
-      "dateUpdated": "Jan 25, 2017 6:16:16 PM",
+      "text": "%md\n\n# Introduction to Spark \u0026 Zeppelin\n#### An overview of the two Big Data tools.",
+      "dateUpdated": "Jan 25, 2017 11:19:15 PM",
       "config": {
         "enabled": true,
         "tableHide": false,
@@ -33,11 +33,11 @@
       "result": {
         "code": "SUCCESS",
         "type": "HTML",
-        "msg": "\u003ch1\u003eIntroduction to Spark \u0026amp; Zeppelin\u003c/h1\u003e\n\u003ch4\u003eAn overview of the two Big Data tools\u003c/h4\u003e\n"
+        "msg": "\u003ch1\u003eIntroduction to Spark \u0026amp; Zeppelin\u003c/h1\u003e\n\u003ch4\u003eAn overview of the two Big Data tools.\u003c/h4\u003e\n"
       },
       "dateCreated": "Jan 25, 2017 8:32:04 AM",
-      "dateStarted": "Jan 25, 2017 6:16:16 PM",
-      "dateFinished": "Jan 25, 2017 6:16:16 PM",
+      "dateStarted": "Jan 25, 2017 11:19:16 PM",
+      "dateFinished": "Jan 25, 2017 11:19:16 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -1966,24 +1966,24 @@
   "name": "Practice",
   "id": "2C75UP2R2",
   "angularObjects": {
-    "2C7M62AZC:shared_process": [],
-    "2C99ZZDF1:shared_process": [],
-    "2C8YGNZTQ:shared_process": [],
-    "2C77JU3YV:shared_process": [],
-    "2C6GFM2M8:shared_process": [],
-    "2C9S2J5JA:shared_process": [],
-    "2C9PEYMWP:shared_process": [],
-    "2C8BCVG1U:shared_process": [],
-    "2C7RB9HSA:shared_process": [],
-    "2C88KFN43:shared_process": [],
-    "2C8ABEQWS:shared_process": [],
-    "2C7GWA95D:shared_process": [],
-    "2CA8RYKWQ:shared_process": [],
-    "2C7MZHJ7P:shared_process": [],
-    "2C6KD2B6T:shared_process": [],
-    "2C8BJKV28:shared_process": [],
-    "2CA2ZYSW5:shared_process": [],
-    "2C8JUBMWU:shared_process": []
+    "2C6WAS5QW:shared_process": [],
+    "2C9EKCQEM:shared_process": [],
+    "2C9HZZVFQ:shared_process": [],
+    "2CA3S9WXB:shared_process": [],
+    "2C76F7TDS:shared_process": [],
+    "2C9WMDTKB:shared_process": [],
+    "2C9YRAAJK:shared_process": [],
+    "2C8WM5VZR:shared_process": [],
+    "2C7UJNPHS:shared_process": [],
+    "2CABEKPYF:shared_process": [],
+    "2CA7FEJKV:shared_process": [],
+    "2C83AFVE1:shared_process": [],
+    "2CA4B7H93:shared_process": [],
+    "2C6T3C6F6:shared_process": [],
+    "2C9T3XUHE:shared_process": [],
+    "2C7VRWDNV:shared_process": [],
+    "2C9GNMJEM:shared_process": [],
+    "2CA8QQU8Q:shared_process": []
   },
   "config": {
     "looknfeel": "default"
