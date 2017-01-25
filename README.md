@@ -15,6 +15,7 @@ It provides a Vagrantfile which installs a debian virtual machine containing:
 * [Vagrant](https://www.vagrantup.com/)  >= 1.5
 
 <hr>
+
 # Exercise
 
 A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/). This will only serve as a guideline, we are going to modify the environment a bit.
@@ -26,6 +27,8 @@ $ vagrant version
 Installed Version: 1.8.4
 Latest Version: 1.9.1
 ```
+
+At the end, all you would need to do to launch this project is `$ vagrant up` and point to http://localhost:8080/.
 
 Thourough this README, you will need to validate the definitions of done described at the end of each point.
 
@@ -129,8 +132,10 @@ To hit Apache Zeppelin, http://localhost:8080.
 
 #### 4. Editing Spark code
 
-Time to fire up Zeppelin.
+Time to fire up Zeppelin. You will see a bunch of notebooks already available. We will pursue the practical on the **Practice** notebook.
+
+_Done: Solve all of the exercises in the notebook_
 
 #### 5. Pull request
 
-You can now ask to merge your work to my repository. With a pull request
+You can now ask to merge your work to my repository. With a pull request, it will be easier for me to study and comment on your code.
