@@ -28,7 +28,7 @@ Installed Version: 1.8.4
 Latest Version: 1.9.1
 ```
 
-At the end, all you would need to do to launch this project is `$ vagrant up` and point to http://localhost:8080/.
+At the end, all you would need to do to launch this project is `$ vagrant up` and point to http://localhost:8888/.
 
 Thourough this README, you will need to validate the definitions of done described at the end of each point.
 
@@ -128,7 +128,7 @@ _Done: merge your branch back into master when you are ok with it, and push to y
 
 You should now have a working Zeppelin in a virtual machine that you can destroy and recreate as you wish. You can even add additional components through the different install scripts.
 
-To hit Apache Zeppelin, http://localhost:8080.
+To hit Apache Zeppelin, http://localhost:8888.
 
 #### 4. Editing Spark code
 
