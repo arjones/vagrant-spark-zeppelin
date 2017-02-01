@@ -164,7 +164,7 @@ First, create a new branch (name it as you like). New feature = new branch, alwa
 
 If you have already launched `$ vagrant up`, you should have a running zeppelin virtual machine displayed in VirtualBox. The command `$ vagrant destroy` should remove it. With those two commands, you can relaunch your virtual machine as you wish (you also have `$ vagrant halt` if you only want to stop the virtual machine but not destroy it, and `$ vagrant reload` to restart the VM)
 
-_Done : There is a commented line to install spark-csv in the scripts, uncomment it to get spark-csv for future exercises._
+_Done : Nothing to do actually._
 
 #####c. Push back to Github
 
@@ -175,6 +175,8 @@ _Done: merge your branch back into master when you are ok with it, and push to y
 You should now have a working Zeppelin in a virtual machine that you can destroy and recreate as you wish. You can even add additional components through the different install scripts.
 
 To hit Apache Zeppelin, http://localhost:8888.
+
+Do note that the command `$ vagrant ssh` connects you to a terminal inside the virtual machine. With that in mind, you can check Zeppelin logs by `$ tail -f /usr/zeppelin/logs/*`
 
 #### 4. Editing Spark code
 

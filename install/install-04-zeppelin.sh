@@ -30,7 +30,6 @@ export ZEPPELIN_MEM="-Xmx1024m"
 export ZEPPELIN_JAVA_OPTS="-Dspark.home=/usr/spark"
 export ZEPPELIN_NOTEBOOK_DIR="/vagrant/notebook/"
 export ZEPPELIN_PORT="8888"
-#export SPARK_SUBMIT_OPTIONS="--packages com.databricks:spark-csv_2.10:1.5.0"
 CONF
 
 ln -s ${ZEPPELIN_HOME}/bin/zeppelin-daemon.sh /etc/init.d/
