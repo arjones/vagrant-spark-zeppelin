@@ -150,19 +150,21 @@ The normal command to build the virtual environment would be `$ vagrant up`. Now
 
 There is actually a binary distribution available today for Zeppelin [here](http://zeppelin.apache.org/download.html). So we edited the installation scripts. I have done most of the work so it is not too much of a hassle.
 
+**NB : DON'T LAUNCH the install scripts individually, it will install the software locally and not in your virtual machines.**
+
 #####a. Understand the virtual machine build process
 
 Since this is a vagrant environment, when you use `$ vagrant up` it reads the `Vagrantfile` first. Now try to guess how the virtual machine is built by following along the lines of the Vagrantfile.
 
-_Done : if you found the answer, the script to edit should be obvious._
+_Done : understand which scripts to edit when tweaking the files._
 
-#####b. Tweak the install script to have the binary Zeppelin 0.6.2 installed
+#####b. Check the install script to have the binary Zeppelin 0.6.2 installed
 
 First, create a new branch (name it as you like). New feature = new branch, always, so your master branch is ALWAYS stable.
 
-If you have already launched `$ vagrant up`, you should have a running zeppelin virtual machine displayed in VirtualBox. The command `$ vagrant destroy` should remove it. With those two commands, you can relaunch your virtual machine as you wish (you also have `$ vagrant halt` if you only want to stop the virtual machine but not destroy it)
+If you have already launched `$ vagrant up`, you should have a running zeppelin virtual machine displayed in VirtualBox. The command `$ vagrant destroy` should remove it. With those two commands, you can relaunch your virtual machine as you wish (you also have `$ vagrant halt` if you only want to stop the virtual machine but not destroy it, and `$ vagrant reload` to restart the VM)
 
-_Done : Try to edit the necessary code to get a vagrant virtual machine with Zeppelin 0.6.2._
+_Done : There is a commented line to install spark-csv in the scripts, uncomment it to get spark-csv for future exercises._
 
 #####c. Push back to Github
 
