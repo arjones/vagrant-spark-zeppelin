@@ -20,7 +20,6 @@ tar zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz -C /usr/
 ln -s ${MAVEN_HOME} /usr/maven
 
 wget -c "http://archive.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_PACKAGE}.tgz"
-wget -c "http://apache.mirrors.ovh.net/ftp.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_PACKAGE}.tgz"
 tar zxvf zeppelin-${ZEPPELIN_PACKAGE}.tgz -C /usr/
 ln -s ${ZEPPELIN_HOME} /usr/zeppelin
 
