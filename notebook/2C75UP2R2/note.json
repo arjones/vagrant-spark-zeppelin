@@ -1,0 +1,2167 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# Introduction to Spark \u0026 Zeppelin\n#### An overview of the two Big Data tools.\n\nBefore pursuing, make sure you have saved the previous Interpreter binding window, otherwise you will get an error like `paragraph not found` when executing cells",
+      "dateUpdated": "Feb 1, 2017 10:32:11 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124506_-17357514",
+      "id": "20161205-081916_1418679304",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch1\u003eIntroduction to Spark \u0026amp; Zeppelin\u003c/h1\u003e\n\u003ch4\u003eAn overview of the two Big Data tools.\u003c/h4\u003e\n\u003cp\u003eBefore pursuing, make sure you have saved the previous Interpreter binding window, otherwise you will get an error like \u003ccode\u003eparagraph not found\u003c/code\u003e when executing cells\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Feb 1, 2017 10:32:09 AM",
+      "dateFinished": "Feb 1, 2017 10:32:09 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n![Spark logo](http://spark.apache.org/images/spark-logo-trademark.png)\n#\n[Apache Spark](http://spark.apache.org/) is a cluster computing engine designed to be __fast__ and __general-purpose__, making it the ideal choice for processing of large datasets. It answers those two points with __efficient data sharing__ accross computations.\n\u003chr/\u003e\nThe past years have seen a major changes in computing systems, as growing data volumes required more and more applications to scale out to large clusters. To solve this problem, a wide range of new programming models have been designed to manage multiple types of computations in a distributed fashion, without having people learn too much about distributed systems. Those programming models would need to deal with _parallelism, fault-tolerance and resource sharing_ for us.\n\n[Google\u0027s MapReduce](https://en.wikipedia.org/wiki/MapReduce) presented a simple and general model for batch processing, which handles faults and parallelism easily. Unfortunately the programming model is not adapted for other types of workloads, and multiple specialized systems were born to answer a specific need in a distributed way. \n* Iterative : Giraph\n* Interactive : Impala, Piccolo, Greenplum\n* Streaming : Storm, Millwheel\n\n#\nThe initial goal of Apache Spark is to try and unify all of the workloads for generality purposes. [Matei Zaharia](https://cs.stanford.edu/~matei/) in his [PhD dissertation](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf) suggests that most of the data flow models that required a specialized system needed _efficient data sharing_ accross computations:\n* Iterative algorithms like PageRank or K-Means need to make multiple passes over the same dataset\n* Interactive data mining often requires running multiple ad-hoc queries on the same subset of data\n* Streaming applications need to maintain and share state over time.\n\nHe then proposes to create a new abstraction that gives its users direct control over data sharing, something that other specialized systems would have built-in for their specific needs. The abstraction is implemented inside a new engine that is today called Apache Spark. The engine makes it possible to support more types of computations than with the original MapReduce in a more efficient way, including interactive queries and stream processing. ",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124508_-19666008",
+      "id": "20161205-125129_704251374",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e\u003cimg src\u003d\"http://spark.apache.org/images/spark-logo-trademark.png\" alt\u003d\"Spark logo\" /\u003e\u003c/p\u003e\n\u003ch1\u003e\u003c/h1\u003e\n\u003cp\u003e\u003ca href\u003d\"http://spark.apache.org/\"\u003eApache Spark\u003c/a\u003e is a cluster computing engine designed to be \u003cstrong\u003efast\u003c/strong\u003e and \u003cstrong\u003egeneral-purpose\u003c/strong\u003e, making it the ideal choice for processing of large datasets. It answers those two points with \u003cstrong\u003eefficient data sharing\u003c/strong\u003e accross computations.\u003c/p\u003e\n\u003chr/\u003e\n\u003cp\u003eThe past years have seen a major changes in computing systems, as growing data volumes required more and more applications to scale out to large clusters. To solve this problem, a wide range of new programming models have been designed to manage multiple types of computations in a distributed fashion, without having people learn too much about distributed systems. Those programming models would need to deal with \u003cem\u003eparallelism, fault-tolerance and resource sharing\u003c/em\u003e for us.\u003c/p\u003e\n\u003cp\u003e\u003ca href\u003d\"https://en.wikipedia.org/wiki/MapReduce\"\u003eGoogle\u0027s MapReduce\u003c/a\u003e presented a simple and general model for batch processing, which handles faults and parallelism easily. Unfortunately the programming model is not adapted for other types of workloads, and multiple specialized systems were born to answer a specific need in a distributed way.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eIterative : Giraph\u003c/li\u003e\n\u003cli\u003eInteractive : Impala, Piccolo, Greenplum\u003c/li\u003e\n\u003cli\u003eStreaming : Storm, Millwheel\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch1\u003e\u003c/h1\u003e\n\u003cp\u003eThe initial goal of Apache Spark is to try and unify all of the workloads for generality purposes. \u003ca href\u003d\"https://cs.stanford.edu/~matei/\"\u003eMatei Zaharia\u003c/a\u003e in his \u003ca href\u003d\"https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-12.pdf\"\u003ePhD dissertation\u003c/a\u003e suggests that most of the data flow models that required a specialized system needed \u003cem\u003eefficient data sharing\u003c/em\u003e accross computations:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eIterative algorithms like PageRank or K-Means need to make multiple passes over the same dataset\u003c/li\u003e\n\u003cli\u003eInteractive data mining often requires running multiple ad-hoc queries on the same subset of data\u003c/li\u003e\n\u003cli\u003eStreaming applications need to maintain and share state over time.\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eHe then proposes to create a new abstraction that gives its users direct control over data sharing, something that other specialized systems would have built-in for their specific needs. The abstraction is implemented inside a new engine that is today called Apache Spark. The engine makes it possible to support more types of computations than with the original MapReduce in a more efficient way, including interactive queries and stream processing.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n![](https://zeppelin.apache.org/assets/themes/zeppelin/img/zeppelin_classic_logo.png)\n#\n[Apache Zeppelin](https://zeppelin.apache.org/) is a web-based notebook that enables interactive data analytics. It is  famous for its very strong Apache Spark integration.\n\u003chr/\u003e\n\nApache Zeppelin\u0027s purpose is to provide engineers and scientists with an interface for all Big Data needs, which comes bundled with the means for analyzing, collaborating and sharing data on top of common Big Data frameworks.\n\nThe Apache Zeppelin interpreter concept allows the plugin of a language or data-processing backend into Zeppelin _(think of it like a kernel for Jupyter notebook)_. Currently it supports [many interpreters](https://zeppelin.apache.org/docs/0.6.2/manual/interpreterinstallation.html) like Apache Spark, Python, JDBC, Markdown and shell. Creation of a custom interpreter is also possible by extending the necessary abstract class.\n\nYou can view examples of Zeppelin notebooks [here](https://www.zeppelinhub.com/viewer).\n\nToday, Apache Zeppelin comes bundled with most Big Data distributions _(Cloudera, Hortonworks...)_ as the main tool for interactive Big Data analytics, which makes for a good reason to have you try Apache Spark interactively in a Zeppelin notebook.",
+      "dateUpdated": "Jan 25, 2017 8:54:41 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124508_-19666008",
+      "id": "20161205-125209_891936396",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e\u003cimg src\u003d\"https://zeppelin.apache.org/assets/themes/zeppelin/img/zeppelin_classic_logo.png\" alt\u003d\"\" /\u003e\u003c/p\u003e\n\u003ch1\u003e\u003c/h1\u003e\n\u003cp\u003e\u003ca href\u003d\"https://zeppelin.apache.org/\"\u003eApache Zeppelin\u003c/a\u003e is a web-based notebook that enables interactive data analytics. It is  famous for its very strong Apache Spark integration.\u003c/p\u003e\n\u003chr/\u003e\n\u003cp\u003eApache Zeppelin\u0027s purpose is to provide engineers and scientists with an interface for all Big Data needs, which comes bundled with the means for analyzing, collaborating and sharing data on top of common Big Data frameworks.\u003c/p\u003e\n\u003cp\u003eThe Apache Zeppelin interpreter concept allows the plugin of a language or data-processing backend into Zeppelin \u003cem\u003e(think of it like a kernel for Jupyter notebook)\u003c/em\u003e. Currently it supports \u003ca href\u003d\"https://zeppelin.apache.org/docs/0.6.2/manual/interpreterinstallation.html\"\u003emany interpreters\u003c/a\u003e like Apache Spark, Python, JDBC, Markdown and shell. Creation of a custom interpreter is also possible by extending the necessary abstract class.\u003c/p\u003e\n\u003cp\u003eYou can view examples of Zeppelin notebooks \u003ca href\u003d\"https://www.zeppelinhub.com/viewer\"\u003ehere\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eToday, Apache Zeppelin comes bundled with most Big Data distributions \u003cem\u003e(Cloudera, Hortonworks\u0026hellip;)\u003c/em\u003e as the main tool for interactive Big Data analytics, which makes for a good reason to have you try Apache Spark interactively in a Zeppelin notebook.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:54:39 AM",
+      "dateFinished": "Jan 25, 2017 8:54:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n###Interpreter\n\nApache Zeppelin is primarily a notebook. A Zeppelin notebook consists of a set of cells with an interpreter _(or language backend)_ attached.\n\nFor example, this cell is linked to the Markdown interpreter, so when you run the cell it parses the code as Markdown and then displays the result.\n\nYou will find the most useful markdown components [on this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).\n\nIn each cell, there is a toolbar with four items: \n* The `Play` button (blue triangle) lets you run the paragraph. You can also press `Shift + Enter` to run the cell when selected\n* The `Show/Hide editor` if you want to see the source code for the cell\n* The `Show/Hide output` if you want to see the output for the cell\n* The `Settings` item, for more advanced options like adding/managing cells.\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nNow you can press `Show editor` to see the source code of the cell. You will see that it starts with `%md`, which specifies to the cell that it should use the Markdown interpreter. You can edit the text and then run the cell to see the editing in the output.",
+      "dateUpdated": "Feb 3, 2017 9:03:48 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124514_-32747470",
+      "id": "20161205-134434_158643588",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eInterpreter\u003c/h3\u003e\n\u003cp\u003eApache Zeppelin is primarily a notebook. A Zeppelin notebook consists of a set of cells with an interpreter \u003cem\u003e(or language backend)\u003c/em\u003e attached.\u003c/p\u003e\n\u003cp\u003eFor example, this cell is linked to the Markdown interpreter, so when you run the cell it parses the code as Markdown and then displays the result.\u003c/p\u003e\n\u003cp\u003eYou will find the most useful markdown components \u003ca href\u003d\"https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\"\u003eon this cheatsheet\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eIn each cell, there is a toolbar with four items:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eThe \u003ccode\u003ePlay\u003c/code\u003e button (blue triangle) lets you run the paragraph. You can also press \u003ccode\u003eShift + Enter\u003c/code\u003e to run the cell when selected\u003c/li\u003e\n\u003cli\u003eThe \u003ccode\u003eShow/Hide editor\u003c/code\u003e if you want to see the source code for the cell\u003c/li\u003e\n\u003cli\u003eThe \u003ccode\u003eShow/Hide output\u003c/code\u003e if you want to see the output for the cell\u003c/li\u003e\n\u003cli\u003eThe \u003ccode\u003eSettings\u003c/code\u003e item, for more advanced options like adding/managing cells.\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eNow you can press \u003ccode\u003eShow editor\u003c/code\u003e to see the source code of the cell. You will see that it starts with \u003ccode\u003e%md\u003c/code\u003e, which specifies to the cell that it should use the Markdown interpreter. You can edit the text and then run the cell to see the editing in the output.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Feb 1, 2017 6:53:18 AM",
+      "dateFinished": "Feb 1, 2017 6:53:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nApache Zeppelin follows the responsive 12-column grid system. In the following row we show 3 different interpreters in action. \n\nYou will find the width of the cell inside the settings button.\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nYou can go on and try to modify the source code in the three following cells and re-execute the code. For example, try to type `1+2` in the Python cell.",
+      "dateUpdated": "Feb 1, 2017 6:53:54 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124515_-33132219",
+      "id": "20161205-140658_147950685",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eApache Zeppelin follows the responsive 12-column grid system. In the following row we show 3 different interpreters in action.\u003c/p\u003e\n\u003cp\u003eYou will find the width of the cell inside the settings button.\u003c/p\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eYou can go on and try to modify the source code in the three following cells and re-execute the code. For example, try to type \u003ccode\u003e1+2\u003c/code\u003e in the Python cell.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Feb 1, 2017 6:53:52 AM",
+      "dateFinished": "Feb 1, 2017 6:53:52 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Shell cell",
+      "text": "%sh\necho \"Hello world\"",
+      "dateUpdated": "Feb 1, 2017 6:51:19 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sh",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124515_-33132219",
+      "id": "20161205-135504_61539619",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Hello world\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Feb 1, 2017 6:51:19 AM",
+      "dateFinished": "Feb 1, 2017 6:51:20 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Python cell",
+      "text": "%python\nprint(\"Hello world\")",
+      "dateUpdated": "Jan 25, 2017 8:33:22 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/python",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124516_-35055964",
+      "id": "20161205-140620_27821049",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Hello world\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:33:22 AM",
+      "dateFinished": "Jan 25, 2017 8:33:23 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Spark/Scala cell",
+      "text": "println(\"Hello world\")",
+      "dateUpdated": "Jan 25, 2017 8:33:26 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124516_-35055964",
+      "id": "20161205-140627_1063236175",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Hello world\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:33:26 AM",
+      "dateFinished": "Jan 25, 2017 8:33:59 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nAs you can see, we have not chosen an interpreter in the last column. \n\nA default interpreter is set at the beginning of the notebook, on the right-hand of the menu toolbar at the top in the menu `Interpreter binding` and represented by a gear. You can also select/deselect usable interpreters for the notebook.\n\nFor more information on how each interpreter is configured, you can check the interpreter menu, in the dropdown menu with your username _(anonymous for now. Do note that Apache Zeppelin also support user authentication for multitenancy but we are not going to delve into that)_.\n\nFor now, we assume that the default interpreter is the Apache Spark/Scala interpreter, so the default cell parses Spark/Scala code. The tutorial series will be mostly using this interpreter. No Scala knowledge is needed to pursue through the series, as we will only use basic functional programming concepts.\n\n_If you are wondering why Scala, Apache Spark is implemented in Scala, and so is its main API. Apache Spark draws from the functional paradigm for representing its computations the same way as MapReduce does. A common justification is Spark and MapReduce specialize in coarse-grained transformations that apply the same operation on many data items, which is a good fit for parallel applications, and the functional programming paradigm fits the idea._",
+      "dateUpdated": "Jan 25, 2017 9:37:19 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124517_-35440713",
+      "id": "20161205-140636_1331288934",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eAs you can see, we have not chosen an interpreter in the last column.\u003c/p\u003e\n\u003cp\u003eA default interpreter is set at the beginning of the notebook, on the right-hand of the menu toolbar at the top in the menu \u003ccode\u003eInterpreter binding\u003c/code\u003e and represented by a gear. You can also select/deselect usable interpreters for the notebook.\u003c/p\u003e\n\u003cp\u003eFor more information on how each interpreter is configured, you can check the interpreter menu, in the dropdown menu with your username \u003cem\u003e(anonymous for now. Do note that Apache Zeppelin also support user authentication for multitenancy but we are not going to delve into that)\u003c/em\u003e.\u003c/p\u003e\n\u003cp\u003eFor now, we assume that the default interpreter is the Apache Spark/Scala interpreter, so the default cell parses Spark/Scala code. The tutorial series will be mostly using this interpreter. No Scala knowledge is needed to pursue through the series, as we will only use basic functional programming concepts.\u003c/p\u003e\n\u003cp\u003e\u003cem\u003eIf you are wondering why Scala, Apache Spark is implemented in Scala, and so is its main API. Apache Spark draws from the functional paradigm for representing its computations the same way as MapReduce does. A common justification is Spark and MapReduce specialize in coarse-grained transformations that apply the same operation on many data items, which is a good fit for parallel applications, and the functional programming paradigm fits the idea.\u003c/em\u003e\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 9:37:18 AM",
+      "dateFinished": "Jan 25, 2017 9:37:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n### The Spark/Scala interpreter\n\nLet\u0027s dive into the Spark/Scala interpreter now. First, we need to describe the Scala language a bit more.\n\nScala is a functional object-oriented language.\n\nThe following row shows some commands in Scala. Do note that you can use autocompletion with `Ctrl + .`\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nBecause you get instant feedback, you should feel encouraged to experiment, so do not hesitate to edit the Scala source code and re-execute the cell.",
+      "dateUpdated": "Jan 25, 2017 9:56:31 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124517_-35440713",
+      "id": "20161205-143112_1129105608",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eThe Spark/Scala interpreter\u003c/h3\u003e\n\u003cp\u003eLet\u0027s dive into the Spark/Scala interpreter now. First, we need to describe the Scala language a bit more.\u003c/p\u003e\n\u003cp\u003eScala is a functional object-oriented language.\u003c/p\u003e\n\u003cp\u003eThe following row shows some commands in Scala. Do note that you can use autocompletion with \u003ccode\u003eCtrl + .\u003c/code\u003e\u003c/p\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eBecause you get instant feedback, you should feel encouraged to experiment, so do not hesitate to edit the Scala source code and re-execute the cell.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Some arithmetic",
+      "text": "8 * 5 + 2",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124522_-35825462",
+      "id": "20161215-101647_1780031444",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res2: Int \u003d 42\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Declaring variables",
+      "text": "val a \u003d 3 // val defines an immutable value\nvar b : Int \u003d 5 // var defines a mutable variable\nprintln(a + b)\n\nb \u003d 42\nprintln(a + b)\n\n// Note that the type of a variable or function is written after the variable or function. \n\n// Because Scala does type inference, it is also not necessary to declare type to variables when it looks obvious.",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124523_-36210211",
+      "id": "20161215-101655_1153115867",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "a: Int \u003d 3\nb: Int \u003d 5\n8\nb: Int \u003d 42\n45\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Reusing a variable",
+      "text": "// variables are accessible accross cells\n\na * b",
+      "dateUpdated": "Jan 25, 2017 8:32:04 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124524_-38133955",
+      "id": "20161215-101705_1808342927",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res13: Int \u003d 15\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nIn Scala, you are encouraged to use a `val` whenever you can so to avoid mutable code. Scala prefers immutability by design and helps us reason through code only. \n\nIt also provides is with the necessary tooling to reason with immutability in mind. In the following row we study some basic collection methods which makes useless the need for mutable lists and for loops",
+      "dateUpdated": "Jan 25, 2017 9:37:07 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124524_-38133955",
+      "id": "20161215-103526_1401793073",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eIn Scala, you are encouraged to use a \u003ccode\u003eval\u003c/code\u003e whenever you can so to avoid mutable code. Scala prefers immutability by design and helps us reason through code only.\u003c/p\u003e\n\u003cp\u003eIt also provides is with the necessary tooling to reason with immutability in mind. In the following row we study some basic collection methods which makes useless the need for mutable lists and for loops\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 9:37:06 AM",
+      "dateFinished": "Jan 25, 2017 9:37:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create immutable sequence of numbers",
+      "text": "val sequenceNumbers \u003d 1 to 100",
+      "dateUpdated": "Jan 25, 2017 8:34:35 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124525_-38518704",
+      "id": "20161215-104816_1792183840",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nsequenceNumbers: scala.collection.immutable.Range.Inclusive \u003d Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:34:24 AM",
+      "dateFinished": "Jan 25, 2017 8:34:25 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "New list with all elements doubled",
+      "text": "sequenceNumbers.map(x \u003d\u003e x * 2)\n\nsequenceNumbers.map(_ * 2)",
+      "dateUpdated": "Jan 25, 2017 8:34:39 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124525_-38518704",
+      "id": "20161215-104825_1497989654",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res40: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134, 136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 184, 186, 188, 190, 192, 194, 196, 198, 200)\nres41: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134, 136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 184, 186, 188, 190, 192, 194, 196, 198, 200)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "New list with pair numbers removed",
+      "text": "sequenceNumbers.filter(x \u003d\u003e x % 2 !\u003d 0)\n\nsequenceNumbers.filter(_ % 2 !\u003d 0)",
+      "dateUpdated": "Jan 25, 2017 8:34:41 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124531_-26976237",
+      "id": "20161215-104829_934946861",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res52: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99)\nres53: scala.collection.immutable.IndexedSeq[Int] \u003d Vector(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sum all elements",
+      "text": "sequenceNumbers.reduce((x, y) \u003d\u003e x + y)\n\nsequenceNumbers.reduce(_ + _)",
+      "dateUpdated": "Jan 25, 2017 8:34:44 AM",
+      "config": {
+        "enabled": true,
+        "tableHide": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 86.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124532_-28899981",
+      "id": "20161215-105147_1170476157",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res55: Int \u003d 5050\nres56: Int \u003d 5050\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n###Primer on functional programming\nBefore going further, we need to go back to functional programming (sometimes abbreviated to FP in literature).\n\nIn functional programming, we construct our programs using _pure functions_, that is a function that takes an input and produces an output without any side-effects, thus forbidding mutation.\n\nAn essential and powerful concept of FP is the ability to pass functions as arguments. For example in the row below :",
+      "dateUpdated": "Jan 25, 2017 8:37:58 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124532_-28899981",
+      "id": "20161215-105827_1534509278",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003ePrimer on functional programming\u003c/h3\u003e\n\u003cp\u003eBefore going further, we need to go back to functional programming (sometimes abbreviated to FP in literature).\u003c/p\u003e\n\u003cp\u003eIn functional programming, we construct our programs using \u003cem\u003epure functions\u003c/em\u003e, that is a function that takes an input and produces an output without any side-effects, thus forbidding mutation.\u003c/p\u003e\n\u003cp\u003eAn essential and powerful concept of FP is the ability to pass functions as arguments. For example in the row below :\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:37:56 AM",
+      "dateFinished": "Jan 25, 2017 8:37:57 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "/*\n * The following function adds 2 to a number.\n */\ndef add2(x: Int): Int \u003d x + 2",
+      "dateUpdated": "Jan 25, 2017 1:34:04 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124532_-28899981",
+      "id": "20161215-142142_191089995",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nadd2: (x: Int)Int\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:34:04 AM",
+      "dateFinished": "Jan 25, 2017 1:34:04 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "/* now let\u0027s pass add2 function \n * to map,\n * a function that applies a function to each element of a  * list\n */\n\nList(1,2,3).map(add2)\n",
+      "dateUpdated": "Jan 25, 2017 1:34:26 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 86.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124533_-29284730",
+      "id": "20161215-110440_1947087088",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres38: List[Int] \u003d List(3, 4, 5)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:34:26 AM",
+      "dateFinished": "Jan 25, 2017 1:34:27 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// in the following we pass an anonymous lambda function \n// in the filter function\nList(1,2,3,4).filter(x \u003d\u003e x \u003e 2)\nList(1,2,3,4).filter(_ \u003e 2)",
+      "dateUpdated": "Jan 25, 2017 8:50:39 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 86.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124533_-29284730",
+      "id": "20161215-110528_1134018400",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres9: List[Int] \u003d List(3, 4)\n\nres10: List[Int] \u003d List(3, 4)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 8:50:39 AM",
+      "dateFinished": "Jan 25, 2017 8:50:40 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nHere we have presented the first two higher order functions we are going to use in this course : `map` and `filter`. Those are called _element-wise_ transformations in that they take in a function and applies it to each element in the collection.\n\nWe can use them to do a number of things, from fetching the website associated with each URL in our collection to just squaring numbers. Imagine this scenario :\n\n```scala\n/*\n * Parses a file with URLs and puts them into a list of Strings, each being an URL to get\n */\ndef loadURLs(path: String): List[String] \u003d {\n    ...some code here to return list of urls...\n}\n\n/*\n * GET request on an URL and return the body\n */\ndef getBody(url: String): String \u003d {\n    ...some code here to return body...\n}\n\n/*\n * Detect if body consists of an image, we don\u0027t want those\n */\ndef filterImage(body: String): Boolean \u003d {\n    ...some code here to detect if it\u0027s an image...\n}\n\n// code to load a list of URLs and only return those who are not images\nval allURLsWithoutImages \u003d loadURLs(\"/data/list_of_urls.csv\").map(getBody).filter(filterImage)\n\n```",
+      "dateUpdated": "Jan 25, 2017 8:53:57 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334258787_-305281031",
+      "id": "20170125-085058_1374080418",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eHere we have presented the first two higher order functions we are going to use in this course : \u003ccode\u003emap\u003c/code\u003e and \u003ccode\u003efilter\u003c/code\u003e. Those are called \u003cem\u003eelement-wise\u003c/em\u003e transformations in that they take in a function and applies it to each element in the collection.\u003c/p\u003e\n\u003cp\u003eWe can use them to do a number of things, from fetching the website associated with each URL in our collection to just squaring numbers. Imagine this scenario :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e/*\n * Parses a file with URLs and puts them into a list of Strings, each being an URL to get\n */\ndef loadURLs(path: String): List[String] \u003d {\n    ...some code here to return list of urls...\n}\n\n/*\n * GET request on an URL and return the body\n */\ndef getBody(url: String): String \u003d {\n    ...some code here to return body...\n}\n\n/*\n * Detect if body consists of an image, we don\u0027t want those\n */\ndef filterImage(body: String): Boolean \u003d {\n    ...some code here to detect if it\u0027s an image...\n}\n\n// code to load a list of URLs and only return those who are not images\nval allURLsWithoutImages \u003d loadURLs(\"/data/list_of_urls.csv\").map(getBody).filter(filterImage)\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:50:58 AM",
+      "dateStarted": "Jan 25, 2017 8:53:55 AM",
+      "dateFinished": "Jan 25, 2017 8:53:55 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \nThe other essential higher order function you need to learn is `reduce`, which walks a function through all the elements in a collection to produce an aggregated result. \n\nTo do that, the function operates on two elements in the sequence, and returns a new element of the same type, which is then passed to the same function with the next element in the list.\n\nA simple example of such a function is +, which we can use to sum all of the elements in our list.",
+      "dateUpdated": "Jan 25, 2017 1:34:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334533019_723135810",
+      "id": "20170125-085533_1923530403",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eThe other essential higher order function you need to learn is \u003ccode\u003ereduce\u003c/code\u003e, which walks a function through all the elements in a collection to produce an aggregated result.\u003c/p\u003e\n\u003cp\u003eTo do that, the function operates on two elements in the sequence, and returns a new element of the same type, which is then passed to the same function with the next element in the list.\u003c/p\u003e\n\u003cp\u003eA simple example of such a function is +, which we can use to sum all of the elements in our list.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:55:33 AM",
+      "dateStarted": "Jan 25, 2017 1:34:45 AM",
+      "dateFinished": "Jan 25, 2017 1:34:45 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "(1 to 1000).reduce((x,y) \u003d\u003e x+y)\n(1 to 1000).reduce(_+_)",
+      "dateUpdated": "Jan 25, 2017 8:55:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334545120_1294518575",
+      "id": "20170125-085545_856912582",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres12: Int \u003d 500500\n\nres13: Int \u003d 500500\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:55:45 AM",
+      "dateStarted": "Jan 25, 2017 8:55:47 AM",
+      "dateFinished": "Jan 25, 2017 8:55:48 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\nIn the previous row, imagine that the sum function operates on 1 and 2 and returns 3, \n\nthen that result is passed to the function along with the next element which is 3, and the result 6 is passed with the next element 4, and then the result 10 is passed with 5 etc...\n\n1 --|+\n2 --| 3 --|+\n3 --------| 6 --| +\n4 --------------| 10 --| +\n5 ---------------------| 15\n.etc...\n\nSimilar to `reduce` is `fold`, which takes a \"zero value\" in addition and passed in the initial call",
+      "dateUpdated": "Jan 25, 2017 9:42:15 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334558119_-356438955",
+      "id": "20170125-085558_1894989290",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eIn the previous row, imagine that the sum function operates on 1 and 2 and returns 3,\u003c/p\u003e\n\u003cp\u003ethen that result is passed to the function along with the next element which is 3, and the result 6 is passed with the next element 4, and then the result 10 is passed with 5 etc\u0026hellip;\u003c/p\u003e\n\u003cp\u003e1 \u0026ndash;|+\n\u003cbr  /\u003e2 \u0026ndash;| 3 \u0026ndash;|+\n\u003cbr  /\u003e3 \u0026mdash;\u0026mdash;\u0026ndash;| 6 \u0026ndash;| +\n\u003cbr  /\u003e4 \u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026ndash;| 10 \u0026ndash;| +\n\u003cbr  /\u003e5 \u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;\u0026mdash;| 15\n\u003cbr  /\u003e.etc\u0026hellip;\u003c/p\u003e\n\u003cp\u003eSimilar to \u003ccode\u003ereduce\u003c/code\u003e is \u003ccode\u003efold\u003c/code\u003e, which takes a \u0026ldquo;zero value\u0026rdquo; in addition and passed in the initial call\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:55:58 AM",
+      "dateStarted": "Jan 25, 2017 9:42:13 AM",
+      "dateFinished": "Jan 25, 2017 9:42:13 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nTry to solve the following rows. By editing the `val output \u003d ...` line, use `map`, `filter` and `reduce` with anonymous functions on the variable `input` to return a variable `output` that will be compared to the `expected`variable.\n\nRemember your session is interactive, it makes it easy to test intermediary values when chaining functions, example :\n```scala\ninput.map(...)                                  // 1st execution\ninput.map(...).filter(...)                      // 2nd execution\ninput.map(...).filter(...).reduce(...)          // 3rd execution\n```",
+      "dateUpdated": "Jan 25, 2017 9:56:22 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334565674_933254682",
+      "id": "20170125-085605_508597900",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry to solve the following rows. By editing the \u003ccode\u003eval output \u003d ...\u003c/code\u003e line, use \u003ccode\u003emap\u003c/code\u003e, \u003ccode\u003efilter\u003c/code\u003e and \u003ccode\u003ereduce\u003c/code\u003e with anonymous functions on the variable \u003ccode\u003einput\u003c/code\u003e to return a variable \u003ccode\u003eoutput\u003c/code\u003e that will be compared to the \u003ccode\u003eexpected\u003c/code\u003evariable.\u003c/p\u003e\n\u003cp\u003eRemember your session is interactive, it makes it easy to test intermediary values when chaining functions, example :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003einput.map(...)                                  // 1st execution\ninput.map(...).filter(...)                      // 2nd execution\ninput.map(...).filter(...).reduce(...)          // 3rd execution\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:56:05 AM",
+      "dateStarted": "Jan 25, 2017 9:26:55 AM",
+      "dateFinished": "Jan 25, 2017 9:26:55 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Return the list of squared numbers from 1 to 5",
+      "text": "val input \u003d List(1, 2, 3, 4, 5)\nval output \u003d input.map(x \u003d\u003e x)\n\nval expected \u003d List(1, 4, 9, 16, 25) ",
+      "dateUpdated": "Jan 25, 2017 9:03:16 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334633765_969713882",
+      "id": "20170125-085713_1325612841",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: List[Int] \u003d List(1, 2, 3, 4, 5)\n\noutput: List[Int] \u003d List(1, 2, 3, 4, 5)\n\nexpected: List[Int] \u003d List(1, 4, 9, 16, 25)\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:13 AM",
+      "dateStarted": "Jan 25, 2017 9:03:16 AM",
+      "dateFinished": "Jan 25, 2017 9:03:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Return the sum of elements from 1 to 5",
+      "text": "val input \u003d List(1, 2, 3, 4, 5)\nval output \u003d input.reduce((x, y) \u003d\u003e x)\n\nval expected \u003d 15",
+      "dateUpdated": "Jan 25, 2017 9:23:28 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334640547_1179417357",
+      "id": "20170125-085720_2133991651",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: List[Int] \u003d List(1, 2, 3, 4, 5)\n\noutput: Int \u003d 1\n\nexpected: Int \u003d 15\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:20 AM",
+      "dateStarted": "Jan 25, 2017 9:23:28 AM",
+      "dateFinished": "Jan 25, 2017 9:23:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Return the sum of squared pair numbers between 1 and 100",
+      "text": "val input \u003d 1 to 100\nval output \u003d input.reduce((x, y) \u003d\u003e x)\n\nval expected \u003d 171700",
+      "dateUpdated": "Feb 1, 2017 9:13:45 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334647814_1417359099",
+      "id": "20170125-085727_408760662",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: scala.collection.immutable.Range.Inclusive \u003d Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100)\n\noutput: Int \u003d 1\n\nexpected: Int \u003d 171700\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:27 AM",
+      "dateStarted": "Feb 1, 2017 9:13:46 AM",
+      "dateFinished": "Feb 1, 2017 9:13:48 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Get highest number in a list with a reduce",
+      "text": "import util.Random.nextInt\nval input \u003d Seq.fill(10)(nextInt)\nval output \u003d input.reduce((x, y) \u003d\u003e x)\n\nval expected \u003d input.max",
+      "dateUpdated": "Jan 25, 2017 12:49:26 PM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485334652733_875647972",
+      "id": "20170125-085732_1286059698",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport util.Random.nextInt\n\ninput: Seq[Int] \u003d List(1368154480, 932727527, -956762629, -741728139, 1912445161, 1215347429, 1054732247, -811870848, 762475751, 1567410629)\n\noutput: Int \u003d 1368154480\n\nexpected: Int \u003d 1912445161\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:57:32 AM",
+      "dateStarted": "Jan 25, 2017 12:49:26 PM",
+      "dateFinished": "Jan 25, 2017 12:49:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n### Programming with RDDs\nIn this chapter, we are going to introduce Spark\u0027s core abstraction for working with data in a distributed and resilient way : the \u003ctext style\u003d\"color:red;\"\u003eresilient distributed dataset\u003c/text\u003e, or \u003ctext style\u003d\"color:red;\"\u003eRDD\u003c/text\u003e. Under the hood, Spark automatically performs the distribution of RDDs and its processing around the cluster, so we can focus on our code and not on distributed processing problems, such as the handling of data locality or resiliency in case of node failure.\n\nA RDD consists of a collection of elements partitioned accross the nodes of a cluster of machines that can be operated on in parallel. In Spark, work is expressed by the creation and transformation of RDDs using Spark operators.\n\n\u003ctext style\u003d\"color:red;\"\u003eNote\u003c/text\u003e : RDD is the core data structure to Spark, but the style of programming we are studying in this lesson is considered the _lowest-level API_ for Spark. The Spark community is pushing the use of Structured programming with Dataframes/Datasets instead, an optimized interface for working with structured and semi-structured data, which we will learn later. Understanding RDDs is still important because it teaches you how Spark works under the hood and will serve you to understand and optimize your application when deployed into production.\n\nThis example displays the coarse-grained processing nature of Spark, that applies the same operation to many data items. This is a good fit for many parallel applications, as they _naturally apply the same operation to multiple data items_.",
+      "dateUpdated": "Jan 25, 2017 9:53:13 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336302530_-391954635",
+      "id": "20170125-092502_905179202",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eProgramming with RDDs\u003c/h3\u003e\n\u003cp\u003eIn this chapter, we are going to introduce Spark\u0027s core abstraction for working with data in a distributed and resilient way : the \u003ctext style\u003d\"color:red;\"\u003eresilient distributed dataset\u003c/text\u003e, or \u003ctext style\u003d\"color:red;\"\u003eRDD\u003c/text\u003e. Under the hood, Spark automatically performs the distribution of RDDs and its processing around the cluster, so we can focus on our code and not on distributed processing problems, such as the handling of data locality or resiliency in case of node failure.\u003c/p\u003e\n\u003cp\u003eA RDD consists of a collection of elements partitioned accross the nodes of a cluster of machines that can be operated on in parallel. In Spark, work is expressed by the creation and transformation of RDDs using Spark operators.\u003c/p\u003e\n\u003cp\u003e\u003ctext style\u003d\"color:red;\"\u003eNote\u003c/text\u003e : RDD is the core data structure to Spark, but the style of programming we are studying in this lesson is considered the \u003cem\u003elowest-level API\u003c/em\u003e for Spark. The Spark community is pushing the use of Structured programming with Dataframes/Datasets instead, an optimized interface for working with structured and semi-structured data, which we will learn later. Understanding RDDs is still important because it teaches you how Spark works under the hood and will serve you to understand and optimize your application when deployed into production.\u003c/p\u003e\n\u003cp\u003eThis example displays the coarse-grained processing nature of Spark, that applies the same operation to many data items. This is a good fit for many parallel applications, as they \u003cem\u003enaturally apply the same operation to multiple data items\u003c/em\u003e.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:25:02 AM",
+      "dateStarted": "Jan 25, 2017 9:53:10 AM",
+      "dateFinished": "Jan 25, 2017 9:53:10 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\r\n### Running **Spark**\r\nThe variable **sc** allows you to access a Spark Context to run your Spark programs.\r\n* For more information about Spark, please refer to [Spark Overview](https://spark.apache.org/docs/latest/)\r\n\r\n**Important note:** Do not create the *sc* variable - it is already initialized for you.",
+      "dateUpdated": "Jan 25, 2017 1:42:25 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336678068_1462318881",
+      "id": "20170125-093118_646587966",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eRunning \u003cstrong\u003eSpark\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eThe variable \u003cstrong\u003esc\u003c/strong\u003e allows you to access a Spark Context to run your Spark programs.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eFor more information about Spark, please refer to \u003ca href\u003d\"https://spark.apache.org/docs/latest/\"\u003eSpark Overview\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eImportant note:\u003c/strong\u003e Do not create the \u003cem\u003esc\u003c/em\u003e variable - it is already initialized for you.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:31:18 AM",
+      "dateStarted": "Jan 25, 2017 9:31:36 AM",
+      "dateFinished": "Jan 25, 2017 9:31:36 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// A SparkContext is already created for you by Zeppelin.\r\n// Do not create another or unspecified behavior may occur.\r\nsc.version\r\n\r\n// create an RDD from a local collection with parallelize and then sum all numbers in rdd.\r\nsc.parallelize(1 to 100000000).map(x \u003d\u003e x^2).reduce((x,y) \u003d\u003e x + y)",
+      "dateUpdated": "Feb 1, 2017 10:35:06 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336727219_-267066129",
+      "id": "20170125-093207_1644704199",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres119: String \u003d 2.0.2\n\nres120: Int \u003d 987459712\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:32:07 AM",
+      "dateStarted": "Feb 1, 2017 10:35:07 AM",
+      "dateFinished": "Feb 1, 2017 10:35:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nAs you can see, the RDD API is very similar to the functions we have previously used for processing entire collections. \n\nIf you already are a Scala developer, or are used to functional programming on collections, then RDDs act like a collection that Spark parallelizes on the cluster under the hood.\n\nSpark also provides us with more generic functions.\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\nTry to solve the following row. Browse the Spark API documentation to find the corresponding function.",
+      "dateUpdated": "Feb 1, 2017 10:35:40 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485337796815_-2093861834",
+      "id": "20170125-094956_997092478",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eAs you can see, the RDD API is very similar to the functions we have previously used for processing entire collections.\u003c/p\u003e\n\u003cp\u003eIf you already are a Scala developer, or are used to functional programming on collections, then RDDs act like a collection that Spark parallelizes on the cluster under the hood.\u003c/p\u003e\n\u003cp\u003eSpark also provides us with more generic functions.\u003c/p\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry to solve the following row. Browse the Spark API documentation to find the corresponding function.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:49:56 AM",
+      "dateStarted": "Feb 1, 2017 10:35:38 AM",
+      "dateFinished": "Feb 1, 2017 10:35:38 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Calculate the number of unique words in the \"words\" RDD here.",
+      "text": "val words \u003d sc.parallelize(Array(\"hello\", \"world\", \"goodbye\", \"hello\", \"again\"))\n\nval expected \u003d 4",
+      "dateUpdated": "Feb 1, 2017 9:14:16 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336856216_-2011750793",
+      "id": "20170125-093416_1662109555",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nwords: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[8] at parallelize at \u003cconsole\u003e:27\n\nexpected: Int \u003d 4\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:34:16 AM",
+      "dateStarted": "Feb 1, 2017 9:14:16 AM",
+      "dateFinished": "Feb 1, 2017 9:14:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create a random RDD of numbers, and find its mean.",
+      "text": "import util.Random.nextInt\nval input \u003d sc.parallelize(Seq.fill(10000)(nextInt))",
+      "dateUpdated": "Jan 25, 2017 1:41:43 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485336877601_1857515653",
+      "id": "20170125-093437_413700163",
+      "dateCreated": "Jan 25, 2017 9:34:37 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n#### Key value pairs\n\nWhen doing Hadoop MapReduce, you are used to working with key-value pairs. \n\nIn Scala, we use tuples to manage multiple data altogether.\n\n```scala\nval t \u003d (1, \"hello\", Console)\n```\n\nIt is possible to access elements in a tuple :\n\n```scala\nval t \u003d (4,3,2,1)\nval sum \u003d t._1 + t._2 + t._3 + t._4\n```\n\nNow remember the reduce example, which takes 2 elements organized as tuples :\n\n```scala\n(1 to 1000).reduce((x,y) \u003d\u003e x+y)\n```\n\nYou can deconstruct the tuple inside the anonymous function, it makes it easier to reason around them. This can make for some convoluted one liners.\n\n```scala\n(1 to 1000)\n    .map(x \u003d\u003e (x, 2*x, 3*x))\n    .reduce{case ((x1, doubleX1, tripleX1), (x2, doubleX2, tripleX2)) \u003d\u003e (x1 + x2, doubleX1 * doubleX2, tripleX1 - tripleX2)}\n```\n\n\u003chr/\u003e\n\nIn Spark, a RDD of tuples of 2 elements is considered a key-value RDD. This gives us access to [a new class of functions](https://spark.apache.org/docs/latest/programming-guide.html#working-with-key-value-pairs).\n\nFor example, the following code uses the reduceByKey operation on key-value pairs to count how many times each line of text occurs in a file. It acts like executing reduce on the array of values under the same key.\n\n```scala\nval lines \u003d sc.textFile(\"data.txt\")\nval pairs \u003d lines.map(s \u003d\u003e (s, 1))\nval counts \u003d pairs.reduceByKey((a, b) \u003d\u003e a + b)\n```\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\nTry to solve the following cells.",
+      "dateUpdated": "Jan 25, 2017 1:46:25 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485333124534_-28130484",
+      "id": "20161205-143100_327623105",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4\u003eKey value pairs\u003c/h4\u003e\n\u003cp\u003eWhen doing Hadoop MapReduce, you are used to working with key-value pairs.\u003c/p\u003e\n\u003cp\u003eIn Scala, we use tuples to manage multiple data altogether.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval t \u003d (1, \"hello\", Console)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eIt is possible to access elements in a tuple :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval t \u003d (4,3,2,1)\nval sum \u003d t._1 + t._2 + t._3 + t._4\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eNow remember the reduce example, which takes 2 elements organized as tuples :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e(1 to 1000).reduce((x,y) \u003d\u0026gt; x+y)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eYou can deconstruct the tuple inside the anonymous function, it makes it easier to reason around them. This can make for some convoluted one liners.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e(1 to 1000)\n    .map(x \u003d\u0026gt; (x, 2*x, 3*x))\n    .reduce{case ((x1, doubleX1, tripleX1), (x2, doubleX2, tripleX2)) \u003d\u0026gt; (x1 + x2, doubleX1 * doubleX2, tripleX1 - tripleX2)}\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr/\u003e\n\u003cp\u003eIn Spark, a RDD of tuples of 2 elements is considered a key-value RDD. This gives us access to \u003ca href\u003d\"https://spark.apache.org/docs/latest/programming-guide.html#working-with-key-value-pairs\"\u003ea new class of functions\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eFor example, the following code uses the reduceByKey operation on key-value pairs to count how many times each line of text occurs in a file. It acts like executing reduce on the array of values under the same key.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval lines \u003d sc.textFile(\"data.txt\")\nval pairs \u003d lines.map(s \u003d\u0026gt; (s, 1))\nval counts \u003d pairs.reduceByKey((a, b) \u003d\u0026gt; a + b)\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry to solve the following cells.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 8:32:04 AM",
+      "dateStarted": "Jan 25, 2017 1:43:21 AM",
+      "dateFinished": "Jan 25, 2017 1:43:21 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Wordcount, easy mode",
+      "text": "val input \u003d sc.parallelize(Seq(\"hi\", \"my\", \"my\", \"name\", \"is\",\"hi\"))\nval output \u003d input\n\nval expected \u003d Array((\"is\",1), (\"my,2\"), (\"name\",1), (\"hi\",2))",
+      "dateUpdated": "Feb 1, 2017 10:36:22 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485338316737_924641072",
+      "id": "20170125-095836_160099750",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ninput: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[152] at parallelize at \u003cconsole\u003e:41\n\noutput: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[152] at parallelize at \u003cconsole\u003e:41\n\nexpected: Array[java.io.Serializable] \u003d Array((is,1), my,2, (name,1), (hi,2))\n"
+      },
+      "dateCreated": "Jan 25, 2017 9:58:36 AM",
+      "dateStarted": "Feb 1, 2017 10:36:20 AM",
+      "dateFinished": "Feb 1, 2017 10:36:21 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sum ages per gender",
+      "text": "val rdd1 \u003d sc.parallelize(Seq((\"Patrick\", \"homme\"), (\"Sandra\", \"femme\"), (\"Faniki\", \"homme\"), (\"Noemie\", \"femme\"), (\"Francois\", \"homme\"), (\"Cassandre\", \"femme\")))\nval rdd2 \u003d sc.parallelize(Seq((\"Patrick\", 20), (\"Sandra\", 25), (\"Faniki\", 20), (\"Noemie\", 20), (\"Francois\", 30), (\"Cassandre\", 18)))\n\n// rdd1 and rdd2 are key-value rdds so you can join them and then continue the computation\nval output \u003d rdd1.join(rdd2)\n\nval expected \u003d Array((\"femme\", 63), (\"homme\", 70))",
+      "dateUpdated": "Feb 1, 2017 10:15:26 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485349451411_-763547996",
+      "id": "20170125-130411_450751393",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nrdd1: org.apache.spark.rdd.RDD[(String, String)] \u003d ParallelCollectionRDD[131] at parallelize at \u003cconsole\u003e:41\n\nrdd2: org.apache.spark.rdd.RDD[(String, Int)] \u003d ParallelCollectionRDD[132] at parallelize at \u003cconsole\u003e:41\n\noutput: org.apache.spark.rdd.RDD[(String, (String, Int))] \u003d MapPartitionsRDD[135] at join at \u003cconsole\u003e:45\n\nexpected: Array[(String, Int)] \u003d Array((femme,63), (homme,70))\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:04:11 AM",
+      "dateStarted": "Feb 1, 2017 10:15:26 AM",
+      "dateFinished": "Feb 1, 2017 10:15:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md \n\n#### To the real wordcount\n\nWe are missing an important operator before going to the normal wordcount as we know it : `flatten`, which flattens the lists held inside the outer list into one resulting list.\n\n```scala\nscala\u003e val lol \u003d List(List(1,2), List(3,4))\nlol: List[List[Int]] \u003d List(List(1, 2), List(3, 4))\n\nscala\u003e val result \u003d lol.flatten\nresult: List[Int] \u003d List(1, 2, 3, 4)\n```\n\nIn general, when reading a text, you get an array of lines like :\n\n```scala\nval text \u003d Seq(\n    \"coucou\",\n    \"ceci est le cours de mapreduce\",\n    \"ce n\u0027est pas difficile\",\n    \"n\u0027est ce pas ?\"\n)\n```\n\nif I want the list of all the words, first I need to split each line into words and then flatten the whole :\n\n```scala\nscala\u003e val split \u003d text.map(line \u003d\u003e line.split(\" \"))\nresult: List[Array(String)] \u003d List(Array(\"coucou\"), Array(\"ceci\", \"est\", \"le\" ...))\n\nscala\u003e val flat \u003d split.flatten\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n```\n\nYou get the same result if you use `flatMap` :\n\n```scala\nscala\u003e val flat \u003d text.flatMap(line \u003d\u003e line.split(\" \"))\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n```\n\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\nTry the wordcount on a textfile `/opt/dataset/don-quijote.txt.gz` read with Spark into a RDD ! This is it, this is the classic Hello world, it uses `flatMap` as the Hadoop Map and `reduceByKey` as the Hadoop Reduce.",
+      "dateUpdated": "Feb 1, 2017 9:43:33 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485349147677_33622721",
+      "id": "20170125-125907_1086033982",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4\u003eTo the real wordcount\u003c/h4\u003e\n\u003cp\u003eWe are missing an important operator before going to the normal wordcount as we know it : \u003ccode\u003eflatten\u003c/code\u003e, which flattens the lists held inside the outer list into one resulting list.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003escala\u0026gt; val lol \u003d List(List(1,2), List(3,4))\nlol: List[List[Int]] \u003d List(List(1, 2), List(3, 4))\n\nscala\u0026gt; val result \u003d lol.flatten\nresult: List[Int] \u003d List(1, 2, 3, 4)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eIn general, when reading a text, you get an array of lines like :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval text \u003d Seq(\n    \"coucou\",\n    \"ceci est le cours de mapreduce\",\n    \"ce n\u0027est pas difficile\",\n    \"n\u0027est ce pas ?\"\n)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eif I want the list of all the words, first I need to split each line into words and then flatten the whole :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003escala\u0026gt; val split \u003d text.map(line \u003d\u0026gt; line.split(\" \"))\nresult: List[Array(String)] \u003d List(Array(\"coucou\"), Array(\"ceci\", \"est\", \"le\" ...))\n\nscala\u0026gt; val flat \u003d split.flatten\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eYou get the same result if you use \u003ccode\u003eflatMap\u003c/code\u003e :\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003escala\u0026gt; val flat \u003d text.flatMap(line \u003d\u0026gt; line.split(\" \"))\nresult: List[String] \u003d List(\"coucou\", \"ceci\", \"est\", \"le\" ...))\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr/\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eTry the wordcount on a textfile \u003ccode\u003e/opt/dataset/don-quijote.txt.gz\u003c/code\u003e read with Spark into a RDD ! This is it, this is the classic Hello world, it uses \u003ccode\u003eflatMap\u003c/code\u003e as the Hadoop Map and \u003ccode\u003ereduceByKey\u003c/code\u003e as the Hadoop Reduce.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 12:59:07 PM",
+      "dateStarted": "Jan 25, 2017 1:53:30 AM",
+      "dateFinished": "Jan 25, 2017 1:53:30 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// load file into RDD and check 10 first lines\n\nval text \u003d sc.textFile(\"/opt/dataset/don-quijote.txt.gz\")\ntext.take(3)",
+      "dateUpdated": "Feb 1, 2017 6:57:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352171034_-904654561",
+      "id": "20170125-134931_765137162",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ntext: org.apache.spark.rdd.RDD[String] \u003d /opt/dataset/don-quijote.txt.gz MapPartitionsRDD[1] at textFile at \u003cconsole\u003e:31\n\nres4: Array[String] \u003d Array(The Project Gutenberg EBook of Don Quijote, by Miguel de Cervantes Saavedra, \"\", This eBook is for the use of anyone anywhere at no cost and with)\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:49:31 AM",
+      "dateStarted": "Feb 1, 2017 6:57:16 AM",
+      "dateFinished": "Feb 1, 2017 6:57:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// write your Spark map-reduce code here\n\ntext.doSomething",
+      "dateUpdated": "Feb 1, 2017 6:57:25 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352420257_-878908678",
+      "id": "20170125-135340_1546349786",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "\n\n\n\u003cconsole\u003e:33: error: value doSomething is not a member of org.apache.spark.rdd.RDD[String]\n              text.doSomething\n                   ^\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:53:40 AM",
+      "dateStarted": "Jan 25, 2017 1:54:09 AM",
+      "dateFinished": "Jan 25, 2017 1:54:09 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\r\n### Working with **Spark SQL and DataFrames**\r\nThe variable **sqlContext** allows you to access a Spark SQL Context to work with Spark SQL and DataFrames.\r\n* Scala can be used to create Spark [DataFrames](http://spark.apache.org/docs/latest/sql-programming-guide.html) - a distributed collection of data organized into named columns.\r\n* DataFrames are created by appending ``.toDF()`` to the Scala RDD\r\n\r\nIn this tutorial, we will analyze the ipligence-lite csv file with SparkSQL. It is a Free IP location database solution to detect the country and continent of the visitor connection based on their IP address. [Download here if needed](http://www.ipligence.com/free-ip-database). You\u0027ll get the schema of the file there.\r\n\r\nBefore, we had to use [spark-csv](https://github.com/databricks/spark-csv) and use reflection to build Dataframes from csv files. Now spark-csv is directly integrated into Spark as a Data Source, so it is easy to parse csv files into Dataframes.\r\n\r\n**Important note:** Do not create the *sqlContext* variable - it is already initialized for you.",
+      "dateUpdated": "Feb 1, 2017 9:16:11 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": true,
+        "editorMode": "ace/mode/markdown"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485348757555_-689252064",
+      "id": "20170125-125237_922206168",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003eWorking with \u003cstrong\u003eSpark SQL and DataFrames\u003c/strong\u003e\u003c/h3\u003e\n\u003cp\u003eThe variable \u003cstrong\u003esqlContext\u003c/strong\u003e allows you to access a Spark SQL Context to work with Spark SQL and DataFrames.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eScala can be used to create Spark \u003ca href\u003d\"http://spark.apache.org/docs/latest/sql-programming-guide.html\"\u003eDataFrames\u003c/a\u003e - a distributed collection of data organized into named columns.\u003c/li\u003e\n\u003cli\u003eDataFrames are created by appending \u003ccode\u003e.toDF()\u003c/code\u003e to the Scala RDD\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eIn this tutorial, we will analyze the ipligence-lite csv file with SparkSQL. It is a Free IP location database solution to detect the country and continent of the visitor connection based on their IP address. \u003ca href\u003d\"http://www.ipligence.com/free-ip-database\"\u003eDownload here if needed\u003c/a\u003e. You\u0027ll get the schema of the file there.\u003c/p\u003e\n\u003cp\u003eBefore, we had to use \u003ca href\u003d\"https://github.com/databricks/spark-csv\"\u003espark-csv\u003c/a\u003e and use reflection to build Dataframes from csv files. Now spark-csv is directly integrated into Spark as a Data Source, so it is easy to parse csv files into Dataframes.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eImportant note:\u003c/strong\u003e Do not create the \u003cem\u003esqlContext\u003c/em\u003e variable - it is already initialized for you.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 12:52:37 PM",
+      "dateStarted": "Feb 1, 2017 9:16:09 AM",
+      "dateFinished": "Feb 1, 2017 9:16:09 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// let\u0027s check the file we are going to use\nval ipligence \u003d sc.textFile(\"/opt/dataset/ipligence-lite.csv\")\nipligence.take(1)",
+      "dateUpdated": "Feb 1, 2017 9:17:21 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485932362834_-790510610",
+      "id": "20170201-065922_1040411609",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nipligence: org.apache.spark.rdd.RDD[String] \u003d /opt/dataset/ipligence-lite.csv MapPartitionsRDD[19] at textFile at \u003cconsole\u003e:28\n\nres14: Array[String] \u003d Array(\"0000000000\",\"0016777215\",\"\",\"\",\"\",\"\")\n"
+      },
+      "dateCreated": "Feb 1, 2017 6:59:22 AM",
+      "dateStarted": "Feb 1, 2017 9:17:21 AM",
+      "dateFinished": "Feb 1, 2017 9:17:22 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// create your dataframe by reading the csv file\nval columnNames \u003d Seq(\"IP_FROM\", \"IP_TO\", \"COUNTRY_CODE\", \"COUNTRY_NAME\", \"CONTINENT_CODE\", \"CONTINENT_NAME\")\nval df \u003d sqlContext.read.csv(\"/opt/dataset/ipligence-lite.csv\").toDF(columnNames: _*)\ndf.printSchema()\ndf.show()\n\n// if you want to use the dataframe in SQL, you must register it\ndf.registerTempTable(\"df\")",
+      "dateUpdated": "Feb 1, 2017 10:10:32 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485933377297_-99994725",
+      "id": "20170201-071617_1372276620",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ncolumnNames: Seq[String] \u003d List(IP_FROM, IP_TO, COUNTRY_CODE, COUNTRY_NAME, CONTINENT_CODE, CONTINENT_NAME)\n\ndf: org.apache.spark.sql.DataFrame \u003d [IP_FROM: string, IP_TO: string ... 4 more fields]\nroot\n |-- IP_FROM: string (nullable \u003d true)\n |-- IP_TO: string (nullable \u003d true)\n |-- COUNTRY_CODE: string (nullable \u003d true)\n |-- COUNTRY_NAME: string (nullable \u003d true)\n |-- CONTINENT_CODE: string (nullable \u003d true)\n |-- CONTINENT_NAME: string (nullable \u003d true)\n\n+----------+----------+------------+------------+--------------+--------------+\n|   IP_FROM|     IP_TO|COUNTRY_CODE|COUNTRY_NAME|CONTINENT_CODE|CONTINENT_NAME|\n+----------+----------+------------+------------+--------------+--------------+\n|0000000000|0016777215|        null|        null|          null|          null|\n|0016777216|0016777471|          AU|   AUSTRALIA|            OC|       OCEANIA|\n|0016777472|0016778239|          CN|       CHINA|            AS|          ASIA|\n|0016778240|0016779263|          AU|   AUSTRALIA|            OC|       OCEANIA|\n|0016779264|0016781311|          CN|       CHINA|            AS|          ASIA|\n|0016781312|0016785407|          JP|       JAPAN|            AS|          ASIA|\n|0016785408|0016793599|          CN|       CHINA|            AS|          ASIA|\n|0016793600|0016809983|          JP|       JAPAN|            AS|          ASIA|\n|0016809984|0016842751|          TH|    THAILAND|            AS|          ASIA|\n|0016842752|0016843007|          CN|       CHINA|            AS|          ASIA|\n|0016843008|0016843263|          AU|   AUSTRALIA|            OC|       OCEANIA|\n|0016843264|0016859135|          CN|       CHINA|            AS|          ASIA|\n|0016859136|0016875519|          JP|       JAPAN|            AS|          ASIA|\n|0016875520|0016908287|          TH|    THAILAND|            AS|          ASIA|\n|0016908288|0016909055|          CN|       CHINA|            AS|          ASIA|\n|0016909056|0016909311|          AU|   AUSTRALIA|            OC|       OCEANIA|\n|0016909312|0016941055|          CN|       CHINA|            AS|          ASIA|\n|0016941056|0016973823|          TH|    THAILAND|            AS|          ASIA|\n|0016973824|0017039359|          CN|       CHINA|            AS|          ASIA|\n|0017039360|0017039615|          AU|   AUSTRALIA|            OC|       OCEANIA|\n+----------+----------+------------+------------+--------------+--------------+\nonly showing top 20 rows\n\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+      },
+      "dateCreated": "Feb 1, 2017 7:16:17 AM",
+      "dateStarted": "Feb 1, 2017 10:10:32 AM",
+      "dateFinished": "Feb 1, 2017 10:10:34 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nYou have two ways to use the dataframe in SparkSQL.\n\n1. From the SQL API of sqlContext : `sqlContext.sql(\"SELECT IP_TO FROM df\")` see this\n2. FROM the functional API : `df.select(\"IP_TO\")`\n\nTo show the beginning of the actual dataframe, use the show() function, which is an action and so executes all of the computation.",
+      "dateUpdated": "Feb 1, 2017 10:04:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485940909537_-1550931041",
+      "id": "20170201-092149_1555341566",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eYou have two ways to use the dataframe in SparkSQL.\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eFrom the SQL API of sqlContext : \u003ccode\u003esqlContext.sql(\"SELECT IP_TO FROM df\")\u003c/code\u003e see this\u003c/li\u003e\n\u003cli\u003eFROM the functional API : \u003ccode\u003edf.select(\"IP_TO\")\u003c/code\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eTo show the beginning of the actual dataframe, use the show() function, which is an action and so executes all of the computation.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Feb 1, 2017 9:21:49 AM",
+      "dateStarted": "Feb 1, 2017 10:04:15 AM",
+      "dateFinished": "Feb 1, 2017 10:04:15 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "sqlContext.sql(\"SELECT IP_TO FROM df\").show(5)",
+      "dateUpdated": "Feb 1, 2017 9:42:54 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485940897348_1700181840",
+      "id": "20170201-092137_536797865",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+----------+\n|     IP_TO|\n+----------+\n|0016777215|\n|0016777471|\n|0016778239|\n|0016779263|\n|0016781311|\n+----------+\nonly showing top 5 rows\n\n"
+      },
+      "dateCreated": "Feb 1, 2017 9:21:37 AM",
+      "dateStarted": "Feb 1, 2017 9:42:54 AM",
+      "dateFinished": "Feb 1, 2017 9:42:55 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "df.select(\"IP_TO\").show(5)",
+      "dateUpdated": "Feb 1, 2017 9:43:02 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485940902478_-1847972516",
+      "id": "20170201-092142_935429249",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+----------+\n|     IP_TO|\n+----------+\n|0016777215|\n|0016777471|\n|0016778239|\n|0016779263|\n|0016781311|\n+----------+\nonly showing top 5 rows\n\n"
+      },
+      "dateCreated": "Feb 1, 2017 9:21:42 AM",
+      "dateStarted": "Feb 1, 2017 9:43:02 AM",
+      "dateFinished": "Feb 1, 2017 9:43:03 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\nBecause the result of those are Dataframes, you can store them in a new variable or register them for future usage.\n```scala\n// filter with functional api\nval ipDf \u003d sqlContext.sql(\"SELECT IP_FROM,IP_TO FROM df\")\nipDf.filter(\"IP_FROM \u003d \u00270016777216\u0027\").show()\n\n// register from inside SQL API\nsqlContext.sql(\"SELECT IP_FROM,IP_TO,CONTINENT_NAME FROM df WHERE CONTINENT_NAME\u003d\u0027ASIA\u0027\").registerTempTable(\"asiaOnlyDF\")\n```\n\n\u003chr\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\nSolve the following queries, using one or both APIs.",
+      "dateUpdated": "Feb 1, 2017 10:04:31 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485942187408_659198275",
+      "id": "20170201-094307_1855187218",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003eBecause the result of those are Dataframes, you can store them in a new variable or register them for future usage.\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003e// filter with functional api\nval ipDf \u003d sqlContext.sql(\"SELECT IP_FROM,IP_TO FROM df\")\nipDf.filter(\"IP_FROM \u003d \u00270016777216\u0027\").show()\n\n// register from inside SQL API\nsqlContext.sql(\"SELECT IP_FROM,IP_TO,CONTINENT_NAME FROM df WHERE CONTINENT_NAME\u003d\u0027ASIA\u0027\").registerTempTable(\"asiaOnlyDF\")\n\u003c/code\u003e\u003c/pre\u003e\n\u003chr\u003e\n\u003ch4 style\u003d\"color:red;\"\u003eExercise\u003c/h4\u003e\n\u003cp\u003eSolve the following queries, using one or both APIs.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Feb 1, 2017 9:43:07 AM",
+      "dateStarted": "Feb 1, 2017 10:04:28 AM",
+      "dateFinished": "Feb 1, 2017 10:04:28 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Display all continent names",
+      "text": "",
+      "dateUpdated": "Feb 1, 2017 9:50:17 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485942495411_965115810",
+      "id": "20170201-094815_410703547",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Feb 1, 2017 9:48:15 AM",
+      "dateStarted": "Feb 1, 2017 9:50:18 AM",
+      "dateFinished": "Feb 1, 2017 9:50:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Count number of rows with a null value in country code",
+      "text": "// Don\u0027t forget you have the count function on a Dataframe after you have filtered it",
+      "dateUpdated": "Feb 1, 2017 10:05:56 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485942503342_817387557",
+      "id": "20170201-094823_1804433902",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Feb 1, 2017 9:48:23 AM",
+      "dateStarted": "Feb 1, 2017 10:05:57 AM",
+      "dateFinished": "Feb 1, 2017 10:05:57 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Display number of connections per continent",
+      "text": "",
+      "dateUpdated": "Feb 1, 2017 10:09:38 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485943558988_-1137432425",
+      "id": "20170201-100558_849211484",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Feb 1, 2017 10:05:58 AM",
+      "dateStarted": "Feb 1, 2017 10:09:38 AM",
+      "dateFinished": "Feb 1, 2017 10:09:38 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Show IP_FROM addresses which appear more than once in the file",
+      "text": "// PS : if your query is correct, you should only find one",
+      "dateUpdated": "Feb 1, 2017 10:11:17 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485943568883_1038722678",
+      "id": "20170201-100608_637001408",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Feb 1, 2017 10:06:08 AM",
+      "dateStarted": "Feb 1, 2017 10:11:17 AM",
+      "dateFinished": "Feb 1, 2017 10:11:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\n#### Primer on Zeppelin visualization\n\nIf your dataframe is registered, you can use the %sql interpreter to directly study it. \n\nNormally the %sql interpreter is used to connect to a Hive metastore, the thing is a registered dataframe is actually present in the local Hive metastore so you can access it as a fake Hive table (you can see it for yourself with `sqlContext.sql(\"SHOW TABLES\").show()`)\n\nWith the %sql interpreter, you have access to basic visualization features of Zeppelin.",
+      "dateUpdated": "Feb 1, 2017 10:23:24 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352733614_-571683130",
+      "id": "20170125-135853_1126980502",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4\u003ePrimer on Zeppelin visualization\u003c/h4\u003e\n\u003cp\u003eIf your dataframe is registered, you can use the %sql interpreter to directly study it.\u003c/p\u003e\n\u003cp\u003eNormally the %sql interpreter is used to connect to a Hive metastore, the thing is a registered dataframe is actually present in the local Hive metastore so you can access it as a fake Hive table (you can see it for yourself with \u003ccode\u003esqlContext.sql(\"SHOW TABLES\").show()\u003c/code\u003e)\u003c/p\u003e\n\u003cp\u003eWith the %sql interpreter, you have access to basic visualization features of Zeppelin.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Jan 25, 2017 1:58:53 AM",
+      "dateStarted": "Feb 1, 2017 10:23:22 AM",
+      "dateFinished": "Feb 1, 2017 10:23:22 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "If your DataFrame is stored internally, you can do some viz",
+      "text": "%sql\nSELECT * FROM df",
+      "dateUpdated": "Feb 1, 2017 10:23:58 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": true,
+          "keys": [
+            {
+              "name": "COUNTRY_CODE",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "CONTINENT_NAME",
+              "index": 5.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "IP_FROM",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "IP_TO",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352786724_-773999755",
+      "id": "20170125-135946_1334292884",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "IP_FROM\tIP_TO\tCOUNTRY_CODE\tCOUNTRY_NAME\tCONTINENT_CODE\tCONTINENT_NAME\n0000000000\t0016777215\tnull\tnull\tnull\tnull\n0016777216\t0016777471\tAU\tAUSTRALIA\tOC\tOCEANIA\n0016777472\t0016778239\tCN\tCHINA\tAS\tASIA\n0016778240\t0016779263\tAU\tAUSTRALIA\tOC\tOCEANIA\n0016779264\t0016781311\tCN\tCHINA\tAS\tASIA\n0016781312\t0016785407\tJP\tJAPAN\tAS\tASIA\n0016785408\t0016793599\tCN\tCHINA\tAS\tASIA\n0016793600\t0016809983\tJP\tJAPAN\tAS\tASIA\n0016809984\t0016842751\tTH\tTHAILAND\tAS\tASIA\n0016842752\t0016843007\tCN\tCHINA\tAS\tASIA\n0016843008\t0016843263\tAU\tAUSTRALIA\tOC\tOCEANIA\n0016843264\t0016859135\tCN\tCHINA\tAS\tASIA\n0016859136\t0016875519\tJP\tJAPAN\tAS\tASIA\n0016875520\t0016908287\tTH\tTHAILAND\tAS\tASIA\n0016908288\t0016909055\tCN\tCHINA\tAS\tASIA\n0016909056\t0016909311\tAU\tAUSTRALIA\tOC\tOCEANIA\n0016909312\t0016941055\tCN\tCHINA\tAS\tASIA\n0016941056\t0016973823\tTH\tTHAILAND\tAS\tASIA\n0016973824\t0017039359\tCN\tCHINA\tAS\tASIA\n0017039360\t0017039615\tAU\tAUSTRALIA\tOC\tOCEANIA\n0017039616\t0017072127\tCN\tCHINA\tAS\tASIA\n0017072128\t0017104895\tTH\tTHAILAND\tAS\tASIA\n0017104896\t0017170431\tJP\tJAPAN\tAS\tASIA\n0017170432\t0017301503\tIN\tINDIA\tAS\tASIA\n0017301504\t0017367039\tCN\tCHINA\tAS\tASIA\n0017367040\t0017432575\tMY\tMALAYSIA\tAS\tASIA\n0017432576\t0017435135\tCN\tCHINA\tAS\tASIA\n0017435136\t0017435391\tAU\tAUSTRALIA\tOC\tOCEANIA\n0017435392\t0017465343\tCN\tCHINA\tAS\tASIA\n0017465344\t0017498111\tTH\tTHAILAND\tAS\tASIA\n0017498112\t0017563647\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0017563648\t0017825791\tCN\tCHINA\tAS\tASIA\n0017825792\t0018087935\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0018087936\t0018153471\tTH\tTHAILAND\tAS\tASIA\n0018153472\t0018219007\tJP\tJAPAN\tAS\tASIA\n0018219008\t0018350079\tIN\tINDIA\tAS\tASIA\n0018350080\t0018874367\tCN\tCHINA\tAS\tASIA\n0018874368\t0018939903\tHK\tHONG KONG\tAS\tASIA\n0018939904\t0019005439\tJP\tJAPAN\tAS\tASIA\n0019005440\t0019136511\tTW\tTAIWAN, PROVINCE OF CHINA\tAS\tASIA\n0019136512\t0019202047\tHK\tHONG KONG\tAS\tASIA\n0019202048\t0019267583\tPH\tPHILIPPINES\tAS\tASIA\n0019267584\t0019398655\tIN\tINDIA\tAS\tASIA\n0019398656\t0019726335\tAU\tAUSTRALIA\tOC\tOCEANIA\n0019726336\t0019791871\tCN\tCHINA\tAS\tASIA\n0019791872\t0019922943\tTH\tTHAILAND\tAS\tASIA\n0019922944\t0020185087\tCN\tCHINA\tAS\tASIA\n0020185088\t0020447231\tVN\tVIET NAM\tAS\tASIA\n0020447232\t0020971519\tCN\tCHINA\tAS\tASIA\n0020971520\t0021102591\tHK\tHONG KONG\tAS\tASIA\n0021102592\t0021233663\tJP\tJAPAN\tAS\tASIA\n0021233664\t0021495807\tCN\tCHINA\tAS\tASIA\n0021495808\t0022020095\tJP\tJAPAN\tAS\tASIA\n0022020096\t0023068671\tCN\tCHINA\tAS\tASIA\n0023068672\t0024117247\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0024117248\t0024379391\tJP\tJAPAN\tAS\tASIA\n0024379392\t0024641535\tCN\tCHINA\tAS\tASIA\n0024641536\t0027262975\tAU\tAUSTRALIA\tOC\tOCEANIA\n0027262976\t0028311551\tTW\tTAIWAN, PROVINCE OF CHINA\tAS\tASIA\n0028311552\t0028442623\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0028442624\t0028540927\tAU\tAUSTRALIA\tOC\tOCEANIA\n0028540928\t0028573695\tTH\tTHAILAND\tAS\tASIA\n0028573696\t0028966911\tCN\tCHINA\tAS\tASIA\n0028966912\t0029097983\tIN\tINDIA\tAS\tASIA\n0029097984\t0029884415\tCN\tCHINA\tAS\tASIA\n0029884416\t0029949951\tTW\tTAIWAN, PROVINCE OF CHINA\tAS\tASIA\n0029949952\t0030015487\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0030015488\t0030408703\tCN\tCHINA\tAS\tASIA\n0030408704\t0033554431\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0033554432\t0033554432\tDE\tGERMANY\tEU\tEUROPE\n0033554433\t0034603007\tFR\tFRANCE\tEU\tEUROPE\n0034603008\t0034604543\tnull\tnull\tnull\tnull\n0034604544\t0034605055\tDE\tGERMANY\tEU\tEUROPE\n0034605056\t0034612223\tnull\tnull\tnull\tnull\n0034612224\t0034612735\tIL\tISRAEL\tME\tMIDDLE EAST\n0034612736\t0034620415\tnull\tnull\tnull\tnull\n0034620416\t0034620927\tSE\tSWEDEN\tEU\tEUROPE\n0034620928\t0034636799\tIT\tITALY\tEU\tEUROPE\n0034636800\t0034637311\tDE\tGERMANY\tEU\tEUROPE\n0034637312\t0034646527\tnull\tnull\tnull\tnull\n0034646528\t0034649087\tDE\tGERMANY\tEU\tEUROPE\n0034649088\t0034659327\tnull\tnull\tnull\tnull\n0034659328\t0034664447\tGR\tGREECE\tEU\tEUROPE\n0034664448\t0034668543\tDE\tGERMANY\tEU\tEUROPE\n0034668544\t0034673663\tnull\tnull\tnull\tnull\n0034673664\t0034734079\tDE\tGERMANY\tEU\tEUROPE\n0034734080\t0034754559\tnull\tnull\tnull\tnull\n0034754560\t0034796031\tGR\tGREECE\tEU\tEUROPE\n0034796032\t0034796543\tNL\tNETHERLANDS\tEU\tEUROPE\n0034796544\t0034803711\tnull\tnull\tnull\tnull\n0034803712\t0034861055\tIT\tITALY\tEU\tEUROPE\n0034861056\t0034865151\tDE\tGERMANY\tEU\tEUROPE\n0034865152\t0034866175\tnull\tnull\tnull\tnull\n0034866176\t0034867199\tIT\tITALY\tEU\tEUROPE\n0034867200\t0034880511\tnull\tnull\tnull\tnull\n0034880512\t0034910975\tDE\tGERMANY\tEU\tEUROPE\n0034910976\t0034911231\tES\tSPAIN\tEU\tEUROPE\n0034911232\t0034911743\tDE\tGERMANY\tEU\tEUROPE\n0034911744\t0034911999\tAT\tAUSTRIA\tEU\tEUROPE\n0034912000\t0034912255\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0034912256\t0034912511\tDE\tGERMANY\tEU\tEUROPE\n0034912512\t0034912767\tES\tSPAIN\tEU\tEUROPE\n0034912768\t0034928639\tDE\tGERMANY\tEU\tEUROPE\n0034928640\t0034930687\tnull\tnull\tnull\tnull\n0034930688\t0034947071\tDE\tGERMANY\tEU\tEUROPE\n0034947072\t0034953215\tFR\tFRANCE\tEU\tEUROPE\n0034953216\t0034963455\tAT\tAUSTRIA\tEU\tEUROPE\n0034963456\t0034995711\tNL\tNETHERLANDS\tEU\tEUROPE\n0034995712\t0034996223\tFR\tFRANCE\tEU\tEUROPE\n0034996224\t0034999295\tnull\tnull\tnull\tnull\n0034999296\t0035001343\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0035001344\t0035009023\tFR\tFRANCE\tEU\tEUROPE\n0035009024\t0035010303\tnull\tnull\tnull\tnull\n0035010304\t0035010559\tBE\tBELGIUM\tEU\tEUROPE\n0035010560\t0035011583\tFR\tFRANCE\tEU\tEUROPE\n0035011584\t0035011839\tSE\tSWEDEN\tEU\tEUROPE\n0035011840\t0035020799\tnull\tnull\tnull\tnull\n0035020800\t0035037183\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0035037184\t0035055103\tFR\tFRANCE\tEU\tEUROPE\n0035055104\t0035055359\tES\tSPAIN\tEU\tEUROPE\n0035055360\t0035055871\tnull\tnull\tnull\tnull\n0035055872\t0035056127\tNL\tNETHERLANDS\tEU\tEUROPE\n0035056128\t0035059199\tnull\tnull\tnull\tnull\n0035059200\t0035059711\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0035059712\t0035060735\tnull\tnull\tnull\tnull\n0035060736\t0035061247\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0035061248\t0035061759\tFR\tFRANCE\tEU\tEUROPE\n0035061760\t0035090431\tnull\tnull\tnull\tnull\n0035090432\t0035127295\tGR\tGREECE\tEU\tEUROPE\n0035127296\t0035651583\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0035651584\t0036700159\tIT\tITALY\tEU\tEUROPE\n0036700160\t0036962303\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0036962304\t0037224447\tIL\tISRAEL\tME\tMIDDLE EAST\n0037224448\t0037486591\tnull\tnull\tnull\tnull\n0037486592\t0037748735\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0037748736\t0038258687\tSE\tSWEDEN\tEU\tEUROPE\n0038258688\t0038258943\tDK\tDENMARK\tEU\tEUROPE\n0038258944\t0038273023\tSE\tSWEDEN\tEU\tEUROPE\n0038273024\t0038797311\tKZ\tKAZAKHSTAN\tAS\tASIA\n0038797312\t0039059455\tPT\tPORTUGAL\tEU\tEUROPE\n0039059456\t0039321599\tGR\tGREECE\tEU\tEUROPE\n0039321600\t0039583743\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0039583744\t0039845887\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0039845888\t0040370175\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0040370176\t0040894463\tDK\tDENMARK\tEU\tEUROPE\n0040894464\t0041418751\tIT\tITALY\tEU\tEUROPE\n0041418752\t0041943039\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0041943040\t0042205183\tDK\tDENMARK\tEU\tEUROPE\n0042205184\t0042467327\tKZ\tKAZAKHSTAN\tAS\tASIA\n0042467328\t0042991615\tES\tSPAIN\tEU\tEUROPE\n0042991616\t0043253759\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0043253760\t0043515903\tNO\tNORWAY\tEU\tEUROPE\n0043515904\t0043778047\tES\tSPAIN\tEU\tEUROPE\n0043778048\t0044040191\tIT\tITALY\tEU\tEUROPE\n0044040192\t0045088767\tDE\tGERMANY\tEU\tEUROPE\n0045088768\t0046137343\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0046137344\t0046661631\tIT\tITALY\tEU\tEUROPE\n0046661632\t0047710207\tDE\tGERMANY\tEU\tEUROPE\n0047710208\t0048234495\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0048234496\t0049283071\tIT\tITALY\tEU\tEUROPE\n0049283072\t0049807359\tDE\tGERMANY\tEU\tEUROPE\n0049807360\t0050331647\tSE\tSWEDEN\tEU\tEUROPE\n0050331648\t0057083940\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0057083941\t0057083941\tHK\tHONG KONG\tAS\tASIA\n0057083942\t0068305407\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0068305408\t0068305919\tMX\tMEXICO\tNA\tNORTH AMERICA\n0068305920\t0071020543\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071020544\t0071020799\tCA\tCANADA\tNA\tNORTH AMERICA\n0071020800\t0071571339\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071571340\t0071571340\tDE\tGERMANY\tEU\tEUROPE\n0071571341\t0071571389\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071571390\t0071571390\tDE\tGERMANY\tEU\tEUROPE\n0071571391\t0071571713\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071571714\t0071571715\tDE\tGERMANY\tEU\tEUROPE\n0071571716\t0071665077\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071665078\t0071665078\tDE\tGERMANY\tEU\tEUROPE\n0071665079\t0071666464\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071666465\t0071666465\tDE\tGERMANY\tEU\tEUROPE\n0071666466\t0071666529\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071666530\t0071666530\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0071666531\t0071666711\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071666712\t0071666719\tDE\tGERMANY\tEU\tEUROPE\n0071666720\t0071667092\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071667093\t0071667093\tDE\tGERMANY\tEU\tEUROPE\n0071667094\t0071667113\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071667114\t0071667114\tNL\tNETHERLANDS\tEU\tEUROPE\n0071667115\t0071667529\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071667530\t0071667530\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0071667531\t0071667625\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071667626\t0071667626\tDE\tGERMANY\tEU\tEUROPE\n0071667627\t0071667633\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071667634\t0071667634\tDE\tGERMANY\tEU\tEUROPE\n0071667635\t0071667656\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071667657\t0071667657\tNL\tNETHERLANDS\tEU\tEUROPE\n0071667658\t0071670208\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0071670209\t0071670209\tNL\tNETHERLANDS\tEU\tEUROPE\n0071670210\t0083886079\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0083886080\t0083951615\tSY\tSYRIAN ARAB REPUBLIC\tME\tMIDDLE EAST\n0083951616\t0083959807\tUA\tUKRAINE\tEU\tEUROPE\n0083959808\t0083961855\tES\tSPAIN\tEU\tEUROPE\n0083961856\t0083963903\tKW\tKUWAIT\tME\tMIDDLE EAST\n0083963904\t0083965951\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0083965952\t0083967999\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0083968000\t0083976191\tDE\tGERMANY\tEU\tEUROPE\n0083976192\t0083978239\tCH\tSWITZERLAND\tEU\tEUROPE\n0083978240\t0083980287\tIQ\tIRAQ\tME\tMIDDLE EAST\n0083980288\t0083982335\tCH\tSWITZERLAND\tEU\tEUROPE\n0083982336\t0084017151\tDE\tGERMANY\tEU\tEUROPE\n0084017152\t0084021247\tIT\tITALY\tEU\tEUROPE\n0084021248\t0084023295\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084023296\t0084025343\tES\tSPAIN\tEU\tEUROPE\n0084025344\t0084033535\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084033536\t0084037631\tNL\tNETHERLANDS\tEU\tEUROPE\n0084037632\t0084039679\tTR\tTURKEY\tEU\tEUROPE\n0084039680\t0084041727\tES\tSPAIN\tEU\tEUROPE\n0084041728\t0084049919\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084049920\t0084082687\tRO\tROMANIA\tEU\tEUROPE\n0084082688\t0084148223\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084148224\t0084410367\tDE\tGERMANY\tEU\tEUROPE\n0084410368\t0084428799\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084428800\t0084430847\tDE\tGERMANY\tEU\tEUROPE\n0084430848\t0084434943\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084434944\t0084443135\tIT\tITALY\tEU\tEUROPE\n0084443136\t0084451327\tLB\tLEBANON\tME\tMIDDLE EAST\n0084451328\t0084457471\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084457472\t0084459519\tES\tSPAIN\tEU\tEUROPE\n0084459520\t0084471807\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084471808\t0084473855\tIQ\tIRAQ\tME\tMIDDLE EAST\n0084473856\t0084475903\tHU\tHUNGARY\tEU\tEUROPE\n0084475904\t0084545535\tDE\tGERMANY\tEU\tEUROPE\n0084545536\t0084549631\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084549632\t0084551679\tGE\tGEORGIA\tEU\tEUROPE\n0084551680\t0084557823\tDE\tGERMANY\tEU\tEUROPE\n0084557824\t0084557824\tES\tSPAIN\tEU\tEUROPE\n0084557825\t0084557825\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084557826\t0084559169\tAU\tAUSTRALIA\tOC\tOCEANIA\n0084559170\t0084559171\tNL\tNETHERLANDS\tEU\tEUROPE\n0084559172\t0084560635\tGT\tGUATEMALA\tCA\tCENTRAL AMERICA\n0084560636\t0084560639\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084560640\t0084561215\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084561216\t0084561247\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084561248\t0084561351\tNL\tNETHERLANDS\tEU\tEUROPE\n0084561352\t0084561359\tMY\tMALAYSIA\tAS\tASIA\n0084561360\t0084561639\tCH\tSWITZERLAND\tEU\tEUROPE\n0084561640\t0084561647\tES\tSPAIN\tEU\tEUROPE\n0084561648\t0084561655\tAF\tAFGHANISTAN\tAS\tASIA\n0084561656\t0084561791\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084561792\t0084562383\tIN\tINDIA\tAS\tASIA\n0084562384\t0084562391\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084562392\t0084562511\tES\tSPAIN\tEU\tEUROPE\n0084562512\t0084562527\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084562528\t0084563647\tKW\tKUWAIT\tME\tMIDDLE EAST\n0084563648\t0084563691\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084563692\t0084563695\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084563696\t0084563703\tKW\tKUWAIT\tME\tMIDDLE EAST\n0084563704\t0084564411\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084564412\t0084564415\tNL\tNETHERLANDS\tEU\tEUROPE\n0084564416\t0084564863\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084564864\t0084564871\tCH\tSWITZERLAND\tEU\tEUROPE\n0084564872\t0084565247\tMY\tMALAYSIA\tAS\tASIA\n0084565248\t0084565311\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084565312\t0084565655\tKR\tKOREA, REPUBLIC OF\tAS\tASIA\n0084565656\t0084565663\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084565664\t0084574207\tJP\tJAPAN\tAS\tASIA\n0084574208\t0084576255\tFR\tFRANCE\tEU\tEUROPE\n0084576256\t0084582399\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084582400\t0084590591\tDE\tGERMANY\tEU\tEUROPE\n0084590592\t0084592639\tNL\tNETHERLANDS\tEU\tEUROPE\n0084592640\t0084594687\tES\tSPAIN\tEU\tEUROPE\n0084594688\t0084598783\tDE\tGERMANY\tEU\tEUROPE\n0084598784\t0084600831\tIQ\tIRAQ\tME\tMIDDLE EAST\n0084600832\t0084602879\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084602880\t0084606975\tAZ\tAZERBAIJAN\tAS\tASIA\n0084606976\t0084609023\tAT\tAUSTRIA\tEU\tEUROPE\n0084609024\t0084611071\tBI\tBURUNDI\tAF\tAFRICA\n0084611072\t0084615167\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0084615168\t0084617215\tIT\tITALY\tEU\tEUROPE\n0084617216\t0084619263\tPS\tPALESTINIAN TERRITORY, OCCUPIED\tAS\tASIA\n0084619264\t0084621311\tDE\tGERMANY\tEU\tEUROPE\n0084621312\t0084623359\tGR\tGREECE\tEU\tEUROPE\n0084623360\t0084627455\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0084627456\t0084631551\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0084631552\t0084639743\tIT\tITALY\tEU\tEUROPE\n0084639744\t0084672511\tTR\tTURKEY\tEU\tEUROPE\n0084672512\t0084934655\tRO\tROMANIA\tEU\tEUROPE\n0084934656\t0085196799\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0085196800\t0085262335\tLT\tLITHUANIA\tEU\tEUROPE\n0085262336\t0085327871\tOM\tOMAN\tME\tMIDDLE EAST\n0085327872\t0085360639\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0085360640\t0085362687\tIL\tISRAEL\tME\tMIDDLE EAST\n0085362688\t0085364735\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0085364736\t0085366783\tDE\tGERMANY\tEU\tEUROPE\n0085366784\t0085367295\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0085367296\t0085367551\tSK\tSLOVAKIA\tEU\tEUROPE\n0085367552\t0085367807\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0085367808\t0085368831\tUA\tUKRAINE\tEU\tEUROPE\n0085368832\t0085377023\tRS\tSERBIA\tEU\tEUROPE\n0085377024\t0085385215\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0085385216\t0085387263\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0085387264\t0085389311\tSE\tSWEDEN\tEU\tEUROPE\n0085389312\t0085391359\tDE\tGERMANY\tEU\tEUROPE\n0085391360\t0085393407\tNL\tNETHERLANDS\tEU\tEUROPE\n0085393408\t0085395967\tTR\tTURKEY\tEU\tEUROPE\n0085395968\t0085396223\tBE\tBELGIUM\tEU\tEUROPE\n0085396224\t0085396479\tnull\tnull\tnull\tnull\n0085396480\t0085397503\tES\tSPAIN\tEU\tEUROPE\n0085397504\t0085398527\tTR\tTURKEY\tEU\tEUROPE\n0085398528\t0085398783\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0085398784\t0085399551\tnull\tnull\tnull\tnull\n0085399552\t0085400063\tFR\tFRANCE\tEU\tEUROPE\n0085400064\t0085401599\tnull\tnull\tnull\tnull\n0085401600\t0085403647\tIT\tITALY\tEU\tEUROPE\n0085403648\t0085405695\tFR\tFRANCE\tEU\tEUROPE\n0085405696\t0085407743\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0085407744\t0085409791\tFI\tFINLAND\tEU\tEUROPE\n0085409792\t0085417983\tIS\tICELAND\tEU\tEUROPE\n0085417984\t0085422079\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0085422080\t0085424127\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0085424128\t0085426175\tTR\tTURKEY\tEU\tEUROPE\n0085426176\t0085458943\tBE\tBELGIUM\tEU\tEUROPE\n0085458944\t0085721087\tTR\tTURKEY\tEU\tEUROPE\n0085721088\t0085723135\tHU\tHUNGARY\tEU\tEUROPE\n0085723136\t0085725183\tIT\tITALY\tEU\tEUROPE\n0085725184\t0085729279\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0085729280\t0085731327\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0085731328\t0085733375\tDE\tGERMANY\tEU\tEUROPE\n0085733376\t0085737471\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0085737472\t0085753855\tDE\tGERMANY\tEU\tEUROPE\n0085753856\t0085770239\tIL\tISRAEL\tME\tMIDDLE EAST\n0085770240\t0085786623\tDE\tGERMANY\tEU\tEUROPE\n0085786624\t0085852159\tIL\tISRAEL\tME\tMIDDLE EAST\n0085852160\t0086015999\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0086016000\t0086018047\tBG\tBULGARIA\tEU\tEUROPE\n0086018048\t0086020095\tSI\tSLOVENIA\tEU\tEUROPE\n0086020096\t0086022143\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086022144\t0086024191\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086024192\t0086026239\tDE\tGERMANY\tEU\tEUROPE\n0086026240\t0086028287\tMD\tMOLDOVA, REPUBLIC OF\tEU\tEUROPE\n0086028288\t0086030335\tMK\tMACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF\tEU\tEUROPE\n0086030336\t0086032383\tDE\tGERMANY\tEU\tEUROPE\n0086032384\t0086048767\tOM\tOMAN\tME\tMIDDLE EAST\n0086048768\t0086114303\tDK\tDENMARK\tEU\tEUROPE\n0086114304\t0086147071\tKZ\tKAZAKHSTAN\tAS\tASIA\n0086147072\t0086155263\tES\tSPAIN\tEU\tEUROPE\n0086155264\t0086157311\tPS\tPALESTINIAN TERRITORY, OCCUPIED\tAS\tASIA\n0086157312\t0086159359\tIL\tISRAEL\tME\tMIDDLE EAST\n0086159360\t0086161407\tUA\tUKRAINE\tEU\tEUROPE\n0086161408\t0086163455\tIT\tITALY\tEU\tEUROPE\n0086163456\t0086171647\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0086171648\t0086173695\tDE\tGERMANY\tEU\tEUROPE\n0086173696\t0086175743\tNL\tNETHERLANDS\tEU\tEUROPE\n0086175744\t0086177279\tSE\tSWEDEN\tEU\tEUROPE\n0086177280\t0086177791\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0086177792\t0086179839\tLI\tLIECHTENSTEIN\tEU\tEUROPE\n0086179840\t0086220799\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086220800\t0086222847\tJE\tUNITED KINGDOM\tEU\tEUROPE\n0086222848\t0086226943\tNL\tNETHERLANDS\tEU\tEUROPE\n0086226944\t0086228991\tSE\tSWEDEN\tEU\tEUROPE\n0086228992\t0086231039\tBE\tBELGIUM\tEU\tEUROPE\n0086231040\t0086233087\tES\tSPAIN\tEU\tEUROPE\n0086233088\t0086235135\tRO\tROMANIA\tEU\tEUROPE\n0086235136\t0086237183\tES\tSPAIN\tEU\tEUROPE\n0086237184\t0086245375\tDE\tGERMANY\tEU\tEUROPE\n0086245376\t0086376447\tOM\tOMAN\tME\tMIDDLE EAST\n0086376448\t0086409215\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0086409216\t0086441983\tHU\tHUNGARY\tEU\tEUROPE\n0086441984\t0086442699\tFR\tFRANCE\tEU\tEUROPE\n0086442700\t0086442703\tCH\tSWITZERLAND\tEU\tEUROPE\n0086442704\t0086442723\tFR\tFRANCE\tEU\tEUROPE\n0086442724\t0086442739\tPL\tPOLAND\tEU\tEUROPE\n0086442740\t0086442751\tFR\tFRANCE\tEU\tEUROPE\n0086442752\t0086443007\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086443008\t0086443047\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0086443048\t0086444319\tFR\tFRANCE\tEU\tEUROPE\n0086444320\t0086444323\tES\tSPAIN\tEU\tEUROPE\n0086444324\t0086444843\tFR\tFRANCE\tEU\tEUROPE\n0086444844\t0086444879\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086444880\t0086445111\tFR\tFRANCE\tEU\tEUROPE\n0086445112\t0086445115\tCH\tSWITZERLAND\tEU\tEUROPE\n0086445116\t0086446407\tFR\tFRANCE\tEU\tEUROPE\n0086446408\t0086446431\tDE\tGERMANY\tEU\tEUROPE\n0086446432\t0086446619\tPL\tPOLAND\tEU\tEUROPE\n0086446620\t0086446679\tDE\tGERMANY\tEU\tEUROPE\n0086446680\t0086447095\tFR\tFRANCE\tEU\tEUROPE\n0086447096\t0086447103\tES\tSPAIN\tEU\tEUROPE\n0086447104\t0086447263\tFR\tFRANCE\tEU\tEUROPE\n0086447264\t0086447279\tPL\tPOLAND\tEU\tEUROPE\n0086447280\t0086448803\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086448804\t0086448851\tFI\tFINLAND\tEU\tEUROPE\n0086448852\t0086448855\tIT\tITALY\tEU\tEUROPE\n0086448856\t0086448859\tPT\tPORTUGAL\tEU\tEUROPE\n0086448860\t0086449363\tFR\tFRANCE\tEU\tEUROPE\n0086449364\t0086449367\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086449368\t0086449883\tFR\tFRANCE\tEU\tEUROPE\n0086449884\t0086450235\tDE\tGERMANY\tEU\tEUROPE\n0086450236\t0086450239\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086450240\t0086452671\tFR\tFRANCE\tEU\tEUROPE\n0086452672\t0086452735\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086452736\t0086453836\tFR\tFRANCE\tEU\tEUROPE\n0086453837\t0086454335\tPT\tPORTUGAL\tEU\tEUROPE\n0086454336\t0086455623\tFR\tFRANCE\tEU\tEUROPE\n0086455624\t0086456211\tDE\tGERMANY\tEU\tEUROPE\n0086456212\t0086456351\tFR\tFRANCE\tEU\tEUROPE\n0086456352\t0086456367\tCH\tSWITZERLAND\tEU\tEUROPE\n0086456368\t0086456371\tFI\tFINLAND\tEU\tEUROPE\n0086456372\t0086457111\tFR\tFRANCE\tEU\tEUROPE\n0086457112\t0086457187\tDE\tGERMANY\tEU\tEUROPE\n0086457188\t0086457191\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086457192\t0086457403\tES\tSPAIN\tEU\tEUROPE\n0086457404\t0086467999\tFR\tFRANCE\tEU\tEUROPE\n0086468000\t0086468003\tPL\tPOLAND\tEU\tEUROPE\n0086468004\t0086468055\tFR\tFRANCE\tEU\tEUROPE\n0086468056\t0086468447\tDE\tGERMANY\tEU\tEUROPE\n0086468448\t0086468479\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0086468480\t0086469183\tFR\tFRANCE\tEU\tEUROPE\n0086469184\t0086469247\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086469248\t0086470731\tFR\tFRANCE\tEU\tEUROPE\n0086470732\t0086470735\tBE\tBELGIUM\tEU\tEUROPE\n0086470736\t0086471179\tFR\tFRANCE\tEU\tEUROPE\n0086471180\t0086473087\tDE\tGERMANY\tEU\tEUROPE\n0086473088\t0086474307\tPT\tPORTUGAL\tEU\tEUROPE\n0086474308\t0086474311\tDE\tGERMANY\tEU\tEUROPE\n0086474312\t0086474475\tBE\tBELGIUM\tEU\tEUROPE\n0086474476\t0086474479\tDE\tGERMANY\tEU\tEUROPE\n0086474480\t0086474751\tFR\tFRANCE\tEU\tEUROPE\n0086474752\t0086482943\tHR\tCROATIA\tEU\tEUROPE\n0086482944\t0086484991\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086484992\t0086487039\tNL\tNETHERLANDS\tEU\tEUROPE\n0086487040\t0086489087\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086489088\t0086491135\tNL\tNETHERLANDS\tEU\tEUROPE\n0086491136\t0086493183\tPL\tPOLAND\tEU\tEUROPE\n0086493184\t0086495231\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086495232\t0086497279\tES\tSPAIN\tEU\tEUROPE\n0086497280\t0086499327\tNL\tNETHERLANDS\tEU\tEUROPE\n0086499328\t0086503423\tFR\tFRANCE\tEU\tEUROPE\n0086503424\t0086505471\tDE\tGERMANY\tEU\tEUROPE\n0086505472\t0086507519\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0086507520\t0086573055\tES\tSPAIN\tEU\tEUROPE\n0086573056\t0086638591\tRO\tROMANIA\tEU\tEUROPE\n0086638592\t0086671359\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086671360\t0086671615\tJE\tUNITED KINGDOM\tEU\tEUROPE\n0086671616\t0086671871\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086671872\t0086672895\tJE\tUNITED KINGDOM\tEU\tEUROPE\n0086672896\t0086673407\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086673408\t0086675455\tDE\tGERMANY\tEU\tEUROPE\n0086675456\t0086677503\tIT\tITALY\tEU\tEUROPE\n0086677504\t0086679551\tFR\tFRANCE\tEU\tEUROPE\n0086679552\t0086687743\tRO\tROMANIA\tEU\tEUROPE\n0086687744\t0086695935\tIQ\tIRAQ\tME\tMIDDLE EAST\n0086695936\t0086704127\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0086704128\t0086720511\tPT\tPORTUGAL\tEU\tEUROPE\n0086720512\t0086736895\tBA\tBOSNIA AND HERZEGOVINA\tEU\tEUROPE\n0086736896\t0086745087\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086745088\t0086753279\tHR\tCROATIA\tEU\tEUROPE\n0086753280\t0086761471\tPS\tPALESTINIAN TERRITORY, OCCUPIED\tAS\tASIA\n0086761472\t0086763519\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0086763520\t0086765567\tIT\tITALY\tEU\tEUROPE\n0086765568\t0086767615\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086767616\t0086769663\tIT\tITALY\tEU\tEUROPE\n0086769664\t0086773759\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086773760\t0086777855\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086777856\t0086779903\tAZ\tAZERBAIJAN\tAS\tASIA\n0086779904\t0086786047\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086786048\t0086788095\tNO\tNORWAY\tEU\tEUROPE\n0086788096\t0086790143\tNL\tNETHERLANDS\tEU\tEUROPE\n0086790144\t0086794239\tTR\tTURKEY\tEU\tEUROPE\n0086794240\t0086795263\tDE\tGERMANY\tEU\tEUROPE\n0086795264\t0086796287\tNL\tNETHERLANDS\tEU\tEUROPE\n0086796288\t0086797311\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0086797312\t0086798335\tPY\tPARAGUAY\tSA\tSOUTH AMERICA\n0086798336\t0086802431\tCH\tSWITZERLAND\tEU\tEUROPE\n0086802432\t0086804479\tGE\tGEORGIA\tEU\tEUROPE\n0086804480\t0086806527\tDK\tDENMARK\tEU\tEUROPE\n0086806528\t0086810623\tTR\tTURKEY\tEU\tEUROPE\n0086810624\t0086812671\tFR\tFRANCE\tEU\tEUROPE\n0086812672\t0086814719\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086814720\t0086816767\tSE\tSWEDEN\tEU\tEUROPE\n0086816768\t0086818815\tEE\tESTONIA\tEU\tEUROPE\n0086818816\t0086822911\tSE\tSWEDEN\tEU\tEUROPE\n0086822912\t0086824959\tAT\tAUSTRIA\tEU\tEUROPE\n0086824960\t0086827007\tLV\tLATVIA\tEU\tEUROPE\n0086827008\t0086831103\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086831104\t0086833151\tFI\tFINLAND\tEU\tEUROPE\n0086833152\t0086835199\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086835200\t0086837247\tDE\tGERMANY\tEU\tEUROPE\n0086837248\t0086839295\tES\tSPAIN\tEU\tEUROPE\n0086839296\t0086843391\tNL\tNETHERLANDS\tEU\tEUROPE\n0086843392\t0086847487\tnull\tnull\tnull\tnull\n0086847488\t0086849535\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086849536\t0086851583\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0086851584\t0086855679\tNL\tNETHERLANDS\tEU\tEUROPE\n0086855680\t0086859775\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086859776\t0086863871\tDE\tGERMANY\tEU\tEUROPE\n0086863872\t0086867967\tEE\tESTONIA\tEU\tEUROPE\n0086867968\t0086872063\tJO\tJORDAN\tME\tMIDDLE EAST\n0086872064\t0086874111\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0086874112\t0086876159\tNO\tNORWAY\tEU\tEUROPE\n0086876160\t0086880255\tES\tSPAIN\tEU\tEUROPE\n0086880256\t0086882303\tDE\tGERMANY\tEU\tEUROPE\n0086882304\t0086884351\tLB\tLEBANON\tME\tMIDDLE EAST\n0086884352\t0086900735\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0086900736\t0087031807\tTR\tTURKEY\tEU\tEUROPE\n0087031808\t0087293951\tFR\tFRANCE\tEU\tEUROPE\n0087293952\t0087359487\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087359488\t0087361535\tES\tSPAIN\tEU\tEUROPE\n0087361536\t0087363583\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0087363584\t0087367679\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087367680\t0087375871\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087375872\t0087384063\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087384064\t0087386111\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0087386112\t0087388159\tCH\tSWITZERLAND\tEU\tEUROPE\n0087388160\t0087390207\tUA\tUKRAINE\tEU\tEUROPE\n0087390208\t0087392255\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087392256\t0087425023\tBG\tBULGARIA\tEU\tEUROPE\n0087425024\t0087556095\tGR\tGREECE\tEU\tEUROPE\n0087556096\t0087558143\tES\tSPAIN\tEU\tEUROPE\n0087558144\t0087560191\tIT\tITALY\tEU\tEUROPE\n0087560192\t0087562239\tDE\tGERMANY\tEU\tEUROPE\n0087562240\t0087564287\tUA\tUKRAINE\tEU\tEUROPE\n0087564288\t0087566335\tHU\tHUNGARY\tEU\tEUROPE\n0087566336\t0087568383\tFR\tFRANCE\tEU\tEUROPE\n0087568384\t0087570431\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087570432\t0087572479\tES\tSPAIN\tEU\tEUROPE\n0087572480\t0087588863\tMD\tMOLDOVA, REPUBLIC OF\tEU\tEUROPE\n0087588864\t0087590143\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087590144\t0087590399\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0087590400\t0087590911\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087590912\t0087592959\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087592960\t0087597055\tDK\tDENMARK\tEU\tEUROPE\n0087597056\t0087599103\tES\tSPAIN\tEU\tEUROPE\n0087599104\t0087601151\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087601152\t0087621631\tDE\tGERMANY\tEU\tEUROPE\n0087621632\t0087623679\tLB\tLEBANON\tME\tMIDDLE EAST\n0087623680\t0087625727\tKG\tKYRGYZSTAN\tAS\tASIA\n0087625728\t0087626751\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087626752\t0087627775\tNL\tNETHERLANDS\tEU\tEUROPE\n0087627776\t0087629823\tES\tSPAIN\tEU\tEUROPE\n0087629824\t0087631871\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087631872\t0087633919\tDE\tGERMANY\tEU\tEUROPE\n0087633920\t0087635967\tDK\tDENMARK\tEU\tEUROPE\n0087635968\t0087638015\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087638016\t0087640063\tUA\tUKRAINE\tEU\tEUROPE\n0087640064\t0087642111\tRS\tSERBIA\tEU\tEUROPE\n0087642112\t0087646207\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087646208\t0087646719\tFR\tFRANCE\tEU\tEUROPE\n0087646720\t0087646975\tYT\tMAYOTTE\tAF\tAFRICA\n0087646976\t0087647487\tFR\tFRANCE\tEU\tEUROPE\n0087647488\t0087647743\tRE\tREUNION\tAF\tAFRICA\n0087647744\t0087648767\tFR\tFRANCE\tEU\tEUROPE\n0087648768\t0087649279\tRE\tREUNION\tAF\tAFRICA\n0087649280\t0087650303\tFR\tFRANCE\tEU\tEUROPE\n0087650304\t0087650559\tRE\tREUNION\tAF\tAFRICA\n0087650560\t0087651583\tFR\tFRANCE\tEU\tEUROPE\n0087651584\t0087651839\tRE\tREUNION\tAF\tAFRICA\n0087651840\t0087653119\tFR\tFRANCE\tEU\tEUROPE\n0087653120\t0087653375\tRE\tREUNION\tAF\tAFRICA\n0087653376\t0087654143\tFR\tFRANCE\tEU\tEUROPE\n0087654144\t0087654399\tRE\tREUNION\tAF\tAFRICA\n0087654400\t0087670783\tPL\tPOLAND\tEU\tEUROPE\n0087670784\t0087672831\tDE\tGERMANY\tEU\tEUROPE\n0087672832\t0087674879\tCH\tSWITZERLAND\tEU\tEUROPE\n0087674880\t0087676927\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0087676928\t0087678975\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087678976\t0087681023\tES\tSPAIN\tEU\tEUROPE\n0087681024\t0087683071\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087683072\t0087685119\tSE\tSWEDEN\tEU\tEUROPE\n0087685120\t0087687167\tNL\tNETHERLANDS\tEU\tEUROPE\n0087687168\t0087752703\tUA\tUKRAINE\tEU\tEUROPE\n0087752704\t0087818239\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0087818240\t0087883775\tPL\tPOLAND\tEU\tEUROPE\n0087883776\t0087885823\tIT\tITALY\tEU\tEUROPE\n0087885824\t0087889919\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087889920\t0087890943\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087890944\t0087891199\tNL\tNETHERLANDS\tEU\tEUROPE\n0087891200\t0087891967\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0087891968\t0087902207\tDE\tGERMANY\tEU\tEUROPE\n0087902208\t0087904255\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0087904256\t0087906303\tDE\tGERMANY\tEU\tEUROPE\n0087906304\t0087908351\tFI\tFINLAND\tEU\tEUROPE\n0087908352\t0087912447\tBG\tBULGARIA\tEU\tEUROPE\n0087912448\t0087914495\tIE\tIRELAND\tEU\tEUROPE\n0087914496\t0087916543\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087916544\t0087932927\tDE\tGERMANY\tEU\tEUROPE\n0087932928\t0087934975\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087934976\t0087939071\tES\tSPAIN\tEU\tEUROPE\n0087939072\t0087941119\tIT\tITALY\tEU\tEUROPE\n0087941120\t0087943167\tCH\tSWITZERLAND\tEU\tEUROPE\n0087943168\t0087945215\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0087945216\t0087947263\tHU\tHUNGARY\tEU\tEUROPE\n0087947264\t0087949311\tNL\tNETHERLANDS\tEU\tEUROPE\n0087949312\t0087965695\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0087965696\t0087967743\tDE\tGERMANY\tEU\tEUROPE\n0087967744\t0087969791\tIT\tITALY\tEU\tEUROPE\n0087969792\t0087973887\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0087973888\t0087982079\tDE\tGERMANY\tEU\tEUROPE\n0087982080\t0088014847\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0088014848\t0088015871\tDE\tGERMANY\tEU\tEUROPE\n0088015872\t0088016895\tLY\tLIBYAN ARAB JAMAHIRIYA\tAF\tAFRICA\n0088016896\t0088018943\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0088018944\t0088020991\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0088020992\t0088023039\tPL\tPOLAND\tEU\tEUROPE\n0088023040\t0088031231\tTR\tTURKEY\tEU\tEUROPE\n0088031232\t0088047615\tKZ\tKAZAKHSTAN\tAS\tASIA\n0088047616\t0088048639\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0088048640\t0088049663\tLU\tLUXEMBOURG\tEU\tEUROPE\n0088049664\t0088051711\tIT\tITALY\tEU\tEUROPE\n0088051712\t0088053759\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0088053760\t0088055807\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0088055808\t0088057855\tAM\tARMENIA\tAS\tASIA\n0088057856\t0088059903\tIT\tITALY\tEU\tEUROPE\n0088059904\t0088061951\tDE\tGERMANY\tEU\tEUROPE\n0088061952\t0088063999\tPL\tPOLAND\tEU\tEUROPE\n0088064000\t0088080383\tHU\tHUNGARY\tEU\tEUROPE\n0088080384\t0088604671\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0088604672\t0088866815\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0088866816\t0088932351\tKZ\tKAZAKHSTAN\tAS\tASIA\n0088932352\t0088940543\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0088940544\t0088948735\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0088948736\t0088965119\tIT\tITALY\tEU\tEUROPE\n0088965120\t0088997887\tAM\tARMENIA\tAS\tASIA\n0088997888\t0089028607\tDE\tGERMANY\tEU\tEUROPE\n0089028608\t0089031167\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0089031168\t0089063423\tDE\tGERMANY\tEU\tEUROPE\n0089063424\t0089079807\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0089079808\t0089096191\tNL\tNETHERLANDS\tEU\tEUROPE\n0089096192\t0089128959\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0089128960\t0089260031\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0089260032\t0089325567\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0089325568\t0089327615\tNL\tNETHERLANDS\tEU\tEUROPE\n0089327616\t0089329663\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0089329664\t0089331711\tUA\tUKRAINE\tEU\tEUROPE\n0089331712\t0089333759\tDK\tDENMARK\tEU\tEUROPE\n0089333760\t0089337855\tRO\tROMANIA\tEU\tEUROPE\n0089337856\t0089339903\tES\tSPAIN\tEU\tEUROPE\n0089339904\t0089341951\tFI\tFINLAND\tEU\tEUROPE\n0089341952\t0089350143\tES\tSPAIN\tEU\tEUROPE\n0089350144\t0089352191\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0089352192\t0089354239\tIT\tITALY\tEU\tEUROPE\n0089354240\t0089356287\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0089356288\t0089358335\tIT\tITALY\tEU\tEUROPE\n0089358336\t0089374719\tDE\tGERMANY\tEU\tEUROPE\n0089374720\t0089382911\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0089382912\t0089384959\tNO\tNORWAY\tEU\tEUROPE\n0089384960\t0089387007\tFR\tFRANCE\tEU\tEUROPE\n0089387008\t0089391103\tIE\tIRELAND\tEU\tEUROPE\n0089391104\t0090439679\tIT\tITALY\tEU\tEUROPE\n0090439680\t0090456063\tDE\tGERMANY\tEU\tEUROPE\n0090456064\t0090472447\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090472448\t0090476543\tDE\tGERMANY\tEU\tEUROPE\n0090476544\t0090478591\tFR\tFRANCE\tEU\tEUROPE\n0090478592\t0090480639\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090480640\t0090482687\tYE\tYEMEN\tME\tMIDDLE EAST\n0090482688\t0090484735\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0090484736\t0090488831\tNO\tNORWAY\tEU\tEUROPE\n0090488832\t0090497023\tBY\tBELARUS\tEU\tEUROPE\n0090497024\t0090499071\tNL\tNETHERLANDS\tEU\tEUROPE\n0090499072\t0090501119\tIT\tITALY\tEU\tEUROPE\n0090501120\t0090503167\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090503168\t0090505215\tIL\tISRAEL\tME\tMIDDLE EAST\n0090505216\t0090529791\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090529792\t0090533887\tNL\tNETHERLANDS\tEU\tEUROPE\n0090533888\t0090540031\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090540032\t0090544127\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090544128\t0090546175\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090546176\t0090548223\tDE\tGERMANY\tEU\tEUROPE\n0090548224\t0090570751\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090570752\t0090578943\tIT\tITALY\tEU\tEUROPE\n0090578944\t0090583039\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0090583040\t0090587135\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0090587136\t0090589183\tPL\tPOLAND\tEU\tEUROPE\n0090589184\t0090591231\tFR\tFRANCE\tEU\tEUROPE\n0090591232\t0090595327\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090595328\t0090603519\tPS\tPALESTINIAN TERRITORY, OCCUPIED\tAS\tASIA\n0090603520\t0090605567\tES\tSPAIN\tEU\tEUROPE\n0090605568\t0090607615\tNL\tNETHERLANDS\tEU\tEUROPE\n0090607616\t0090609663\tCH\tSWITZERLAND\tEU\tEUROPE\n0090609664\t0090611711\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090611712\t0090613759\tDE\tGERMANY\tEU\tEUROPE\n0090613760\t0090615807\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090615808\t0090617855\tSI\tSLOVENIA\tEU\tEUROPE\n0090617856\t0090619903\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090619904\t0090636287\tIL\tISRAEL\tME\tMIDDLE EAST\n0090636288\t0090701823\tDK\tDENMARK\tEU\tEUROPE\n0090701824\t0090705919\tTR\tTURKEY\tEU\tEUROPE\n0090705920\t0090707967\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0090707968\t0090710015\tIT\tITALY\tEU\tEUROPE\n0090710016\t0090718207\tUA\tUKRAINE\tEU\tEUROPE\n0090718208\t0090718719\tDE\tGERMANY\tEU\tEUROPE\n0090718720\t0090719231\tFR\tFRANCE\tEU\tEUROPE\n0090719232\t0090719487\tAT\tAUSTRIA\tEU\tEUROPE\n0090719488\t0090719999\tnull\tnull\tnull\tnull\n0090720000\t0090720255\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0090720256\t0090722303\tIQ\tIRAQ\tME\tMIDDLE EAST\n0090722304\t0090724351\tFI\tFINLAND\tEU\tEUROPE\n0090724352\t0090726399\tCH\tSWITZERLAND\tEU\tEUROPE\n0090726400\t0090728447\tFR\tFRANCE\tEU\tEUROPE\n0090728448\t0090730495\tDE\tGERMANY\tEU\tEUROPE\n0090730496\t0090734591\tNL\tNETHERLANDS\tEU\tEUROPE\n0090734592\t0090736639\tSY\tSYRIAN ARAB REPUBLIC\tME\tMIDDLE EAST\n0090736640\t0090738687\tNL\tNETHERLANDS\tEU\tEUROPE\n0090738688\t0090740735\tDE\tGERMANY\tEU\tEUROPE\n0090740736\t0090742783\tNL\tNETHERLANDS\tEU\tEUROPE\n0090742784\t0090750975\tBG\tBULGARIA\tEU\tEUROPE\n0090750976\t0090753023\tFR\tFRANCE\tEU\tEUROPE\n0090753024\t0090755071\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0090755072\t0090757119\tPL\tPOLAND\tEU\tEUROPE\n0090757120\t0090759167\tAT\tAUSTRIA\tEU\tEUROPE\n0090759168\t0090763263\tNL\tNETHERLANDS\tEU\tEUROPE\n0090763264\t0090765311\tIL\tISRAEL\tME\tMIDDLE EAST\n0090765312\t0090767359\tPL\tPOLAND\tEU\tEUROPE\n0090767360\t0090832895\tUA\tUKRAINE\tEU\tEUROPE\n0090832896\t0090963967\tRO\tROMANIA\tEU\tEUROPE\n0090963968\t0091226111\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0091226112\t0092274687\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0092274688\t0092536831\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0092536832\t0092602367\tPY\tPARAGUAY\tSA\tSOUTH AMERICA\n0092602368\t0092604415\tBA\tBOSNIA AND HERZEGOVINA\tEU\tEUROPE\n0092604416\t0092606463\tPL\tPOLAND\tEU\tEUROPE\n0092606464\t0092608511\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092608512\t0092610559\tPS\tPALESTINIAN TERRITORY, OCCUPIED\tAS\tASIA\n0092610560\t0092612607\tCH\tSWITZERLAND\tEU\tEUROPE\n0092612608\t0092614655\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092614656\t0092618751\tIT\tITALY\tEU\tEUROPE\n0092618752\t0092635135\tnull\tnull\tnull\tnull\n0092635136\t0092643327\tBA\tBOSNIA AND HERZEGOVINA\tEU\tEUROPE\n0092643328\t0092645375\tGE\tGEORGIA\tEU\tEUROPE\n0092645376\t0092651519\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092651520\t0092659711\tSE\tSWEDEN\tEU\tEUROPE\n0092659712\t0092663807\tAZ\tAZERBAIJAN\tAS\tASIA\n0092663808\t0092665855\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092665856\t0092667903\tPL\tPOLAND\tEU\tEUROPE\n0092667904\t0092669951\tBE\tBELGIUM\tEU\tEUROPE\n0092669952\t0092671999\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092672000\t0092674047\tDE\tGERMANY\tEU\tEUROPE\n0092674048\t0092676095\tCH\tSWITZERLAND\tEU\tEUROPE\n0092676096\t0092680191\tES\tSPAIN\tEU\tEUROPE\n0092680192\t0092684287\tAZ\tAZERBAIJAN\tAS\tASIA\n0092684288\t0092688383\tPL\tPOLAND\tEU\tEUROPE\n0092688384\t0092690431\tAM\tARMENIA\tAS\tASIA\n0092690432\t0092690943\tIE\tIRELAND\tEU\tEUROPE\n0092690944\t0092691199\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0092691200\t0092692479\tIE\tIRELAND\tEU\tEUROPE\n0092692480\t0092694527\tFR\tFRANCE\tEU\tEUROPE\n0092694528\t0092696575\tRS\tSERBIA\tEU\tEUROPE\n0092696576\t0092698623\tES\tSPAIN\tEU\tEUROPE\n0092698624\t0092700671\tIT\tITALY\tEU\tEUROPE\n0092700672\t0092717055\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0092717056\t0092719103\tSE\tSWEDEN\tEU\tEUROPE\n0092719104\t0092721151\tSY\tSYRIAN ARAB REPUBLIC\tME\tMIDDLE EAST\n0092721152\t0092723199\tPL\tPOLAND\tEU\tEUROPE\n0092723200\t0092725247\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0092725248\t0092733439\tSY\tSYRIAN ARAB REPUBLIC\tME\tMIDDLE EAST\n0092733440\t0092734735\tFR\tFRANCE\tEU\tEUROPE\n0092734736\t0092734739\tDE\tGERMANY\tEU\tEUROPE\n0092734740\t0092735615\tFR\tFRANCE\tEU\tEUROPE\n0092735616\t0092735619\tDE\tGERMANY\tEU\tEUROPE\n0092735620\t0092735875\tFR\tFRANCE\tEU\tEUROPE\n0092735876\t0092735999\tDE\tGERMANY\tEU\tEUROPE\n0092736000\t0092736255\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092736256\t0092736479\tFR\tFRANCE\tEU\tEUROPE\n0092736480\t0092738719\tDE\tGERMANY\tEU\tEUROPE\n0092738720\t0092738727\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092738728\t0092747711\tFR\tFRANCE\tEU\tEUROPE\n0092747712\t0092747775\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092747776\t0092749067\tFR\tFRANCE\tEU\tEUROPE\n0092749068\t0092749071\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0092749072\t0092751711\tFR\tFRANCE\tEU\tEUROPE\n0092751712\t0092754579\tDE\tGERMANY\tEU\tEUROPE\n0092754580\t0092757311\tFR\tFRANCE\tEU\tEUROPE\n0092757312\t0092757375\tES\tSPAIN\tEU\tEUROPE\n0092757376\t0092761599\tFR\tFRANCE\tEU\tEUROPE\n0092761600\t0092762135\tES\tSPAIN\tEU\tEUROPE\n0092762136\t0092782687\tFR\tFRANCE\tEU\tEUROPE\n0092782688\t0092782719\tES\tSPAIN\tEU\tEUROPE\n0092782720\t0092786827\tFR\tFRANCE\tEU\tEUROPE\n0092786828\t0092786831\tIT\tITALY\tEU\tEUROPE\n0092786832\t0092798975\tFR\tFRANCE\tEU\tEUROPE\n0092798976\t0093323263\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093323264\t0093335551\tCH\tSWITZERLAND\tEU\tEUROPE\n0093335552\t0093339647\tIL\tISRAEL\tME\tMIDDLE EAST\n0093339648\t0093343743\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093343744\t0093347839\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093347840\t0093356031\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093356032\t0093358079\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0093358080\t0093360127\tFR\tFRANCE\tEU\tEUROPE\n0093360128\t0093362175\tES\tSPAIN\tEU\tEUROPE\n0093362176\t0093364223\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093364224\t0093368319\tIT\tITALY\tEU\tEUROPE\n0093368320\t0093370367\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093370368\t0093372415\tIT\tITALY\tEU\tEUROPE\n0093372416\t0093388799\tGR\tGREECE\tEU\tEUROPE\n0093388800\t0093415423\tCH\tSWITZERLAND\tEU\tEUROPE\n0093415424\t0093417471\tCZ\tCZECH REPUBLIC\tEU\tEUROPE\n0093417472\t0093419519\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0093419520\t0093421567\tIT\tITALY\tEU\tEUROPE\n0093421568\t0093425663\tDE\tGERMANY\tEU\tEUROPE\n0093425664\t0093426687\tSE\tSWEDEN\tEU\tEUROPE\n0093426688\t0093427711\tDE\tGERMANY\tEU\tEUROPE\n0093427712\t0093429759\tNO\tNORWAY\tEU\tEUROPE\n0093429760\t0093431807\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093431808\t0093433855\tES\tSPAIN\tEU\tEUROPE\n0093433856\t0093437951\tDE\tGERMANY\tEU\tEUROPE\n0093437952\t0093454335\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093454336\t0093585407\tDE\tGERMANY\tEU\tEUROPE\n0093585408\t0093626367\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093626368\t0093634559\tCH\tSWITZERLAND\tEU\tEUROPE\n0093634560\t0093650943\tHU\tHUNGARY\tEU\tEUROPE\n0093650944\t0093652991\tCH\tSWITZERLAND\tEU\tEUROPE\n0093652992\t0093655039\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093655040\t0093667327\tCH\tSWITZERLAND\tEU\tEUROPE\n0093667328\t0093675519\tBA\tBOSNIA AND HERZEGOVINA\tEU\tEUROPE\n0093675520\t0093678335\tIQ\tIRAQ\tME\tMIDDLE EAST\n0093678336\t0093678591\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093678592\t0093679615\tIQ\tIRAQ\tME\tMIDDLE EAST\n0093679616\t0093681663\tLU\tLUXEMBOURG\tEU\tEUROPE\n0093681664\t0093683711\tUA\tUKRAINE\tEU\tEUROPE\n0093683712\t0093685759\tAT\tAUSTRIA\tEU\tEUROPE\n0093685760\t0093687807\tBE\tBELGIUM\tEU\tEUROPE\n0093687808\t0093691903\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093691904\t0093693951\tPL\tPOLAND\tEU\tEUROPE\n0093693952\t0093695999\tIE\tIRELAND\tEU\tEUROPE\n0093696000\t0093700095\tFR\tFRANCE\tEU\tEUROPE\n0093700096\t0093702143\tPL\tPOLAND\tEU\tEUROPE\n0093702144\t0093705983\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093705984\t0093706239\tUA\tUKRAINE\tEU\tEUROPE\n0093706240\t0093708287\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0093708288\t0093712383\tDE\tGERMANY\tEU\tEUROPE\n0093712384\t0093714431\tHU\tHUNGARY\tEU\tEUROPE\n0093714432\t0093716479\tNL\tNETHERLANDS\tEU\tEUROPE\n0093716480\t0093749247\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093749248\t0093753343\tIT\tITALY\tEU\tEUROPE\n0093753344\t0093765631\tIE\tIRELAND\tEU\tEUROPE\n0093765632\t0093774847\tSE\tSWEDEN\tEU\tEUROPE\n0093774848\t0093776127\tNO\tNORWAY\tEU\tEUROPE\n0093776128\t0093782015\tSE\tSWEDEN\tEU\tEUROPE\n0093782016\t0093833983\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093833984\t0093834239\tNL\tNETHERLANDS\tEU\tEUROPE\n0093834240\t0093835263\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093835264\t0093835519\tNL\tNETHERLANDS\tEU\tEUROPE\n0093835520\t0093836287\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093836288\t0093836799\tNL\tNETHERLANDS\tEU\tEUROPE\n0093836800\t0093842351\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093842352\t0093842359\tNL\tNETHERLANDS\tEU\tEUROPE\n0093842360\t0093847551\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093847552\t0093880319\tGE\tGEORGIA\tEU\tEUROPE\n0093880320\t0093888511\tIT\tITALY\tEU\tEUROPE\n0093888512\t0093890559\tPL\tPOLAND\tEU\tEUROPE\n0093890560\t0093892607\tES\tSPAIN\tEU\tEUROPE\n0093892608\t0093894655\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093894656\t0093896703\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093896704\t0093904895\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093904896\t0093906943\tLV\tLATVIA\tEU\tEUROPE\n0093906944\t0093908991\tBA\tBOSNIA AND HERZEGOVINA\tEU\tEUROPE\n0093908992\t0093911039\tIT\tITALY\tEU\tEUROPE\n0093911040\t0093913087\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0093913088\t0093914319\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093914320\t0093914323\tTR\tTURKEY\tEU\tEUROPE\n0093914324\t0093914357\tSA\tSAUDI ARABIA\tME\tMIDDLE EAST\n0093914358\t0093914358\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093914359\t0093914671\tCN\tCHINA\tAS\tASIA\n0093914672\t0093914679\tTR\tTURKEY\tEU\tEUROPE\n0093914680\t0093914710\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093914711\t0093914711\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093914712\t0093914951\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093914952\t0093914959\tFR\tFRANCE\tEU\tEUROPE\n0093914960\t0093915327\tNL\tNETHERLANDS\tEU\tEUROPE\n0093915328\t0093915391\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093915392\t0093915847\tNL\tNETHERLANDS\tEU\tEUROPE\n0093915848\t0093915863\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093915864\t0093915895\tNL\tNETHERLANDS\tEU\tEUROPE\n0093915896\t0093915903\tAT\tAUSTRIA\tEU\tEUROPE\n0093915904\t0093916543\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093916544\t0093916591\tJP\tJAPAN\tAS\tASIA\n0093916592\t0093918223\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093918224\t0093918555\tRO\tROMANIA\tEU\tEUROPE\n0093918556\t0093918559\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093918560\t0093918591\tAE\tUNITED ARAB EMIRATES\tME\tMIDDLE EAST\n0093918592\t0093918599\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093918600\t0093918655\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093918656\t0093919279\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093919280\t0093919391\tNL\tNETHERLANDS\tEU\tEUROPE\n0093919392\t0093919395\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093919396\t0093919487\tMK\tMACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF\tEU\tEUROPE\n0093919488\t0093919551\tNL\tNETHERLANDS\tEU\tEUROPE\n0093919552\t0093919951\tCA\tCANADA\tNA\tNORTH AMERICA\n0093919952\t0093919959\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093919960\t0093920059\tNL\tNETHERLANDS\tEU\tEUROPE\n0093920060\t0093920063\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093920064\t0093920163\tNL\tNETHERLANDS\tEU\tEUROPE\n0093920164\t0093920167\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093920168\t0093920575\tNL\tNETHERLANDS\tEU\tEUROPE\n0093920576\t0093920639\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093920640\t0093920855\tIN\tINDIA\tAS\tASIA\n0093920856\t0093920863\tDE\tGERMANY\tEU\tEUROPE\n0093920864\t0093921055\tNL\tNETHERLANDS\tEU\tEUROPE\n0093921056\t0093921059\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093921060\t0093921063\tNL\tNETHERLANDS\tEU\tEUROPE\n0093921064\t0093923551\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093923552\t0093923559\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093923560\t0093923567\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093923568\t0093923575\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093923576\t0093923855\tNL\tNETHERLANDS\tEU\tEUROPE\n0093923856\t0093923863\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093923864\t0093924407\tAT\tAUSTRIA\tEU\tEUROPE\n0093924408\t0093924415\tJP\tJAPAN\tAS\tASIA\n0093924416\t0093924591\tFI\tFINLAND\tEU\tEUROPE\n0093924592\t0093924927\tNL\tNETHERLANDS\tEU\tEUROPE\n0093924928\t0093925807\tES\tSPAIN\tEU\tEUROPE\n0093925808\t0093925815\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093925816\t0093927143\tPT\tPORTUGAL\tEU\tEUROPE\n0093927144\t0093927151\tJP\tJAPAN\tAS\tASIA\n0093927152\t0093927231\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093927232\t0093927247\tCL\tCHILE\tSA\tSOUTH AMERICA\n0093927248\t0093927871\tUS\tUNITED STATES\tNA\tNORTH AMERICA\n0093927872\t0093929471\tNL\tNETHERLANDS\tEU\tEUROPE\n0093929472\t0093939711\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093939712\t0093941759\tNO\tNORWAY\tEU\tEUROPE\n0093941760\t0093945855\tCH\tSWITZERLAND\tEU\tEUROPE\n0093945856\t0093962239\tUA\tUKRAINE\tEU\tEUROPE\n0093962240\t0093972479\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093972480\t0093974527\tSE\tSWEDEN\tEU\tEUROPE\n0093974528\t0093976575\tCH\tSWITZERLAND\tEU\tEUROPE\n0093976576\t0093978623\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0093978624\t0094011391\tES\tSPAIN\tEU\tEUROPE\n0094011392\t0094175231\tRO\tROMANIA\tEU\tEUROPE\n0094175232\t0094178303\tSE\tSWEDEN\tEU\tEUROPE\n0094178304\t0094178559\tNO\tNORWAY\tEU\tEUROPE\n0094178560\t0094179071\tSE\tSWEDEN\tEU\tEUROPE\n0094179072\t0094179839\tNL\tNETHERLANDS\tEU\tEUROPE\n0094179840\t0094180351\tDK\tDENMARK\tEU\tEUROPE\n0094180352\t0094180607\tSE\tSWEDEN\tEU\tEUROPE\n0094180608\t0094180863\tDK\tDENMARK\tEU\tEUROPE\n0094180864\t0094181887\tFI\tFINLAND\tEU\tEUROPE\n0094181888\t0094182911\tBE\tBELGIUM\tEU\tEUROPE\n0094182912\t0094183935\tFR\tFRANCE\tEU\tEUROPE\n0094183936\t0094184959\tCH\tSWITZERLAND\tEU\tEUROPE\n0094184960\t0094185471\tIT\tITALY\tEU\tEUROPE\n0094185472\t0094186495\tLU\tLUXEMBOURG\tEU\tEUROPE\n0094186496\t0094187263\tDE\tGERMANY\tEU\tEUROPE\n0094187264\t0094188287\tAT\tAUSTRIA\tEU\tEUROPE\n0094188288\t0094189311\tSE\tSWEDEN\tEU\tEUROPE\n0094189312\t0094189567\tLI\tLIECHTENSTEIN\tEU\tEUROPE\n0094189568\t0094191615\tNL\tNETHERLANDS\tEU\tEUROPE\n0094191616\t0094193663\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094193664\t0094195711\tSI\tSLOVENIA\tEU\tEUROPE\n0094195712\t0094199807\tNL\tNETHERLANDS\tEU\tEUROPE\n0094199808\t0094207999\tIT\tITALY\tEU\tEUROPE\n0094208000\t0094240767\tRO\tROMANIA\tEU\tEUROPE\n0094240768\t0094257151\tPT\tPORTUGAL\tEU\tEUROPE\n0094257152\t0094261247\tIT\tITALY\tEU\tEUROPE\n0094261248\t0094263295\tES\tSPAIN\tEU\tEUROPE\n0094263296\t0094265343\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094265344\t0094273535\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0094273536\t0094289919\tDE\tGERMANY\tEU\tEUROPE\n0094289920\t0094291967\tNO\tNORWAY\tEU\tEUROPE\n0094291968\t0094294015\tFR\tFRANCE\tEU\tEUROPE\n0094294016\t0094296063\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094296064\t0094298111\tES\tSPAIN\tEU\tEUROPE\n0094298112\t0094300159\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094300160\t0094302207\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0094302208\t0094306303\tFR\tFRANCE\tEU\tEUROPE\n0094306304\t0094308351\tAT\tAUSTRIA\tEU\tEUROPE\n0094308352\t0094310399\tES\tSPAIN\tEU\tEUROPE\n0094310400\t0094312447\tGE\tGEORGIA\tEU\tEUROPE\n0094312448\t0094314495\tDE\tGERMANY\tEU\tEUROPE\n0094314496\t0094316543\tNL\tNETHERLANDS\tEU\tEUROPE\n0094316544\t0094318591\tIE\tIRELAND\tEU\tEUROPE\n0094318592\t0094320639\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0094320640\t0094330879\tDE\tGERMANY\tEU\tEUROPE\n0094330880\t0094337023\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0094337024\t0094339071\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094339072\t0094355455\tES\tSPAIN\tEU\tEUROPE\n0094355456\t0094357503\tNL\tNETHERLANDS\tEU\tEUROPE\n0094357504\t0094361599\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094361600\t0094363647\tLU\tLUXEMBOURG\tEU\tEUROPE\n0094363648\t0094365695\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0094365696\t0094367743\tHU\tHUNGARY\tEU\tEUROPE\n0094367744\t0094369791\tES\tSPAIN\tEU\tEUROPE\n0094369792\t0094371839\tTR\tTURKEY\tEU\tEUROPE\n0094371840\t0094502911\tIR\tIRAN, ISLAMIC REPUBLIC OF\tME\tMIDDLE EAST\n0094502912\t0094568447\tOM\tOMAN\tME\tMIDDLE EAST\n0094568448\t0094633983\tRO\tROMANIA\tEU\tEUROPE\n0094633984\t0094896127\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0094896128\t0095158271\tIT\tITALY\tEU\tEUROPE\n0095158272\t0095166463\tRU\tRUSSIAN FEDERATION\tEU\tEUROPE\n0095166464\t0095168511\tRS\tSERBIA\tEU\tEUROPE\n0095168512\t0095170559\tNL\tNETHERLANDS\tEU\tEUROPE\n0095170560\t0095174655\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0095174656\t0095191039\tIT\tITALY\tEU\tEUROPE\n0095191040\t0095195135\tCH\tSWITZERLAND\tEU\tEUROPE\n0095195136\t0095197183\tSE\tSWEDEN\tEU\tEUROPE\n0095197184\t0095203327\tGB\tUNITED KINGDOM\tEU\tEUROPE\n0095203328\t0095205375\tFR\tFRANCE\tEU\tEUROPE\n0095205376\t0095207423\tPL\tPOLAND\tEU\tEUROPE\n0095207424\t0095211519\tGR\tGREECE\tEU\tEUROPE\n0095211520\t0095213567\tIT\tITALY\tEU\tEUROPE\n0095213568\t0095215615\tNL\tNETHERLANDS\tEU\tEUROPE\n0095215616\t0095354879\tPL\tPOLAND\tEU\tEUROPE\n0095354880\t0095363071\tDE\tGERMANY\tEU\tEUROPE\n0095363072\t0095365119\tIT\tITALY\tEU\tEUROPE\n\n\u003cfont color\u003dred\u003eResults are limited by 1000.\u003c/font\u003e"
+      },
+      "dateCreated": "Jan 25, 2017 1:59:46 AM",
+      "dateStarted": "Feb 1, 2017 10:18:20 AM",
+      "dateFinished": "Feb 1, 2017 10:18:20 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "You can visualize the results of a query",
+      "text": "%sql\nSELECT CONTINENT_NAME, COUNT(CONTINENT_NAME) as count FROM df GROUP BY CONTINENT_NAME",
+      "dateUpdated": "Feb 1, 2017 10:24:01 AM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "CONTINENT_NAME",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "count",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "CONTINENT_NAME",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "count",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485944438471_-278652622",
+      "id": "20170201-102038_286280778",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "CONTINENT_NAME\tcount\nCARIBBEAN\t1296\nASIA\t11606\nnull\t0\nOCEANIA\t3928\nNORTH AMERICA\t15330\nSOUTH AMERICA\t2466\nEUROPE\t46715\nANTARCTICA\t7\nAFRICA\t2608\nCENTRAL AMERICA\t721\nMIDDLE EAST\t2026\nAS\t5\nAF\t3\n"
+      },
+      "dateCreated": "Feb 1, 2017 10:20:38 AM",
+      "dateStarted": "Feb 1, 2017 10:22:10 AM",
+      "dateFinished": "Feb 1, 2017 10:22:12 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Jan 25, 2017 2:00:03 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1485352792730_-450410606",
+      "id": "20170125-135952_1235249833",
+      "dateCreated": "Jan 25, 2017 1:59:52 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Practice",
+  "id": "2C75UP2R2",
+  "angularObjects": {
+    "2C93MQCCX:shared_process": [],
+    "2CAFQY6K3:shared_process": [],
+    "2C71Z8V22:shared_process": [],
+    "2C74PSEZQ:shared_process": [],
+    "2C7936H5V:shared_process": [],
+    "2C6WY8JHA:shared_process": [],
+    "2C8CCCVZ2:shared_process": [],
+    "2C9JTS6JQ:shared_process": [],
+    "2C91JKV9H:shared_process": [],
+    "2C8N1PP7C:shared_process": [],
+    "2C7YTW7VT:shared_process": [],
+    "2C85G18U9:shared_process": [],
+    "2C9XYSTEH:shared_process": [],
+    "2CA474ZG3:shared_process": [],
+    "2C8JNXQ9U:shared_process": [],
+    "2C827138T:shared_process": [],
+    "2CAA7GXEJ:shared_process": [],
+    "2C8W1GCP8:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

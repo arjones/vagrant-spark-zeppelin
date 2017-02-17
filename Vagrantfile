@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   #
   # APACHE ZEPPELIN
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 8888, host: 8888
   #
   # APACHE SPARK UI
   config.vm.network "forwarded_port", guest: 4040, host: 4040
@@ -68,5 +68,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "bootstrap.sh"
 
   # A message to show after vagrant up
-  config.vm.post_up_message = "More information on how to use this box:\n http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/.\n\nEnjoy it! @arjones"
+  config.vm.post_up_message = "Good job !"
 end
