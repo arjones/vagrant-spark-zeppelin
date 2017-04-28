@@ -35,7 +35,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md #Analyzing Access Logs\nCheck my original blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)",
+      "text": "%md # Analyzing Access Logs\nCheck my original blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)",
       "dateUpdated": "Aug 24, 2015 12:32:56 AM",
       "config": {
         "colWidth": 12.0,
@@ -171,7 +171,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md ##Page-views by day",
+      "text": "%md ## Page-views by day",
       "dateUpdated": "Aug 24, 2015 12:32:56 AM",
       "config": {
         "colWidth": 12.0,
@@ -256,7 +256,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md ##User-agent distribution by day",
+      "text": "%md ## User-agent distribution by day",
       "dateUpdated": "Aug 24, 2015 12:48:41 AM",
       "config": {
         "colWidth": 12.0,
@@ -431,7 +431,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md ##Top Referrer Domains \u0026 Origin Countries",
+      "text": "%md ## Top Referrer Domains \u0026 Origin Countries",
       "dateUpdated": "Aug 24, 2015 12:32:56 AM",
       "config": {
         "colWidth": 12.0,

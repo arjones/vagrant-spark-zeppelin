@@ -1,26 +1,21 @@
-#Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
+# Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
 
-##EDIT (Sep 12): This example also includes Cassandra now!
+## Change log
 
-##Changed since fork:
+* EDIT (2015-09-12): This example also includes Cassandra now!
+* EDIT (2017-04-28): Defined a license (Apache 2), using Zeppelin binary files, upgraded to Java 8.
 
-###EDIT(June 30, 2016)
-
-* Updated Spark to 1.6.1 for Hadoop 2.6 and Zeppelin to current, bulit from master
-* Updated Spark Mirror
-* Updated Maven to 3.3.3
-* Automatically setting of export SPARK_HOME=/usr/spark' to /usr/zeppelin/conf/zeppelin-env.sh via install script
-
-
-
-##Instructions
+## Instructions
 A step by step guide is available with the blog post: [Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst](http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/)
 
-##Acknowledge
+## Acknowledge
 This is an installation of Apache Spark and Apache Zeppelin based on Debian [debian/jessie64](https://atlas.hashicorp.com/debian/boxes/jessie64)
 `bootstrap.sh` was inspired by [gettyimages/docker-spark](https://github.com/gettyimages/docker-spark)
 
-###Examples Datasets
+### Examples Datasets
 There are a few datasets [available here](./data/).
 
-##I'm looking for more datasets, if you want to donate yours please [reach out](https://twitter.com/arjones)
+## I'm looking for more datasets, if you want to donate yours please [reach out](https://twitter.com/arjones)
+
+## License
+Apache License Version 2.0

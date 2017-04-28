@@ -1,7 +1,7 @@
 {
   "paragraphs": [
     {
-      "text": "%md ##Capture Tweets from the Twitter\u0027s Stream\nThis is the first notebook and doesn\u0027t show data, it connects to the stream and publish a table to be consumed by the [Realtime Dashboard Notebook](http://localhost:8080/#/notebook/2AXWE6MRR).\n\nIn order to run this sample, you\u0027ll need to have Twitter\u0027s application credentials, you must create your own at [http://apps.twitter.com](http://apps.twitter.com)",
+      "text": "%md ## Capture Tweets from the Twitter\u0027s Stream\nThis is the first notebook and doesn\u0027t show data, it connects to the stream and publish a table to be consumed by the [Realtime Dashboard Notebook](http://localhost:8080/#/notebook/2AXWE6MRR).\n\nIn order to run this sample, you\u0027ll need to have Twitter\u0027s application credentials, you must create your own at [http://apps.twitter.com](http://apps.twitter.com)",
       "dateUpdated": "Aug 22, 2015 8:36:43 PM",
       "config": {
         "colWidth": 12.0,
@@ -138,7 +138,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%md\n##[Go and Check the Dashboard Notebook](http://localhost:8080/#/notebook/2AXWE6MRR)",
+      "text": "%md\n## [Go and Check the Dashboard Notebook](http://localhost:8080/#/notebook/2AXWE6MRR)",
       "dateUpdated": "Aug 22, 2015 8:36:43 PM",
       "config": {
         "colWidth": 12.0,

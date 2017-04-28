@@ -1,3 +1,4 @@
+
 CREATE KEYSPACE analytics WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'};
 
 USE analytics;

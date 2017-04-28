@@ -1,7 +1,18 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+#
+# Copyright 2017 Gustavo Arjones (@arjones)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.require_version ">= 1.5"
@@ -59,8 +70,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./data", "/opt/dataset"
-  config.vm.synced_folder "./code", "/home/vagrant/code"
+  # config.vm.synced_folder "./data", "/opt/dataset"
+  # config.vm.synced_folder "./code", "/home/vagrant/code"
   config.vm.synced_folder "./mavendeps", "/root/.m2"
 
   # View the documentation for the provider you're using for more
@@ -68,5 +79,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "bootstrap.sh"
 
   # A message to show after vagrant up
-  config.vm.post_up_message = "More information on how to use this box:\n http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/.\n\nEnjoy it! @arjones"
+  config.vm.post_up_message = "Hurrah! Install completed!\n\nGo to: http://localhost:8080\nUser: admin\nPass:admin\n\nMore information on how to use this box:\n http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/.\n\nEnjoy it! @arjones"
 end

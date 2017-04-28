@@ -1,34 +1,41 @@
 #!/usr/bin/env bash
-
-# APACHE ZEPPELIN
-export MAVEN_VERSION=3.3.3
-export MAVEN_HOME=/usr/apache-maven-$MAVEN_VERSION
-
+#
+# Copyright 2017 Gustavo Arjones (@arjones)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+export ZEPPELIN_VERSION=0.7.1
 export ZEPPELIN_HOME=/usr/zeppelin
 export ZEPPELIN_CONF_DIR=${ZEPPELIN_HOME}/conf
 export ZEPPELIN_NOTEBOOK_DIR=${ZEPPELIN_HOME}/notebook
 export ZEPPELIN_PORT=8080
 
-apt-get install -y git wget net-tools unzip python npm
+apt-get install -y wget
 
-# Fixing Debian/Jessie 8.2 has changed "node" to "nodejs"
-ln -fs /usr/bin/nodejs /usr/bin/node
+wget -c http://archive.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz
+tar zxvf zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz -C /usr/
+ln -s /usr/zeppelin-${ZEPPELIN_VERSION}-bin-netinst ${ZEPPELIN_HOME}
 
-wget -c "http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
-tar zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz -C /usr/
-ln -s ${MAVEN_HOME} /usr/maven
+# Install interpreters
+${ZEPPELIN_HOME}/bin/install-interpreter.sh --name md,python
 
-git clone https://github.com/apache/incubator-zeppelin.git ${ZEPPELIN_HOME}
-
-cd ${ZEPPELIN_HOME}
-# go to a commit I tested and builds correctly
-
-
-${MAVEN_HOME}/bin/mvn clean package -Pspark-1.6 -Dhadoop.version=2.6.0 -Phadoop-2.6 -DskipTests
+cp -vpR /vagrant/install/conf/shiro.ini ${ZEPPELIN_CONF_DIR}/shiro.ini
+cp -vpR /vagrant/install/conf/zeppelin-site.xml ${ZEPPELIN_CONF_DIR}/zeppelin-site.xml
 
 cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
 export ZEPPELIN_MEM="-Xmx1024m"
 export ZEPPELIN_JAVA_OPTS="-Dspark.home=/usr/spark"
+export SPARK_HOME=/usr/spark
 CONF
 
 echo "Copying Notebooks ..."
@@ -39,8 +46,3 @@ update-rc.d zeppelin-daemon.sh defaults
 
 echo "Starting Zeppelin..."
 /etc/init.d/zeppelin-daemon.sh start
-
-sudo echo 'export SPARK_HOME=/usr/spark' >> /usr/zeppelin/conf/zeppelin-env.sh
-
-echo "Restarting Zeppelin..."
-/etc/init.d/zeppelin-daemon.sh restart
