@@ -30,7 +30,8 @@ EOF
 . /home/vagrant/.bash_aliases
 
 echo "Copying datasets to /opt/dataset"
-cp -vR data/* /opt/dataset/
+cp -vR /vagrant/data /opt/dataset
 
 echo "Copying code example to /home/vagrant/samples"
-cp -vR code /home/vagrant/samples
+find /vagrant/code -name target -type d -exec rm -fr {} \; &> /dev/null
+cp -vR /vagrant/code /home/vagrant/samples
