@@ -15,9 +15,10 @@
 # limitations under the License.
 #
 set -e
+export DEBIAN_FRONTEND=noninteractive
 
 # Running Install Scripts
-SCRIPTS=$(find /vagrant/install/install-* -type f)
+SCRIPTS=$(find /tmp/install/install-* -type f)
 
 for SCRIPT in ${SCRIPTS}; do
   echo
@@ -27,8 +28,10 @@ for SCRIPT in ${SCRIPTS}; do
   SCRIPT_NAME=$(basename ${SCRIPT})
   echo "Running ... ${SCRIPT_NAME}"
 
-  sudo "${SCRIPT}"
+  "${SCRIPT}"
 
   echo "Finished ... ${SCRIPT_NAME}"
   echo "--------------------------------------------"
 done
+
+echo -e '\n\n\nHurrah! Install completed!\n\nGo to: http://localhost:8080\nUser: admin\nPass:admin\n\nMore information on how to use this box:\n http://arjon.es/2015/08/23/vagrant-spark-zeppelin-a-toolbox-to-the-data-analyst/.\n\nEnjoy it! @arjones'

@@ -18,6 +18,7 @@ echo "Cleaning up ..."
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 
-rm /home/vagrant/spark-*-bin-*.tgz
-rm /home/vagrant/sbt-*.tgz
-rm -f /home/vagrant/zeppelin-*-bin-netinst.tgz
+rm -f /root/spark-*.tgz
+rm -f /root/sbt-*.tgz
+rm -f /root/zeppelin-*.tgz
+rm -rf /tmp/install

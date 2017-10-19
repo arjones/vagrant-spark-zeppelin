@@ -17,21 +17,20 @@
 
 echo "Updating System"
 apt-get update
-apt-get install -y vim net-tools
+apt-get install -y vim net-tools wget
 
-
-cat > /home/vagrant/.bash_aliases <<EOF
+cat > /root/.bash_aliases <<EOF
 alias l1='ls -1 --color'
 alias ll='ls -la --color'
 alias lh='ls -lah --color'
 alias grep='egrep --color'
 EOF
 
-. /home/vagrant/.bash_aliases
+source /root/.bash_aliases
 
-echo "Copying datasets to /opt/dataset"
-cp -vR /vagrant/data /opt/dataset
-
-echo "Copying code example to /home/vagrant/samples"
-find /vagrant/code -name target -type d -exec rm -fr {} \; &> /dev/null
-cp -vR /vagrant/code /home/vagrant/samples
+# echo "Copying datasets to /opt/dataset"
+# cp -vR /vagrant/data /opt/dataset
+#
+# echo "Copying code example to /root/samples"
+# find /vagrant/code -name target -type d -exec rm -fr {} \; &> /dev/null
+# cp -vR /vagrant/code /root/samples

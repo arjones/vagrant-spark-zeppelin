@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-export ZEPPELIN_VERSION=0.7.1
+export ZEPPELIN_VERSION=0.7.3
 export ZEPPELIN_HOME=/usr/zeppelin
 export ZEPPELIN_CONF_DIR=${ZEPPELIN_HOME}/conf
 export ZEPPELIN_NOTEBOOK_DIR=${ZEPPELIN_HOME}/notebook
@@ -29,8 +29,8 @@ ln -s /usr/zeppelin-${ZEPPELIN_VERSION}-bin-netinst ${ZEPPELIN_HOME}
 # Install interpreters
 ${ZEPPELIN_HOME}/bin/install-interpreter.sh --name md,python
 
-cp -vpR /vagrant/install/conf/shiro.ini ${ZEPPELIN_CONF_DIR}/shiro.ini
-cp -vpR /vagrant/install/conf/zeppelin-site.xml ${ZEPPELIN_CONF_DIR}/zeppelin-site.xml
+cp -vpR /tmp/install/conf/shiro.ini ${ZEPPELIN_CONF_DIR}/shiro.ini
+cp -vpR /tmp/install/conf/zeppelin-site.xml ${ZEPPELIN_CONF_DIR}/zeppelin-site.xml
 
 cat > ${ZEPPELIN_HOME}/conf/zeppelin-env.sh <<CONF
 export ZEPPELIN_MEM="-Xmx1024m"

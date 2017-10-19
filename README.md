@@ -1,5 +1,10 @@
 # Vagrant + Spark + Zeppelin a Toolbox to the Data Analyst
 
+```bash
+docker build -t arjones/spark-zeppelin .
+```
+
+
 ## Change log
 
 * EDIT (2015-09-12): This example also includes Cassandra now!

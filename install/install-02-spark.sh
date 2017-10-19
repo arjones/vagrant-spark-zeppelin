@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 # APACHE SPARK
-export SPARK_VERSION=2.0.2
+export SPARK_VERSION=2.1.2
 export HADOOP_VERSION=2.7
 export SPARK_PACKAGE=$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 export SPARK_HOME=/usr/spark-$SPARK_PACKAGE
